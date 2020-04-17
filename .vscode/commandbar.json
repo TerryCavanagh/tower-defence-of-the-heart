@@ -1,0 +1,42 @@
+{
+	"skipTerminateQuickPick": true,
+	"skipSwitchToOutput": false,
+	"skipErrorMessage": true,
+	"commands": [
+		{
+			"text": "🚀 Build HL",
+			"color": "yellow",
+			"commandType":"palette",
+			"command": "workbench.action.tasks.runTask|HL release",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -10
+		},
+		{
+			"text": "Run HL",
+			"color": "yellow",
+			"command": "hl bin/hashlink/game.hl",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -11
+		},
+		{
+			"text": "🌍 Build JS",
+			"color": "cyan",
+			"commandType":"palette",
+			"command": "workbench.action.tasks.runTask|JS release",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -20
+		},
+		{
+			"text": "Run JS",
+			"color": "cyan",
+			"command": "start firefox index.html",
+			"webRoot": "${workspaceFolder}",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -21
+		}
+	]
+}

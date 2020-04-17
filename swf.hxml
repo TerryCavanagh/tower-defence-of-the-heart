@@ -1,0 +1,4 @@
+base.hxml
+-swf bin/flash/game.swf
+-swf-header 1280:720:60:000000
+-swf-version 24.0
