@@ -58,6 +58,41 @@ class World{
 		}
 	}
 
+	public function loadcsv(csvfile:String, delimiter:String = ","){
+		//csvfile = normalizefilename(csvfile, "data/text/", "csv");
+		var tempstring:String = hxd.Res.text.testmap.entry.getText();
+
+		//figure out width
+		var csvwidth:Int = 1;
+		var i:Int = 0;
+		while (i < tempstring.length) {
+			if (S.mid(tempstring, i) == delimiter) csvwidth++;
+			if (S.mid(tempstring, i) == "\n") {
+				break;
+			}
+			i++;
+		}
+		
+		tempstring = S.replacechar(tempstring, "\r", "");
+		tempstring = S.replacechar(tempstring, "\n", "");
+		var returnedarray:Array<Int> = new Array<Int>();
+		var stringarray:Array<String> = tempstring.split(delimiter);
+		
+		for (i in 0 ... stringarray.length) {
+			returnedarray.push(Std.parseInt(stringarray[i]));
+		}
+		
+		var csvheight:Int = Std.int(returnedarray.length / csvwidth);
+
+		csvwidth -= 1;
+		csvheight += 1;
+		changesize(csvwidth, csvheight);
+		for(y in 0 ... csvheight) for (x in 0 ... csvwidth) { 
+			var tid:Int = returnedarray[x + (y * csvwidth)];
+			contents[x][y] = returnedarray[x + (y * csvwidth)] - 1;
+		}
+	}
+
 	public function refreshmap(){
 		var tileset:Tileset = Gfx.gettileset(tileset);
 		tilegroup = new TileGroup(tileset.tilesetdata);

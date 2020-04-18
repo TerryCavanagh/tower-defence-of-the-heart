@@ -11,9 +11,8 @@ class TestLevel{
 		
 		world = new World();
     
-		world.loadtiles("adam_jawbreaker", 8, 8);
-		world.setcollidable([1, 3, 5]);
-    world.randomcontents(60, 40);
+		world.loadtiles("ld46tiles", 8, 8);
+    world.loadcsv("testmap");
     world.refreshmap();
 	}
 	
