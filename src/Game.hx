@@ -17,8 +17,12 @@ class Game{
     w.towers.push(Entity.create(x, y, EntityType.TOWER1, w));
   }
 
-  public static function createmonster(x:Int, y:Int, type:EntityType, w:World){
-    w.monsters.push(Entity.create(-1, 2, EntityType.ENEMY1, w));
+  public static function createmonster(x:Int, y:Int, type:EntityType, hp:Int, w:World){
+    var enemy:Entity = Entity.create(-1, 2, EntityType.ENEMY1, w);
+    enemy.maxhp = hp;
+    enemy.hp = enemy.maxhp;
+    
+    w.monsters.push(enemy);
   }
 
   public static function createbullet(tower:Entity, monster:Entity){

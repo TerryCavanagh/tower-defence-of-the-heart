@@ -15,6 +15,8 @@ class TowerDefence{
 		
     world = new World();
     Game.reset();
+    Waves.init();
+    Waves.nextwave();
     
     Gfx.loadtiles("enemies", 10, 10);
     Gfx.loadtiles("towers", 10, 10);
@@ -38,7 +40,6 @@ class TowerDefence{
     world.towers.push(Entity.create(21, 7, EntityType.GOAL, world));
 
     leveltime = 0;
-    spawnrate = 1.6;
     timetillnextspawn = 0;
 	}
 	
@@ -55,11 +56,20 @@ class TowerDefence{
       Game.createtower(mx, my, EntityType.TOWER1, world);
     }
 
+    if(Input.justpressed(Key.SPACE)){
+      if(!Waves.finalwave()){
+        Waves.nextwave();
+      }
+    }
+
     timetillnextspawn -= Core.deltatime;
     if(timetillnextspawn <= 0){
-      timetillnextspawn = spawnrate;
-      //Create a new enemy at the entrance!
-      Game.createmonster(-1, 2, EntityType.ENEMY1, world);
+      timetillnextspawn = Waves.spawnrate;
+      if(Waves.enemiesleft > 0){
+        //Create a new enemy at the entrance!
+        Game.createmonster(-1, 2, Waves.currenttype, Waves.enemyhealth, world);
+        Waves.enemiesleft--;
+      }
     }
 
     world.render();
@@ -88,6 +98,7 @@ class TowerDefence{
 
     //UI stuff
     Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp);
+    Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
 
     leveltime += hxd.Timer.dt;
   }
