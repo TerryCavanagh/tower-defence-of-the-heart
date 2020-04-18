@@ -7,18 +7,24 @@ class Scene {
 	private static function callinit() {
 		if(currentscene == 0){
 			Main.init();
+		}else if(currentscene == 1){
+			TestLevel.init();
 		}
 	}
 
 	private static function update() {
 		if(currentscene == 0){
 			Main.update();
+		}else if(currentscene == 1){
+			TestLevel.update();
 		}
 	}
 
 	private static function cleanup() {
 		if(currentscene == 0){
 			Main.cleanup();
+		}else if(currentscene == 1){
+			TestLevel.cleanup();
 		}
 	}
 	
@@ -31,6 +37,8 @@ class Scene {
 
 		if(newscene == "main"){
 			currentscene = 0;
+		}else if(newscene == "testlevel"){
+			currentscene = 1;
 		}else{
 			currentscene = 0;
 		}

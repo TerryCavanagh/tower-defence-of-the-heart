@@ -9,6 +9,7 @@ class Core extends hxd.App {
     //s2d.scaleMode = Stretch(1280, 720);
     hxd.Res.initEmbed();
     s2d.scaleMode = LetterBox(320, 180, false);
+    
     Text.init(this);
     Gfx.init(this);
     Sound.init();
@@ -34,6 +35,11 @@ class Core extends hxd.App {
 		Text.cleanup();
 		Gfx.cleanup();
   }
-
+  
+	@:generic
+	public static function create2darray<T>(width:Int, height:Int, value:T):Array<Array<T>> {
+		return [for (x in 0 ... width) [for (y in 0 ... height) value]];
+  }
+  
   public static var deltatime:Float;
 }
