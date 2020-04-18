@@ -53,7 +53,19 @@ class TowerDefence{
     towercursor.visible = true;
 
     if(Mouse.leftclick()){
-      Game.createtower(mx, my, EntityType.TOWER1, world);
+      var toweratcursor:Entity = null;
+      for(t in world.towers){
+        if(world.gridx(t.x) == mx && world.gridy(t.y) == my){
+          toweratcursor = t;
+          break;
+        }
+      }
+
+      if(toweratcursor == null){
+        Game.createtower(mx, my, EntityType.TOWER1, world);
+      }else{
+        Game.upgradetower(toweratcursor);
+      }
     }
 
     if(Input.justpressed(Key.SPACE)){

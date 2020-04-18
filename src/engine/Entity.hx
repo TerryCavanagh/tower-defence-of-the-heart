@@ -38,6 +38,13 @@ class Entity{
     bulletdamage = 0;
   }
 
+  public function updatetowerradius(){
+    primative.clear();
+    primative.moveTo(0, 0);
+    primative.lineStyle(3, Col.WHITE, 0.3);
+    primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, targetradius);
+  }
+
   public function inittype(){
     switch(type){
       case GOAL:
@@ -72,8 +79,9 @@ class Entity{
       case TOWER1:
         firerate = 0.8;
         timetillnextshot = 0;
-        targetradius = 64;
+        targetradius = 48;
         bulletdamage = 1;
+        level = 1;
 
         var tileset:Tileset = Gfx.gettileset("towers");
         sprite = new h2d.Anim(tileset.tiles, 0);
@@ -84,9 +92,7 @@ class Entity{
         primative = new h2d.Graphics();
         primative.x = x;
         primative.y = y;
-        primative.moveTo(0, 0);
-        primative.lineStyle(3, Col.WHITE, 0.3);
-        primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, targetradius);
+        updatetowerradius();
         primative.visible = false;
 
         //Let's try a fancy new heaps thing!
@@ -312,6 +318,7 @@ class Entity{
   public var firerate:Float;
   public var bulletdamage:Float;
   public var timetillnextshot:Float;
+  public var level:Int;
 
   //For animation
   public var animpercent:Float;

@@ -13,6 +13,26 @@ class Game{
   public static var hp:Int;
   public static var maxhp:Int;
 
+  public static function upgradetower(tower:Entity){
+    if(tower.type == EntityType.TOWER1){
+      if(tower.level == 1){
+        tower.sprite.currentFrame++;
+        tower.bulletdamage = 2;
+        tower.targetradius += 8;
+        tower.level = 2;
+        
+        tower.updatetowerradius();
+      }else if(tower.level == 2){
+        tower.sprite.currentFrame++;
+        tower.bulletdamage = 4;
+        tower.targetradius += 8;
+        tower.level = 3;
+
+        tower.updatetowerradius();
+      }
+    }
+  }
+
   public static function createtower(x:Int, y:Int, type:EntityType, w:World){
     w.towers.push(Entity.create(x, y, EntityType.TOWER1, w));
   }
@@ -21,7 +41,7 @@ class Game{
     var enemy:Entity = Entity.create(-1, 2, EntityType.ENEMY1, w);
     enemy.maxhp = hp;
     enemy.hp = enemy.maxhp;
-    
+
     w.monsters.push(enemy);
   }
 

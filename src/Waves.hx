@@ -22,7 +22,7 @@ class Waves{
 
     waves.push(new Wave(EntityType.ENEMY1, 10, 1, 0.6));
     waves.push(new Wave(EntityType.ENEMY1, 10, 5, 0.6));
-    waves.push(new Wave(EntityType.ENEMY1, 10, 10, 2));
+    waves.push(new Wave(EntityType.ENEMY1, 10, 10, 0.6));
   }
 
   public static function nextwave(){
