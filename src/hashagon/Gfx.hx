@@ -41,9 +41,13 @@ class Gfx{
   }
 
   public static function numberoftiles(tileset:String):Int {
-    return tileindex.get(tileset).numtiles;
+    return gettileset(tileset).numtiles;
 	}
   
+  public static function gettileset(tileset:String):Tileset{
+    return tileindex.get(tileset);
+  }
+
   public static function drawtile(x:Float, y:Float, tilesetname:String, tilenum:Int, id:String = "", ?pos:haxe.PosInfos){
     if(id == "") id = pos.fileName + "_" + pos.lineNumber;
 

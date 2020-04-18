@@ -14,7 +14,8 @@ class TestLevel{
     
 		world.loadtiles("adam_jawbreaker", 8, 8);
 		world.setcollidable([1, 3, 5]);
-		world.randomcontents(40, 24);
+    world.randomcontents(60, 40);
+    world.refreshmap();
 		camera.setbounds(world);
 	}
 	

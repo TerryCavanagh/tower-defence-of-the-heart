@@ -4,7 +4,7 @@ class Tileset{
   public function new(tilesetname:String, w:Int, h:Int){
     tiles = [];
 
-    var tilesetdata:h2d.Tile = hxd.Res.load("graphics/" + tilesetname + ".png").toTile();
+    tilesetdata = hxd.Res.load("graphics/" + tilesetname + ".png").toTile();
     tiles = tilesetdata.gridFlatten(w);
     
     name = tilesetname;
@@ -17,5 +17,6 @@ class Tileset{
   public var height:Int;
   public var numtiles:Int;
 
+  public var tilesetdata:h2d.Tile;
   public var tiles:Array<h2d.Tile>;
 }
