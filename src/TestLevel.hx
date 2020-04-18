@@ -10,31 +10,15 @@ class TestLevel{
 		}
 		
 		world = new World();
-    camera = new Camera();
     
 		world.loadtiles("adam_jawbreaker", 8, 8);
 		world.setcollidable([1, 3, 5]);
     world.randomcontents(60, 40);
     world.refreshmap();
-		camera.setbounds(world);
 	}
 	
 	public static function update(){
-    Text.display(0, 0, "camera " + camera.x + ", " + camera.y);
-		
-		if (Input.pressed(Key.LEFT)){
-			camera.x--;
-		}else if (Input.pressed(Key.RIGHT)){
-			camera.x++;
-		}
-		
-		if (Input.pressed(Key.UP)){
-			camera.y--;
-		}else if (Input.pressed(Key.DOWN)){
-			camera.y++;
-		}
-		
-		world.render(camera);
+		world.render();
   }
   
 	public static function cleanup(){
@@ -42,5 +26,4 @@ class TestLevel{
   }
   
 	public static var world:World;
-	public static var camera:Camera;
 }

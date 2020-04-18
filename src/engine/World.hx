@@ -69,10 +69,7 @@ class World{
 		Gfx.core.s2d.addChild(tilegroup);
 	}
 	
-	public function render(camera:Camera){
-		camera.update();
-		tilegroup.x = -camera.x;
-		tilegroup.y = -camera.y;
+	public function render(){
 	}
 	
 	public function gridx(pixelx:Float):Int{
