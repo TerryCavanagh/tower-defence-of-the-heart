@@ -13,8 +13,10 @@ class TestLevel{
 		
 		world = new World();
     
-    Gfx.loadtiles("enemy1", 10, 10);
+    Gfx.loadtiles("enemies", 10, 10);
     Gfx.loadtiles("towers", 10, 10);
+    Gfx.loadtiles("particles", 10, 10);
+    Gfx.gettileset("particles").pivot(Text.CENTER);
 
     world.loadtiles("ld46tiles", 10, 10);
     world.setcollidable([0]);
@@ -24,11 +26,13 @@ class TestLevel{
 
     world.monsters = [];
     world.towers = [];
+    world.bullets = [];
+    world.particles = [];
 
     Game.createtower(9, 3, EntityType.TOWER1, world);
 
     leveltime = 0;
-    spawnrate = 1.6;
+    spawnrate = 10000.6;
     timetillnextspawn = 0;
 	}
 	
@@ -42,15 +46,27 @@ class TestLevel{
 
     world.render();
     
-    for(e in world.monsters){
-      e.update();
-      e.render();
+    for(monster in world.monsters){
+      monster.update();
+      monster.render();
     }
 
-    for(e in world.towers){
-      e.update();
-      e.render();
+    for(tower in world.towers){
+      tower.update();
+      tower.render();
     }
+
+    for(bullet in world.bullets){
+      bullet.update();
+      bullet.render();
+    }
+    
+    for(particle in world.particles){
+      particle.update();
+      particle.render();
+    }
+
+    //TO DO: clean up destroyed entities somewhere
 
     leveltime += hxd.Timer.dt;
   }

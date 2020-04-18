@@ -12,6 +12,13 @@ class Tileset{
     numtiles = tiles.length;
   }
 
+  public function pivot(v:Int){
+    //if you call this you prob just want to center shrug emoji
+    for(t in tiles){
+      t.center();
+    }
+  }
+
   public var name:String;
   public var width:Int;
   public var height:Int;
@@ -19,4 +26,7 @@ class Tileset{
 
   public var tilesetdata:h2d.Tile;
   public var tiles:Array<h2d.Tile>;
+
+  public var halign:Int;
+  public var valign:Int;
 }

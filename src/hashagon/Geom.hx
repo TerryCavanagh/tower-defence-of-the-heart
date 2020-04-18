@@ -66,7 +66,6 @@ class Geom {
 	}
 
 	public static inline function lerp(value:Float, target:Float, f:Float):Float {
-		f = clamp(f, 0, 1);
 		return (value + f * (target - value));
 	}
 

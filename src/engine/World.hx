@@ -174,4 +174,6 @@ class World{
 
   public var monsters:Array<Entity>;
   public var towers:Array<Entity>;
+  public var bullets:Array<Entity>;
+  public var particles:Array<Entity>;
 }

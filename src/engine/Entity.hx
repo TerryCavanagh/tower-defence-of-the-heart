@@ -2,6 +2,7 @@ package engine;
 
 import hashagon.*;
 import hashagon.displayobject.*;
+import motion.*;
 
 class Entity{
   //Static functions
@@ -13,6 +14,12 @@ class Entity{
     e.world = w;
     e.inittype();
 
+    //Almost everything is a tile in size
+    e.centerx = w.tilewidth / 2;
+    e.centery = w.tileheight / 2;
+
+    e.destroyed = false;
+
     return e;
   }
 
@@ -20,12 +27,21 @@ class Entity{
   public function new(){
     sprite = null;
     primative = null;
+
+
+    animpercent = 0;
+
+    //Tower stuff
+    targetradius = 0;
+    firerate = 0;
+    timetillnextshot = 0;
+    bulletdamage = 0;
   }
 
   public function inittype(){
     switch(type){
       case ENEMY1:
-        var tileset:Tileset = Gfx.gettileset("enemy1");
+        var tileset:Tileset = Gfx.gettileset("enemies");
         sprite = new h2d.Anim(tileset.tiles, 0);
         sprite.x = x;
         sprite.y = y;
@@ -34,6 +50,11 @@ class Entity{
         speed = 0.4;
         direction = Direction.RIGHT;
       case TOWER1:
+        firerate = 0.8;
+        timetillnextshot = 0;
+        targetradius = 32;
+        bulletdamage = 1;
+
         var tileset:Tileset = Gfx.gettileset("towers");
         sprite = new h2d.Anim(tileset.tiles, 0);
         sprite.x = x;
@@ -45,9 +66,15 @@ class Entity{
         primative.y = y;
         primative.moveTo(0, 0);
         primative.lineStyle(3, Col.WHITE, 0.3);
-        primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, 32);
+        primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, targetradius);
 
         Game.uilayer.addChild(primative);
+      case BULLET1:
+        var tileset:Tileset = Gfx.gettileset("particles");
+        sprite = new h2d.Anim(tileset.tiles, 0);
+        sprite.x = x + centerx;
+        sprite.y = y + centery;
+        Game.bulletlayer.addChild(sprite);
       default:
         throw("Error: cannot create an entity without a type.");
     }
@@ -137,10 +164,21 @@ class Entity{
   }
 
   public function update(){
+    if(destroyed) return;
+
     switch(type){
       case ENEMY1:
         standardenemymove();
       case TOWER1:
+        timetillnextshot -= Core.deltatime;
+        if(timetillnextshot <= 0){
+          Game.picktarget(this);
+          if(targetentity != null){
+            Game.createbullet(this, targetentity);
+          }
+          timetillnextshot = firerate;
+        }
+      case BULLET1:
         //Do nothing
       default:
         throw("Error: cannot create an entity without a type.");
@@ -148,6 +186,8 @@ class Entity{
   }
 
   public function render(){
+    if(destroyed) return;
+
     sprite.x = x;
     sprite.y = y;
     switch(type){
@@ -155,15 +195,40 @@ class Entity{
         //Do nothing
       case TOWER1:
         //Do nothing
+      case BULLET1:
+        //Do nothing
       default:
         throw("Error: cannot create an entity without a type.");
     }
   }
 
+  /* Mark entity for later removal */
+  public function destroy(){
+    if(sprite != null){
+      sprite.remove();
+    }
+
+    if(primative != null){
+      primative.remove();
+    }
+
+    sprite = null;
+    primative = null;
+    destroyed = true;
+  }
+
+  public function shrinkdestroy(){
+    Actuate.tween(sprite, 0.1, {scaleX: 0, scaleY:0 })
+     .onComplete(destroy);
+  }
+
   public var x:Float;
   public var y:Float;
+  public var centerx:Float;
+  public var centery:Float;
   public var type:EntityType;
   public var world:World;
+  public var destroyed:Bool;
 
   public var vx:Float;
   public var vy:Float;
@@ -172,4 +237,13 @@ class Entity{
 
   public var sprite:h2d.Anim;
   public var primative:h2d.Graphics;
+
+  public var targetradius:Float;
+  public var targetentity:Entity;
+  public var firerate:Float;
+  public var bulletdamage:Float;
+  public var timetillnextshot:Float;
+
+  //For animation
+  public var animpercent:Float;
 }

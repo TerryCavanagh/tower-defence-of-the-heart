@@ -1,5 +1,6 @@
 -cp src
 -lib heaps
+-lib actuate
 -D resourcesPath=data
 -D heaps_enable_hl_mp3
 -main hashagon.Boot
