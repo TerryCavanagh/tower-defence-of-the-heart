@@ -30,7 +30,7 @@ class Entity{
         sprite.y = y;
         Gfx.core.s2d.addChild(sprite);
 
-        speed = 0.25;
+        speed = 0.4;
         direction = Direction.RIGHT;
       default:
         throw("Error: cannot create an entity without a type.");
@@ -96,8 +96,12 @@ class Entity{
 
       //Recenter on grid (this is a bit messy)
       if(direction == Direction.UP || direction == Direction.DOWN){
-        x = x + vx;
-        x = x - world.gridxoffset(x);
+        if(olddirection == Direction.LEFT){
+          x = x - world.gridxoffset(x);
+        }else{
+          x = x + vx;
+          x = x - world.gridxoffset(x);
+        }
       }else{
         if(olddirection == Direction.UP){
           y = y - world.gridyoffset(y);

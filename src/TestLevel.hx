@@ -12,18 +12,19 @@ class TestLevel{
 		
 		world = new World();
     
-    Gfx.loadtiles("enemy1", 8, 8);
+    Gfx.loadtiles("enemy1", 10, 10);
+    Gfx.loadtiles("towers", 10, 10);
 
-    world.loadtiles("ld46tiles", 8, 8);
+    world.loadtiles("ld46tiles", 10, 10);
     world.setcollidable([0]);
     world.loadcsv("testmap");
-    world.getheatmap(35,4);
+    world.getheatmap(20,8);
     world.refreshmap();
 
-    entities = [];
+    world.monsters = [];
 
     leveltime = 0;
-    spawnrate = 1;
+    spawnrate = 1.6;
     timetillnextspawn = 0;
 	}
 	
@@ -32,12 +33,12 @@ class TestLevel{
     if(timetillnextspawn <= 0){
       timetillnextspawn = spawnrate;
       //Create a new enemy at the entrance!
-      entities.push(Entity.create(-1, 9, EntityType.ENEMY1, world));
+      world.monsters.push(Entity.create(-1, 2, EntityType.ENEMY1, world));
     }
 
     world.render();
     
-    for(e in entities){
+    for(e in world.monsters){
       e.update();
       e.render();
     }
@@ -50,7 +51,6 @@ class TestLevel{
   }
   
   public static var world:World;
-  public static var entities:Array<Entity>;
 
   public static var spawnrate:Float;
   public static var timetillnextspawn:Float;

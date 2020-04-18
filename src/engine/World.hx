@@ -171,4 +171,6 @@ class World{
 	public var tileheight:Int;
 	
 	public var outsidetile:Int;
+
+  public var monsters:Array<Entity>;
 }
