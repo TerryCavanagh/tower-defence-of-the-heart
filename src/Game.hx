@@ -1,3 +1,4 @@
+import haxe.Constraints.Function;
 import hashagon.*;
 import hashagon.displayobject.*;
 import engine.*;
@@ -8,10 +9,13 @@ class Game{
   public static function reset(){
     maxhp = 5;
     hp = maxhp;
+
+    gold = 10;
   }
 
   public static var hp:Int;
   public static var maxhp:Int;
+  public static var gold:Int;
 
   public static function upgradetower(tower:Entity){
     if(tower.type == EntityType.TOWER1){
@@ -20,7 +24,7 @@ class Game{
         tower.bulletdamage = 2;
         tower.targetradius += 8;
         tower.level = 2;
-        
+
         tower.updatetowerradius();
       }else if(tower.level == 2){
         tower.sprite.currentFrame++;
@@ -111,6 +115,15 @@ class Game{
 
     if(hp <= 0){
       Scene.change("gameover");
+    }
+  }
+
+  public static function cost(g:Int, success:Function, fail:Function){
+    if(gold >= g){
+      gold -= g;
+      success();
+    }else{
+      fail();
     }
   }
 

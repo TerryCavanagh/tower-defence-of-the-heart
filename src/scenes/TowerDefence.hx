@@ -62,9 +62,20 @@ class TowerDefence{
       }
 
       if(toweratcursor == null){
-        Game.createtower(mx, my, EntityType.TOWER1, world);
+        Game.cost(3, 
+        function(){
+          Game.createtower(mx, my, EntityType.TOWER1, world);
+        }, function(){
+          
+        });
       }else{
-        Game.upgradetower(toweratcursor);
+        Game.cost(5, 
+        function(){
+          Game.upgradetower(toweratcursor);
+        }, 
+        function(){
+
+        });
       }
     }
 
@@ -109,7 +120,7 @@ class TowerDefence{
     //TO DO: clean up destroyed entities somewhere
 
     //UI stuff
-    Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp);
+    Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
     Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
 
     leveltime += hxd.Timer.dt;

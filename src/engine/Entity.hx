@@ -259,9 +259,12 @@ class Entity{
   }
 
   public function damageenemy(dmg:Float){
+    if(destroyed) return;
+    
     hp -= dmg;
 
     if(hp <= 0){
+      Game.gold += Waves.reward;
       destroy();
     }else{
       primative.clear();
