@@ -67,8 +67,8 @@ class Game{
     uilayer = new h2d.Object();
     
     Gfx.core.s2d.addChild(Game.backgroundlayer);
-    Gfx.core.s2d.addChild(Game.monsterlayer);
     Gfx.core.s2d.addChild(Game.towerlayer);
+    Gfx.core.s2d.addChild(Game.monsterlayer);
     Gfx.core.s2d.addChild(Game.bulletlayer);
     Gfx.core.s2d.addChild(Game.uilayer);
   }

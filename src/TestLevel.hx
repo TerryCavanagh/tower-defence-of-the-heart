@@ -29,8 +29,8 @@ class TestLevel{
     world.bullets = [];
     world.particles = [];
 
-    Game.createtower(10, 6, EntityType.TOWER1, world);
-    Game.createtower(13, 14, EntityType.TOWER1, world);
+    //Game.createtower(10, 6, EntityType.TOWER1, world);
+    //Game.createtower(13, 14, EntityType.TOWER1, world);
 
     leveltime = 0;
     spawnrate = 1.6;
@@ -38,6 +38,13 @@ class TestLevel{
 	}
 	
 	public static function update(){
+    var mx:Int = world.gridx(Mouse.x);
+    var my:Int = world.gridy(Mouse.y);
+
+    if(Mouse.leftclick()){
+      Game.createtower(mx, my, EntityType.TOWER1, world);
+    }
+
     timetillnextspawn -= Core.deltatime;
     if(timetillnextspawn <= 0){
       timetillnextspawn = spawnrate;
