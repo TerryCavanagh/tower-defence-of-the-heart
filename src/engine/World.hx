@@ -96,11 +96,11 @@ class World{
 	}
 
 	public function refreshmap(){
-		var tileset:Tileset = Gfx.gettileset(tileset);
-		tilegroup = new TileGroup(tileset.tilesetdata);
+		var maptileset:Tileset = Gfx.gettileset(tileset);
+		tilegroup = new TileGroup(maptileset.tilesetdata);
 		for(j in 0 ... height){
 			for(i in 0 ... width){
-				tilegroup.add(i * tilewidth, j * tileheight, tileset.tiles[contents[i][j]]);
+				tilegroup.add(i * tilewidth, j * tileheight, maptileset.tiles[contents[i][j]]);
 			}
 		}
 		Gfx.core.s2d.addChild(tilegroup);
@@ -118,6 +118,17 @@ class World{
 					checkpathsquare(x, y + 1, t);
 				}
 			}
+		}
+	}
+
+	/* Get the heat at position x, y */
+	public function heatat(x:Float, y:Float):Int{
+		x = gridx(x);
+		y = gridy(y);
+		if(Geom.inbox(x, y, 0, 0, width, height)){
+			return heatmap[Std.int(x)][Std.int(y)];
+		}else{
+			return 10000;
 		}
 	}
 
