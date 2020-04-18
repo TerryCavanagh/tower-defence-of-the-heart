@@ -87,9 +87,11 @@ class World{
 		csvwidth -= 1;
 		csvheight += 1;
 		changesize(csvwidth, csvheight);
-		for(y in 0 ... csvheight) for (x in 0 ... csvwidth) { 
-			var tid:Int = returnedarray[x + (y * csvwidth)];
-			contents[x][y] = returnedarray[x + (y * csvwidth)] - 1;
+		for(y in 0 ... csvheight){
+      for (x in 0 ... csvwidth) { 
+			  var tid:Int = returnedarray[x + (y * csvwidth)];
+				contents[x][y] = returnedarray[x + (y * csvwidth)] - 1;
+			}
 		}
 	}
 
@@ -102,6 +104,28 @@ class World{
 			}
 		}
 		Gfx.core.s2d.addChild(tilegroup);
+	}
+
+	public function checkpathsquare(x:Int, y:Int, t:Int){
+		if(Geom.inbox(x, y, 0, 0, width, height)){
+			if(!collidable[contents[x][y]]){
+				if(t < heatmap[x][y]){
+					heatmap[x][y] = t;
+					t++;
+					checkpathsquare(x - 1, y, t);
+					checkpathsquare(x + 1, y, t);
+					checkpathsquare(x, y - 1, t);
+					checkpathsquare(x, y + 1, t);
+				}
+			}
+		}
+	}
+
+	//Figure out a heatmap coming from a given point
+	public function getheatmap(fromx:Int, fromy:Int){
+		//Clear the heatmap
+		heatmap = Core.create2darray(width, height, 10000);
+		checkpathsquare(fromx, fromy, 1);
 	}
 	
 	public function render(){
@@ -124,6 +148,7 @@ class World{
 	}
 	
 	public var contents:Array<Array<Int>>;
+	public var heatmap:Array<Array<Int>>;
 	public var tilegroup:h2d.TileGroup;
 	public var width:Int;
 	public var height:Int;

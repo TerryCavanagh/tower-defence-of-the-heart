@@ -11,8 +11,10 @@ class TestLevel{
 		
 		world = new World();
     
-		world.loadtiles("ld46tiles", 8, 8);
+    world.loadtiles("ld46tiles", 8, 8);
+    world.setcollidable([0]);
     world.loadcsv("testmap");
+    world.getheatmap(35,4);
     world.refreshmap();
 	}
 	
