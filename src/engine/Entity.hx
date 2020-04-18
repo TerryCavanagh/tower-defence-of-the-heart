@@ -52,7 +52,7 @@ class Entity{
       case TOWER1:
         firerate = 0.8;
         timetillnextshot = 0;
-        targetradius = 32;
+        targetradius = 64;
         bulletdamage = 1;
 
         var tileset:Tileset = Gfx.gettileset("towers");
@@ -70,10 +70,12 @@ class Entity{
 
         Game.uilayer.addChild(primative);
       case BULLET1:
+        x += centerx;
+        y += centery;
         var tileset:Tileset = Gfx.gettileset("particles");
         sprite = new h2d.Anim(tileset.tiles, 0);
-        sprite.x = x + centerx;
-        sprite.y = y + centery;
+        sprite.x = x;
+        sprite.y = y;
         Game.bulletlayer.addChild(sprite);
       default:
         throw("Error: cannot create an entity without a type.");
@@ -188,15 +190,16 @@ class Entity{
   public function render(){
     if(destroyed) return;
 
-    sprite.x = x;
-    sprite.y = y;
     switch(type){
       case ENEMY1:
-        //Do nothing
+        sprite.x = x;
+        sprite.y = y;
       case TOWER1:
-        //Do nothing
+        sprite.x = x;
+        sprite.y = y;
       case BULLET1:
-        //Do nothing
+        sprite.x = x;
+        sprite.y = y;
       default:
         throw("Error: cannot create an entity without a type.");
     }

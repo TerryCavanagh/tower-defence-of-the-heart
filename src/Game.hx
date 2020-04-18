@@ -6,7 +6,7 @@ import motion.easing.*;
 
 class Game{
   public static function createtower(x:Int, y:Int, type:EntityType, w:World){
-    w.towers.push(Entity.create(9, 3, EntityType.TOWER1, w));
+    w.towers.push(Entity.create(x, y, EntityType.TOWER1, w));
   }
 
   public static function createmonster(x:Int, y:Int, type:EntityType, w:World){
@@ -22,8 +22,8 @@ class Game{
      .onUpdate(function(){
        //start point tower, end point monster
        //x: monster.x, y: monster.y
-       newbullet.x = Geom.lerp(tower.x + tower.centerx, monster.x + monster.centerx, newbullet.animpercent);
-       newbullet.y = Geom.lerp(tower.y + tower.centery, monster.y + monster.centery, newbullet.animpercent);
+       newbullet.x = Geom.lerp(tower.x, monster.x, newbullet.animpercent);
+       newbullet.y = Geom.lerp(tower.y, monster.y, newbullet.animpercent);
      })
      .ease(Back.easeIn)
      .onComplete(function(){

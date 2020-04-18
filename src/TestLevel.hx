@@ -29,10 +29,11 @@ class TestLevel{
     world.bullets = [];
     world.particles = [];
 
-    Game.createtower(9, 3, EntityType.TOWER1, world);
+    Game.createtower(10, 6, EntityType.TOWER1, world);
+    Game.createtower(13, 14, EntityType.TOWER1, world);
 
     leveltime = 0;
-    spawnrate = 10000.6;
+    spawnrate = 1.6;
     timetillnextspawn = 0;
 	}
 	
