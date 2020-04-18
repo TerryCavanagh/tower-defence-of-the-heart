@@ -47,8 +47,22 @@ class Entity{
         sprite.y = y;
         Game.monsterlayer.addChild(sprite);
 
+        primative = new h2d.Graphics();
+        primative.x = x;
+        primative.y = y - 10;
+        primative.moveTo(0, 0);
+        primative.beginFill(Col.LIGHTGREEN, 1.0);
+        primative.drawRect(0, 0, world.tilewidth * 1.5, 3);
+        primative.endFill();
+        primative.visible = false;
+
+        Game.monsterlayer.addChild(primative);
+
         speed = 0.4;
         direction = Direction.RIGHT;
+
+        maxhp = 5;
+        hp = maxhp;
       case TOWER1:
         firerate = 0.8;
         timetillnextshot = 0;
@@ -194,6 +208,9 @@ class Entity{
       case ENEMY1:
         sprite.x = x;
         sprite.y = y;
+    
+        primative.x = x - (world.tilewidth * 0.25);
+        primative.y = y - 5;
       case TOWER1:
         sprite.x = x;
         sprite.y = y;
@@ -202,6 +219,22 @@ class Entity{
         sprite.y = y;
       default:
         throw("Error: cannot create an entity without a type.");
+    }
+  }
+
+  public function damageenemy(dmg:Float){
+    hp -= dmg;
+
+    if(hp <= 0){
+      destroy();
+    }else{
+      primative.clear();
+      primative.moveTo(0, 0);
+      primative.beginFill(Col.LIGHTGREEN, 1.0);
+      primative.drawRect(0, 0, ((world.tilewidth * 1.5) * hp) / maxhp, 3);
+      primative.endFill();
+          
+      primative.visible = true;
     }
   }
 
@@ -237,6 +270,9 @@ class Entity{
   public var vy:Float;
   public var speed:Float;
   public var direction:Direction;
+
+  public var maxhp:Float;
+  public var hp:Float;
 
   public var sprite:h2d.Anim;
   public var primative:h2d.Graphics;

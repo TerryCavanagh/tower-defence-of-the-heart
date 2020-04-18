@@ -30,6 +30,7 @@ class Game{
        //Destory the bullet
        newbullet.shrinkdestroy();
        //Damage the enemy
+       monster.damageenemy(tower.bulletdamage);
      });
 
     w.bullets.push(newbullet);
@@ -40,11 +41,13 @@ class Game{
     var possibletargets:Array<Entity> = [];
 
     for(monster in tower.world.monsters){
-      if(Geom.distance(
-          monster.x + monster.centerx, monster.y + monster.centery, 
-          tower.x + tower.centerx, tower.y + tower.centery) <= tower.targetradius){
-        possibletargets.push(monster);
-        break; //Let's literally just take the first one and see how well that works out
+      if(!monster.destroyed){
+        if(Geom.distance(
+            monster.x + monster.centerx, monster.y + monster.centery, 
+            tower.x + tower.centerx, tower.y + tower.centery) <= tower.targetradius){
+          possibletargets.push(monster);
+          break; //Let's literally just take the first one and see how well that works out
+        }
       }
     }
 
