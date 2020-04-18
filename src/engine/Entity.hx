@@ -40,6 +40,12 @@ class Entity{
 
   public function inittype(){
     switch(type){
+      case GOAL:
+        var tileset:Tileset = Gfx.gettileset("goal");
+        sprite = new h2d.Anim(tileset.tiles, 0);
+        sprite.x = x;
+        sprite.y = y;
+        Game.towerlayer.addChild(sprite);
       case ENEMY1:
         var tileset:Tileset = Gfx.gettileset("enemies");
         sprite = new h2d.Anim(tileset.tiles, 0);
@@ -58,7 +64,7 @@ class Entity{
 
         Game.monsterlayer.addChild(primative);
 
-        speed = 0.4;
+        speed = 1.4;
         direction = Direction.RIGHT;
 
         maxhp = 5;
@@ -81,6 +87,20 @@ class Entity{
         primative.moveTo(0, 0);
         primative.lineStyle(3, Col.WHITE, 0.3);
         primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, targetradius);
+        primative.visible = false;
+
+        //Let's try a fancy new heaps thing!
+        var interaction = new h2d.Interactive(world.tilewidth, world.tileheight, sprite);
+
+        interaction.onOver = function(event : hxd.Event) {
+          sprite.alpha = 0.7;
+          primative.visible = true;
+        }
+
+        interaction.onOut = function(event : hxd.Event) {
+          sprite.alpha = 1;
+          primative.visible = false;
+        }
 
         Game.uilayer.addChild(primative);
       case BULLET1:
@@ -101,6 +121,12 @@ class Entity{
     var heat_down:Int = world.heatat(x + Std.int(world.tilewidth / 2), y + Std.int(world.tileheight * 3 / 2));
     var heat_left:Int = world.heatat(x - Std.int(world.tilewidth / 2), y + Std.int(world.tileheight / 2));
     var heat_right:Int = world.heatat(x + Std.int(world.tilewidth * 3 / 2), y + Std.int(world.tileheight / 2));
+
+    //If there's only one valid direction, then we're at the end!
+    if(heat_up + heat_down + heat_left + heat_right >= 30000){
+      Game.monsterreachestheend(this);
+      return;
+    }
 
     if(heat_up < heat_down && heat_up < heat_left && heat_up < heat_right){
       direction = Direction.UP;
@@ -183,6 +209,7 @@ class Entity{
     if(destroyed) return;
 
     switch(type){
+      case GOAL:
       case ENEMY1:
         standardenemymove();
       case TOWER1:
@@ -205,6 +232,9 @@ class Entity{
     if(destroyed) return;
 
     switch(type){
+      case GOAL:
+        sprite.x = x;
+        sprite.y = y;
       case ENEMY1:
         sprite.x = x;
         sprite.y = y;

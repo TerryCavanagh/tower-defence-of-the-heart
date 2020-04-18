@@ -158,6 +158,10 @@ class World{
 		return pixely - (gridy(pixely) * tileheight);
 	}
 	
+	public function destroy(){
+		Game.backgroundlayer.removeChild(tilegroup);
+	}
+
 	public var contents:Array<Array<Int>>;
 	public var heatmap:Array<Array<Int>>;
 	public var tilegroup:h2d.TileGroup;

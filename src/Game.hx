@@ -5,6 +5,14 @@ import motion.Actuate;
 import motion.easing.*;
 
 class Game{
+  public static function reset(){
+    maxhp = 5;
+    hp = maxhp;
+  }
+
+  public static var hp:Int;
+  public static var maxhp:Int;
+
   public static function createtower(x:Int, y:Int, type:EntityType, w:World){
     w.towers.push(Entity.create(x, y, EntityType.TOWER1, w));
   }
@@ -71,6 +79,15 @@ class Game{
     Gfx.core.s2d.addChild(Game.monsterlayer);
     Gfx.core.s2d.addChild(Game.bulletlayer);
     Gfx.core.s2d.addChild(Game.uilayer);
+  }
+
+  public static function monsterreachestheend(monster:Entity){
+    hp--;
+    monster.destroy();
+
+    if(hp <= 0){
+      Scene.change("gameover");
+    }
   }
 
   public static var backgroundlayer:h2d.Object;

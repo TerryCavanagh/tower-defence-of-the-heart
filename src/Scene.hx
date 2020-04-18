@@ -1,3 +1,5 @@
+import scenes.*;
+
 class Scene {
 	private static function init() {
 		currentscene = 0;
@@ -8,7 +10,9 @@ class Scene {
 		if(currentscene == 0){
 			Main.init();
 		}else if(currentscene == 1){
-			TestLevel.init();
+			TowerDefence.init();
+		}else if(currentscene == 2){
+			GameOver.cleanup();
 		}
 	}
 
@@ -16,7 +20,9 @@ class Scene {
 		if(currentscene == 0){
 			Main.update();
 		}else if(currentscene == 1){
-			TestLevel.update();
+			TowerDefence.update();
+		}else if(currentscene == 2){
+			GameOver.cleanup();
 		}
 	}
 
@@ -24,7 +30,9 @@ class Scene {
 		if(currentscene == 0){
 			Main.cleanup();
 		}else if(currentscene == 1){
-			TestLevel.cleanup();
+			TowerDefence.cleanup();
+		}else if(currentscene == 2){
+			GameOver.cleanup();
 		}
 	}
 	
@@ -37,8 +45,10 @@ class Scene {
 
 		if(newscene == "main"){
 			currentscene = 0;
-		}else if(newscene == "testlevel"){
+		}else if(newscene == "towerdefence"){
 			currentscene = 1;
+		}else if(newscene == "gameover"){
+			currentscene = 2;
 		}else{
 			currentscene = 0;
 		}
