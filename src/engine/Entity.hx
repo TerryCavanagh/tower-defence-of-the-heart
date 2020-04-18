@@ -19,6 +19,7 @@ class Entity{
   //Class functions
   public function new(){
     sprite = null;
+    primative = null;
   }
 
   public function inittype(){
@@ -28,10 +29,25 @@ class Entity{
         sprite = new h2d.Anim(tileset.tiles, 0);
         sprite.x = x;
         sprite.y = y;
-        Gfx.core.s2d.addChild(sprite);
+        Game.monsterlayer.addChild(sprite);
 
         speed = 0.4;
         direction = Direction.RIGHT;
+      case TOWER1:
+        var tileset:Tileset = Gfx.gettileset("towers");
+        sprite = new h2d.Anim(tileset.tiles, 0);
+        sprite.x = x;
+        sprite.y = y;
+        Game.towerlayer.addChild(sprite);
+
+        primative = new h2d.Graphics();
+        primative.x = x;
+        primative.y = y;
+        primative.moveTo(0, 0);
+        primative.lineStyle(3, Col.WHITE, 0.3);
+        primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, 32);
+
+        Game.uilayer.addChild(primative);
       default:
         throw("Error: cannot create an entity without a type.");
     }
@@ -124,16 +140,21 @@ class Entity{
     switch(type){
       case ENEMY1:
         standardenemymove();
+      case TOWER1:
+        //Do nothing
       default:
         throw("Error: cannot create an entity without a type.");
     }
   }
 
   public function render(){
+    sprite.x = x;
+    sprite.y = y;
     switch(type){
       case ENEMY1:
-        sprite.x = x;
-        sprite.y = y;
+        //Do nothing
+      case TOWER1:
+        //Do nothing
       default:
         throw("Error: cannot create an entity without a type.");
     }
@@ -150,4 +171,5 @@ class Entity{
   public var direction:Direction;
 
   public var sprite:h2d.Anim;
+  public var primative:h2d.Graphics;
 }

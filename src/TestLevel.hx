@@ -7,7 +7,8 @@ class TestLevel{
   public static var firstcall:Bool = true;
   public static function init(){
 		if(firstcall){
-			firstcall = false;
+      firstcall = false;
+      Game.initlayers();
 		}
 		
 		world = new World();
@@ -22,6 +23,9 @@ class TestLevel{
     world.refreshmap();
 
     world.monsters = [];
+    world.towers = [];
+
+    Game.createtower(9, 3, EntityType.TOWER1, world);
 
     leveltime = 0;
     spawnrate = 1.6;
@@ -33,12 +37,17 @@ class TestLevel{
     if(timetillnextspawn <= 0){
       timetillnextspawn = spawnrate;
       //Create a new enemy at the entrance!
-      world.monsters.push(Entity.create(-1, 2, EntityType.ENEMY1, world));
+      Game.createmonster(-1, 2, EntityType.ENEMY1, world);
     }
 
     world.render();
     
     for(e in world.monsters){
+      e.update();
+      e.render();
+    }
+
+    for(e in world.towers){
       e.update();
       e.render();
     }

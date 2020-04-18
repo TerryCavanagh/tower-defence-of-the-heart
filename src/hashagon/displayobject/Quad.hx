@@ -28,6 +28,17 @@ class Quad{
     _draw();
   }
 
+  public function drawcircle(x:Float, y:Float, radius:Float, col:Int, alpha:Float = 1.0) {
+    if(disposed) return;
+    if (col == Col.TRANSPARENT) return;
+    
+    graphics.beginFill(col, alpha);
+    graphics.drawCircle(x, y, radius);
+    graphics.endFill();
+
+    _draw();
+  }
+
   public function fillbox(x:Float, y:Float, width:Float, height:Float, col:Int, alpha:Float = 1.0) {
     if(disposed) return;
     if (col == Col.TRANSPARENT) return;

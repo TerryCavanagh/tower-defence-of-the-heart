@@ -106,6 +106,20 @@ class Gfx{
     }
   }
 
+  public static function drawcircle(x:Float, y:Float, radius:Float, col:Int, alpha:Float = 1.0, id:String = "", ?pos:haxe.PosInfos) {
+    if(id == "") id = pos.fileName + "_" + pos.lineNumber;
+
+    var circle:Quad;
+		if (graphicsmap.exists(id)){
+      circle = graphicsmap.get(id);
+	  	circle.drawcircle(x, y, radius, col, alpha);
+		}else{
+      circle = new Quad();
+      graphicsmap.set(id, circle);
+      circle.drawcircle(x, y, radius, col, alpha);
+    }
+  }
+
   public static function setpixel(x:Float, y:Float, col:Int, alpha:Float = 1.0, id:String = "", ?pos:haxe.PosInfos) {
     if(id == "") id = pos.fileName + "_" + pos.lineNumber;
 

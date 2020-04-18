@@ -103,7 +103,7 @@ class World{
 				tilegroup.add(i * tilewidth, j * tileheight, maptileset.tiles[contents[i][j]]);
 			}
 		}
-		Gfx.core.s2d.addChild(tilegroup);
+		Game.backgroundlayer.addChild(tilegroup);
 	}
 
 	public function checkpathsquare(x:Int, y:Int, t:Int){
@@ -173,4 +173,5 @@ class World{
 	public var outsidetile:Int;
 
   public var monsters:Array<Entity>;
+  public var towers:Array<Entity>;
 }
