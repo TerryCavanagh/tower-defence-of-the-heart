@@ -100,7 +100,7 @@ class World{
 		tilegroup = new TileGroup(maptileset.tilesetdata);
 		for(j in 0 ... height){
 			for(i in 0 ... width){
-				tilegroup.add(i * tilewidth, j * tileheight, maptileset.tiles[contents[i][j]]);
+				tilegroup.add(Std.int(i * tilewidth), Std.int(j * tileheight), maptileset.tiles[contents[i][j]]);
 			}
 		}
 		Game.backgroundlayer.addChild(tilegroup);

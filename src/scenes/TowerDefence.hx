@@ -25,7 +25,13 @@ class TowerDefence{
     Gfx.loadtiles("goal", 30, 30);
 
     world.loadtiles("ld46tiles", 10, 10);
-    world.setcollidable([0]);
+    
+    for (i in 0 ... Gfx.numberoftiles(world.tileset)){
+			if(i > 5){
+				world.collidable[i] = true;
+			}
+    }
+    
     world.loadcsv("testmap");
     world.getheatmap(20,8);
     world.refreshmap();
@@ -37,7 +43,7 @@ class TowerDefence{
 
     inituielements();
 
-    world.towers.push(Entity.create(21, 7, EntityType.GOAL, world));
+    world.towers.push(Entity.create(19, 3, EntityType.GOAL, world));
 
     leveltime = 0;
     timetillnextspawn = 0;

@@ -42,7 +42,7 @@ class Game{
   }
 
   public static function createmonster(x:Int, y:Int, type:EntityType, hp:Int, w:World){
-    var enemy:Entity = Entity.create(-1, 2, EntityType.ENEMY1, w);
+    var enemy:Entity = Entity.create(-1, 4, EntityType.ENEMY1, w);
     enemy.maxhp = hp;
     enemy.hp = enemy.maxhp;
 
