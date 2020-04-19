@@ -5,7 +5,6 @@ import engine.*;
 import hxd.Key;
 
 class TowerDefence{
-  public static var leveltime:Float;
   public static var firstcall:Bool = true;
   public static function init(){
 		if(firstcall){
@@ -19,7 +18,7 @@ class TowerDefence{
     Waves.nextwave();
     
     Gfx.loadtiles("enemies", 10, 10);
-    Gfx.loadtiles("towers", 30, 30);
+    Gfx.loadtiles("towers", 10, 10);
     Gfx.loadtiles("particles", 10, 10);
     Gfx.gettileset("particles").pivot(Text.CENTER);
     Gfx.loadtiles("goal", 30, 30);
@@ -45,7 +44,6 @@ class TowerDefence{
 
     world.towers.push(Entity.create(19, 3, EntityType.GOAL, world));
 
-    leveltime = 0;
     timetillnextspawn = 0;
 	}
 	
@@ -54,8 +52,8 @@ class TowerDefence{
     var my:Int = world.gridy(Mouse.y);
 
     //Show tower cursor
-    towercursor.x = (mx * world.tilewidth) - 10;
-    towercursor.y = (my * world.tileheight) - 10;
+    towercursor.x = (mx * world.tilewidth);
+    towercursor.y = (my * world.tileheight);
     towercursor.visible = true;
 
     if(Mouse.leftclick()){
@@ -126,10 +124,10 @@ class TowerDefence{
     //TO DO: clean up destroyed entities somewhere
 
     //UI stuff
-    Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
-    Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
+    //Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
+    //Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
 
-    leveltime += hxd.Timer.dt;
+    Game.updatetimers();
   }
   
 	public static function cleanup(){

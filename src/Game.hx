@@ -11,6 +11,9 @@ class Game{
     hp = maxhp;
 
     gold = 10;
+    
+    leveltime = 0;
+    twoframe = 0;
   }
 
   public static var hp:Int;
@@ -127,9 +130,19 @@ class Game{
     }
   }
 
+  public static function updatetimers(){
+    leveltime += hxd.Timer.dt;
+
+    twoframe = (((leveltime * 1000) % 400 > 200)?1:0);
+  }
+
+  public static var twoframe:Int;
+
   public static var backgroundlayer:h2d.Object;
   public static var monsterlayer:h2d.Object;
   public static var bulletlayer:h2d.Object;
   public static var towerlayer:h2d.Object;
   public static var uilayer:h2d.Object;
+
+  public static var leveltime:Float;
 }

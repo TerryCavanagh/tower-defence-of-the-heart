@@ -55,10 +55,18 @@ class Entity{
         sprite.y = y;
         Game.towerlayer.addChild(sprite);
       case ENEMY1:
+        speed = 0.4;
+        direction = Direction.RIGHT;
+
+        maxhp = 5;
+        hp = maxhp;
+        baseframe = 14;
+
         var tileset:Tileset = Gfx.gettileset("enemies");
         sprite = new h2d.Anim(tileset.tiles, 0);
         sprite.x = x;
         sprite.y = y;
+        sprite.currentFrame = baseframe;
         Game.monsterlayer.addChild(sprite);
 
         primative = new h2d.Graphics();
@@ -71,12 +79,6 @@ class Entity{
         primative.visible = false;
 
         Game.monsterlayer.addChild(primative);
-
-        speed = 0.4;
-        direction = Direction.RIGHT;
-
-        maxhp = 5;
-        hp = maxhp;
       case TOWER1:
         firerate = 0.8;
         timetillnextshot = 0;
@@ -87,8 +89,8 @@ class Entity{
 
         var tileset:Tileset = Gfx.gettileset("towers");
         sprite = new h2d.Anim(tileset.tiles, 0);
-        sprite.x = x - 10;
-        sprite.y = y - 10;
+        sprite.x = x;
+        sprite.y = y;
         Game.towerlayer.addChild(sprite);
 
         primative = new h2d.Graphics();
@@ -99,8 +101,6 @@ class Entity{
 
         //Let's try a fancy new heaps thing!
         var interaction = new h2d.Interactive(world.tilewidth, world.tileheight, sprite);
-        interaction.x += world.tilewidth;
-        interaction.y += world.tileheight;
 
         interaction.onOver = function(event : hxd.Event) {
           sprite.alpha = 0.7;
@@ -252,15 +252,18 @@ class Entity{
       case GOAL:
         sprite.x = x;
         sprite.y = y;
+
+        sprite.currentFrame = baseframe + Game.twoframe;
       case ENEMY1:
         sprite.x = x;
-        sprite.y = y;
+        sprite.y = y - 5;
+        sprite.currentFrame = baseframe + Game.twoframe;
     
         primative.x = x - (world.tilewidth * 0.25);
-        primative.y = y - 5;
+        primative.y = y - 10;
       case TOWER1:
-        sprite.x = x - 10;
-        sprite.y = y - 10;
+        sprite.x = x;
+        sprite.y = y;
 
         sprite.currentFrame = baseframe + offsetframe;
       case BULLET1:
