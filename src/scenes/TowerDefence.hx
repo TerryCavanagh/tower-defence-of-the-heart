@@ -153,8 +153,17 @@ class TowerDefence{
 
     //TO DO: clean up destroyed entities somewhere
 
+    if(Input.justpressed(Key.NUMBER_1)){
+      cursormode = CursorMode.PLACETOWER_SHOOTY;
+    }else if(Input.justpressed(Key.NUMBER_2)){
+      cursormode = CursorMode.PLACETOWER_BEAM;
+    }else if(Input.justpressed(Key.NUMBER_3)){
+      cursormode = CursorMode.PLACETOWER_LASER;
+    }else if(Input.justpressed(Key.NUMBER_4)){
+      cursormode = CursorMode.PLACETOWER_VORTEX;
+    }
     //UI stuff
-    Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
+    //Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
     //Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
 
     Game.updatetimers();
