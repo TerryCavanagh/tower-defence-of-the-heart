@@ -69,6 +69,17 @@ class Entity{
     primative.visible = true;
   }
 
+  public function updatelaser(power:Float){
+    primative.clear();
+    
+    primative.moveTo(0, 0);
+    primative.lineStyle(2, Col.RED, 0.75 * power);
+
+    primative.lineTo(endx - primative.x + 5, endy - primative.y + 5 - 5);
+    primative.lineTo(5, 5);
+    primative.visible = true;
+  }
+
   public function updatetowerradius(){
     primative.clear();
     primative.moveTo(0, 0);
@@ -218,6 +229,40 @@ class Entity{
         }
 
         Game.uilayer.addChild(primative);
+      case TOWER_LASER:
+        firerate = GameData.towers.laser.level1.firerate;
+        timetillnextshot = 0;
+        targetradius = GameData.towers.laser.level1.radius;
+        bulletdamage = GameData.towers.laser.level1.damage;
+        level = 1;
+        baseframe = 12;
+
+        var tileset:Tileset = Gfx.gettileset("towers");
+        sprite = new h2d.Anim(tileset.tiles, 0);
+        sprite.x = x;
+        sprite.y = y;
+        Game.towerlayer.addChild(sprite);
+
+        primative = new h2d.Graphics();
+        primative.x = x;
+        primative.y = y;
+        updatetowerradius();
+        primative.visible = false;
+
+        //Let's try a fancy new heaps thing!
+        var interaction = new h2d.Interactive(world.tilewidth, world.tileheight, sprite);
+
+        interaction.onOver = function(event : hxd.Event) {
+          sprite.alpha = 0.7;
+          primative.visible = true;
+        }
+
+        interaction.onOut = function(event : hxd.Event) {
+          sprite.alpha = 1;
+          primative.visible = false;
+        }
+
+        Game.uilayer.addChild(primative);
       case BULLET:
         x += centerx;
         y += centery;
@@ -231,6 +276,14 @@ class Entity{
         y += centery;
         //We attach the sprite elsewhere
       case VORTEX:
+        x += centerx;
+        y += centery;
+
+        primative = new h2d.Graphics();
+        primative.x = x;
+        primative.y = y;
+        primative.visible = false;
+      case LASER:
         x += centerx;
         y += centery;
 
@@ -399,11 +452,29 @@ class Entity{
           }
           timetillnextshot = firerate;
         }
+      case TOWER_LASER:
+        timetillframechange -= Core.deltatime;
+        if(timetillframechange <= 0){
+          offsetframe = 0;
+        }
+
+        timetillnextshot -= Core.deltatime;
+        if(timetillnextshot <= 0){
+          Game.picktarget(this);
+          if(targetentity != null){
+            Game.createlaser(this, targetentity);
+            offsetframe = 1;
+            timetillframechange = 0.25;
+          }
+          timetillnextshot = firerate;
+        }
       case BULLET:
         //Do nothing
       case BEAM:
         //Do nothing
       case VORTEX:
+        //Do nothing
+      case LASER:
         //Do nothing
       default:
         throw("Error: cannot create an entity without a type.");
@@ -441,6 +512,11 @@ class Entity{
         sprite.y = y;
 
         sprite.currentFrame = baseframe + offsetframe;
+      case TOWER_LASER:
+        sprite.x = x;
+        sprite.y = y;
+
+        sprite.currentFrame = baseframe + offsetframe;
       case BULLET:
         sprite.x = x;
         sprite.y = y;
@@ -448,6 +524,8 @@ class Entity{
         //Don't mess with the beam position
       case VORTEX:
         //Don't mess with the vortex position
+      case LASER:
+        //Don't mess with the laser position
       default:
         throw("Error: cannot create an entity without a type.");
     }
@@ -510,6 +588,8 @@ class Entity{
 
   public var vx:Float;
   public var vy:Float;
+  public var endx:Float;
+  public var endy:Float;
   public var speed:Float;
   public var direction:Direction;
   public var speedmultiplier:Float;

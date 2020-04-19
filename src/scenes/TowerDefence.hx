@@ -71,6 +71,8 @@ class TowerDefence{
           currenttowercost = GameData.towers.beam.cost;
         }else if(cursormode == CursorMode.PLACETOWER_VORTEX){
           currenttowercost = GameData.towers.vortex.cost;
+        }else if(cursormode == CursorMode.PLACETOWER_LASER){
+          currenttowercost = GameData.towers.laser.cost;
         }
         Game.cost(currenttowercost, 
         function(){
@@ -80,6 +82,8 @@ class TowerDefence{
             Game.createtower(mx, my, EntityType.TOWER_BEAM, world);
           }else if(cursormode == CursorMode.PLACETOWER_VORTEX){
             Game.createtower(mx, my, EntityType.TOWER_VORTEX, world);
+          }else if(cursormode == CursorMode.PLACETOWER_LASER){
+            Game.createtower(mx, my, EntityType.TOWER_LASER, world);
           }
         }, function(){
           
@@ -95,6 +99,9 @@ class TowerDefence{
         }else if(toweratcursor.type == EntityType.TOWER_VORTEX){
           if(toweratcursor.level == 1) upgradetowercost = GameData.towers.vortex.level1.upgradecost;
           if(toweratcursor.level == 2) upgradetowercost = GameData.towers.vortex.level2.upgradecost;
+        }else if(toweratcursor.type == EntityType.TOWER_LASER){
+          if(toweratcursor.level == 1) upgradetowercost = GameData.towers.laser.level1.upgradecost;
+          if(toweratcursor.level == 2) upgradetowercost = GameData.towers.laser.level2.upgradecost;
         }
         Game.cost(upgradetowercost, 
         function(){
@@ -185,7 +192,7 @@ class TowerDefence{
     towercursor.visible = false;
     Game.uilayer.addChild(towercursor);
 
-    cursormode = CursorMode.PLACETOWER_BEAM;
+    cursormode = CursorMode.PLACETOWER_LASER;
   }
 
   public static function updatecursor(mx:Int, my:Int){
@@ -209,6 +216,11 @@ class TowerDefence{
         towercursor.visible = true;
       case CursorMode.PLACETOWER_VORTEX:
           towercursor.currentFrame = 6;
+          towercursor.x = (mx * world.tilewidth);
+          towercursor.y = (my * world.tileheight);
+          towercursor.visible = true;
+      case CursorMode.PLACETOWER_LASER:
+          towercursor.currentFrame = 12;
           towercursor.x = (mx * world.tilewidth);
           towercursor.y = (my * world.tileheight);
           towercursor.visible = true;

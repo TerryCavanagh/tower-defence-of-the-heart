@@ -6,10 +6,12 @@ enum EntityType{
   TOWER_SHOOTY;
   TOWER_BEAM;
   TOWER_VORTEX;
+  TOWER_LASER;
   
   BULLET;
   BEAM;
   VORTEX;
+  LASER;
   
   GOAL;
 }

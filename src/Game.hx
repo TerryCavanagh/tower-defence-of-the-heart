@@ -69,6 +69,22 @@ class Game{
 
         tower.updatetowerradius();
       }
+    }else if(tower.type == EntityType.TOWER_LASER){
+      if(tower.level == 1){
+        tower.baseframe += 2;
+        tower.bulletdamage = GameData.towers.laser.level2.damage;
+        tower.targetradius = GameData.towers.laser.level2.radius;
+        tower.level = 2;
+
+        tower.updatetowerradius();
+      }else if(tower.level == 2){
+        tower.baseframe += 2;
+        tower.bulletdamage = GameData.towers.laser.level3.damage;
+        tower.targetradius = GameData.towers.laser.level3.radius;
+        tower.level = 3;
+
+        tower.updatetowerradius();
+      }
     }
   }
 
@@ -220,6 +236,33 @@ class Game{
      });
 
     w.bullets.push(newbullet);
+  }
+
+  public static function createlaser(tower:Entity, monster:Entity){
+    var w:World = tower.world;
+
+    var newlaser:Entity = Entity.create(w.gridx(tower.x), w.gridy(tower.y), EntityType.LASER, w);
+    newlaser.x = tower.x;
+    newlaser.y = tower.y;
+    newlaser.endx = newlaser.x;
+    newlaser.endy = newlaser.y;
+    bulletlayer.addChild(newlaser.primative);
+    
+    //Damage the enemy immediately
+    monster.damageenemy(tower.bulletdamage);
+
+    Actuate.tween(newlaser, GameData.other.laser_animation_time, {animpercent: 1.0})
+     .onUpdate(function(){
+       newlaser.endx = monster.x;
+       newlaser.endy = monster.y;
+       newlaser.updatelaser(1 - newlaser.animpercent);
+     })
+     .onComplete(function(){
+       //Destory the laser
+       newlaser.destroy();
+     });
+
+    w.bullets.push(newlaser);
   }
 
   /* Pick a target for tower based on range etc */
