@@ -84,13 +84,11 @@ class Entity{
         sprite.x = x;
         sprite.y = y;
         Game.towerlayer.addChild(sprite);
-      case ENEMY1:
-        speed = 0.4;
+      case ENEMY:
         direction = Direction.RIGHT;
 
         maxhp = 5;
         hp = maxhp;
-        baseframe = 0;
 
         var tileset:Tileset = Gfx.gettileset("enemies");
         sprite = new h2d.Anim(tileset.tiles, 0);
@@ -110,10 +108,11 @@ class Entity{
 
         Game.monsterlayer.addChild(primative);
       case TOWER_SHOOTY:
-        firerate = 0.8;
         timetillnextshot = 0;
-        targetradius = 48;
-        bulletdamage = 1;
+        firerate = GameData.towers.shooty.level1.firerate;
+        timetillnextshot = 0;
+        targetradius = GameData.towers.shooty.level1.radius;
+        bulletdamage = GameData.towers.shooty.level1.damage;
         level = 1;
         baseframe = 0;
 
@@ -144,10 +143,11 @@ class Entity{
 
         Game.uilayer.addChild(primative);
       case TOWER_BEAM:
-        firerate = 2;
         timetillnextshot = 0;
-        targetradius = 48;
-        bulletdamage = 1;
+        firerate = GameData.towers.beam.level1.firerate;
+        timetillnextshot = 0;
+        targetradius = GameData.towers.beam.level1.radius;
+        bulletdamage = GameData.towers.beam.level1.damage;
         level = 1;
         //Pick a direction based on nearby path
         direction = Game.towerdirection(world.gridx(x), world.gridy(y), world);
@@ -185,10 +185,10 @@ class Entity{
 
         Game.uilayer.addChild(primative);
       case TOWER_VORTEX:
-        firerate = 2.5;
+        firerate = GameData.towers.vortex.level1.firerate;
         timetillnextshot = 0;
-        targetradius = 32;
-        bulletdamage = 0.4;
+        targetradius = GameData.towers.vortex.level1.radius;
+        bulletdamage = GameData.towers.vortex.level1.damage;
         level = 1;
         baseframe = 6;
 
@@ -349,7 +349,7 @@ class Entity{
 
     switch(type){
       case GOAL:
-      case ENEMY1:
+      case ENEMY:
         standardenemymove();
       case TOWER_SHOOTY:
         timetillframechange -= Core.deltatime;
@@ -419,7 +419,7 @@ class Entity{
         sprite.y = y;
 
         sprite.currentFrame = baseframe + Game.twoframe;
-      case ENEMY1:
+      case ENEMY:
         sprite.x = x;
         sprite.y = y - 5;
         sprite.currentFrame = baseframe + Game.twoframe;

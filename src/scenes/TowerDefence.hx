@@ -32,7 +32,7 @@ class TowerDefence{
     }
     
     world.loadcsv("testmap");
-    world.getheatmap(20,8);
+    world.getheatmap(GameData.other.endpointx,GameData.other.endpointy);
     world.refreshmap();
 
     world.monsters = [];
@@ -42,7 +42,7 @@ class TowerDefence{
 
     inituielements();
 
-    world.towers.push(Entity.create(19, 3, EntityType.GOAL, world));
+    world.towers.push(Entity.create(GameData.other.goalx, GameData.other.goaly, EntityType.GOAL, world));
 
     timetillnextspawn = 0;
 	}
@@ -64,7 +64,15 @@ class TowerDefence{
       }
 
       if(toweratcursor == null){
-        Game.cost(3, 
+        var currenttowercost:Int = 1;
+        if(cursormode == CursorMode.PLACETOWER_SHOOTY){
+          currenttowercost = GameData.towers.shooty.cost;
+        }else if(cursormode == CursorMode.PLACETOWER_BEAM){
+          currenttowercost = GameData.towers.beam.cost;
+        }else if(cursormode == CursorMode.PLACETOWER_VORTEX){
+          currenttowercost = GameData.towers.vortex.cost;
+        }
+        Game.cost(currenttowercost, 
         function(){
           if(cursormode == CursorMode.PLACETOWER_SHOOTY){
             Game.createtower(mx, my, EntityType.TOWER_SHOOTY, world);
@@ -77,7 +85,18 @@ class TowerDefence{
           
         });
       }else{
-        Game.cost(5, 
+        var upgradetowercost:Int = 1;
+        if(toweratcursor.type == EntityType.TOWER_SHOOTY){
+          if(toweratcursor.level == 1) upgradetowercost = GameData.towers.shooty.level1.upgradecost;
+          if(toweratcursor.level == 2) upgradetowercost = GameData.towers.shooty.level2.upgradecost;
+        }else if(toweratcursor.type == EntityType.TOWER_BEAM){
+          if(toweratcursor.level == 1) upgradetowercost = GameData.towers.beam.level1.upgradecost;
+          if(toweratcursor.level == 2) upgradetowercost = GameData.towers.beam.level2.upgradecost;
+        }else if(toweratcursor.type == EntityType.TOWER_VORTEX){
+          if(toweratcursor.level == 1) upgradetowercost = GameData.towers.vortex.level1.upgradecost;
+          if(toweratcursor.level == 2) upgradetowercost = GameData.towers.vortex.level2.upgradecost;
+        }
+        Game.cost(upgradetowercost, 
         function(){
           Game.upgradetower(toweratcursor);
         }, 
@@ -98,7 +117,7 @@ class TowerDefence{
       timetillnextspawn = Waves.spawnrate;
       if(Waves.enemiesleft > 0){
         //Create a new enemy at the entrance!
-        Game.createmonster(-1, 2, Waves.currenttype, Waves.enemyhealth, world);
+        Game.createmonster(-1, 2, Waves.currenttype, Waves.enemyhealth, Waves.enemyspeed, world);
         Waves.enemiesleft--;
       }
     }
@@ -128,7 +147,7 @@ class TowerDefence{
     //TO DO: clean up destroyed entities somewhere
 
     //UI stuff
-    //Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
+    Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
     //Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
 
     Game.updatetimers();
@@ -166,7 +185,7 @@ class TowerDefence{
     towercursor.visible = false;
     Game.uilayer.addChild(towercursor);
 
-    cursormode = CursorMode.PLACETOWER_VORTEX;
+    cursormode = CursorMode.PLACETOWER_BEAM;
   }
 
   public static function updatecursor(mx:Int, my:Int){

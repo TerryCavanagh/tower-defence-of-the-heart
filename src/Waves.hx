@@ -1,18 +1,20 @@
 import engine.*;
 
 class Wave{
-  public function new(type:EntityType, num:Int, hp:Int, rate:Float, gold:Int){
+  public function new(type:Int, num:Int, hp:Int, rate:Float, gold:Int, speed:Float){
     enemytype = type;
     numenemies = num;
     spawnrate = rate;
     enemyhealth = hp;
     reward = gold;
+    enemyspeed = speed;
   }
   
-  public var enemytype:EntityType;
+  public var enemytype:Int;
   public var numenemies:Int;
   public var spawnrate:Float;
   public var enemyhealth:Int;
+  public var enemyspeed:Float;
   public var reward:Int;
 }
 
@@ -22,9 +24,19 @@ class Waves{
     currentwave = -1; //First wave
     enemiesleft = 0;
 
-    waves.push(new Wave(EntityType.ENEMY1, 10, 1, 1.6, 1));
-    waves.push(new Wave(EntityType.ENEMY1, 10, 5, 1.6, 2));
-    waves.push(new Wave(EntityType.ENEMY1, 10, 10, 1.6, 3));
+    var totalwaves = GameData.waves.totalwaves;
+
+    for(i in 0 ... totalwaves){
+      var nextwave:Dynamic = Reflect.getProperty(GameData.waves, "wave" + (i + 1));
+      waves.push(new Wave(
+        nextwave.img,
+        nextwave.num,
+        nextwave.hp,
+        nextwave.spawnrate,
+        nextwave.reward,
+        nextwave.speed
+      ));  
+    }
   }
 
   public static function nextwave(){
@@ -33,6 +45,7 @@ class Waves{
     currenttype = waves[currentwave].enemytype;
     spawnrate = waves[currentwave].spawnrate;
     enemyhealth = waves[currentwave].enemyhealth;
+    enemyspeed = waves[currentwave].enemyspeed;
     reward = waves[currentwave].reward;
   }
 
@@ -45,7 +58,8 @@ class Waves{
   public static var currentwave:Int;
   public static var enemiesleft:Int;
   public static var enemyhealth:Int;
+  public static var enemyspeed:Float;
   public static var spawnrate:Float;
   public static var reward:Int;
-  public static var currenttype:EntityType;
+  public static var currenttype:Int;
 }

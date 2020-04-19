@@ -1,0 +1,41 @@
+{
+  "towers": {
+    "shooty": {
+      "cost": 1,
+      "level1": { "firerate": 0.8, "radius": 48, "damage": 1, "upgradecost": 1 }, 
+      "level2": { "firerate": 0.8, "radius": 56, "damage": 2, "upgradecost": 5 },
+      "level3": { "firerate": 0.8, "radius": 64, "damage": 4 }
+    },
+    "beam": {
+      "cost": 2,
+      "level1": { "firerate": 2.0, "radius": 48, "damage": 1, "upgradecost": 1 }, 
+      "level2": { "firerate": 2.0, "radius": 56, "damage": 2, "upgradecost": 5 },
+      "level3": { "firerate": 2.0, "radius": 64, "damage": 4 }
+    },
+    "vortex": {
+      "cost": 3,
+      "level1": { "firerate": 2.5, "radius": 32, "damage": 0.4, "upgradecost": 1 }, 
+      "level2": { "firerate": 2.5, "radius": 40, "damage": 0.3, "upgradecost": 5 },
+      "level3": { "firerate": 2.5, "radius": 48, "damage": 0.2 }
+    }
+  },
+  "waves": {
+    "totalwaves": 2,
+    "wave1": { "img": 6,  "enter":0, "num": 10, "hp": 1, "spawnrate": 1.6, "speed": 0.8, "reward": 1 },
+    "wave2": { "img": 10, "enter":0, "num": 10, "hp": 1, "spawnrate": 1.6, "speed": 0.4, "reward": 1 }
+  },
+  "other": {
+    "shooty_animation_time": 0.4,
+    "beam_animation_time": 1.0,
+    "vortex_animation_time": 2.0,
+    "vortex_duration": 6.0,
+    
+    "player_health": 5,
+    "startinggold": 10,
+    
+    "goalx": 19,
+    "goaly": 3,
+    "endpointx": 20,
+    "endpointy": 8
+  }
+}

@@ -7,10 +7,10 @@ import motion.easing.*;
 
 class Game{
   public static function reset(){
-    maxhp = 5;
+    maxhp = GameData.other.player_health;
     hp = maxhp;
 
-    gold = 10;
+    gold = GameData.other.startinggold;
     
     leveltime = 0;
     twoframe = 0;
@@ -23,16 +23,16 @@ class Game{
   public static function upgradetower(tower:Entity){
     if(tower.type == EntityType.TOWER_SHOOTY){
       if(tower.level == 1){
-        tower.baseframe+=2;
-        tower.bulletdamage = 2;
-        tower.targetradius += 8;
+        tower.baseframe += 2;
+        tower.bulletdamage = GameData.towers.shooty.level2.damage;
+        tower.targetradius = GameData.towers.shooty.level2.radius;
         tower.level = 2;
 
         tower.updatetowerradius();
       }else if(tower.level == 2){
-        tower.baseframe+=2;
-        tower.bulletdamage = 4;
-        tower.targetradius += 8;
+        tower.baseframe += 2;
+        tower.bulletdamage = GameData.towers.shooty.level3.damage;
+        tower.targetradius = GameData.towers.shooty.level3.radius;
         tower.level = 3;
 
         tower.updatetowerradius();
@@ -40,31 +40,31 @@ class Game{
     }else if(tower.type == EntityType.TOWER_BEAM){
       if(tower.level == 1){
         tower.baseframe+=2;
-        tower.bulletdamage = 2;
-        tower.targetradius += 8;
+        tower.bulletdamage = GameData.towers.beam.level2.damage;
+        tower.targetradius = GameData.towers.beam.level2.radius;
         tower.level = 2;
 
         tower.updatetowerradius();
       }else if(tower.level == 2){
-        tower.baseframe+=2;
-        tower.bulletdamage = 4;
-        tower.targetradius += 8;
+        tower.baseframe += 2;
+        tower.bulletdamage = GameData.towers.beam.level3.damage;
+        tower.targetradius = GameData.towers.beam.level3.radius;
         tower.level = 3;
 
         tower.updatetowerradius();
       }
     }else if(tower.type == EntityType.TOWER_VORTEX){
       if(tower.level == 1){
-        tower.baseframe+=2;
-        tower.bulletdamage = 0.3;
-        tower.targetradius += 8;
+        tower.baseframe += 2;
+        tower.bulletdamage = GameData.towers.vortex.level2.damage;
+        tower.targetradius = GameData.towers.vortex.level2.radius;
         tower.level = 2;
 
         tower.updatetowerradius();
       }else if(tower.level == 2){
-        tower.baseframe+=2;
-        tower.bulletdamage = 0.2;
-        tower.targetradius += 8;
+        tower.baseframe += 2;
+        tower.bulletdamage = GameData.towers.vortex.level3.damage;
+        tower.targetradius = GameData.towers.vortex.level3.radius;
         tower.level = 3;
 
         tower.updatetowerradius();
@@ -89,10 +89,12 @@ class Game{
     w.towers.push(Entity.create(x, y, type, w));
   }
 
-  public static function createmonster(x:Int, y:Int, type:EntityType, hp:Int, w:World){
-    var enemy:Entity = Entity.create(-1, 4, EntityType.ENEMY1, w);
+  public static function createmonster(x:Int, y:Int, type:Int, hp:Int, speed:Float, w:World){
+    var enemy:Entity = Entity.create(-1, 4, EntityType.ENEMY, w);
     enemy.maxhp = hp;
     enemy.hp = enemy.maxhp;
+    enemy.baseframe = type;
+    enemy.speed = speed;
 
     w.monsters.push(enemy);
   }
@@ -111,11 +113,11 @@ class Game{
     //Apply slowdown effect to all enemies in the vortex
     for(monster in w.monsters){
       if(Geom.distance(monster.x, monster.y, newvortex.x, newvortex.y) <= newvortex.targetradius){
-        monster.slowenemy(tower.bulletdamage, 6.0); 
+        monster.slowenemy(tower.bulletdamage, GameData.other.vortex_duration); 
       }
     }
 
-    Actuate.tween(newvortex, 2, {animpercent: 1.0})
+    Actuate.tween(newvortex, GameData.other.vortex_animation_time, {animpercent: 1.0})
       .ease(Sine.easeIn)
       .onUpdate(function(){
         newvortex.updatevortex(1 - newvortex.animpercent);
@@ -184,7 +186,7 @@ class Game{
         }
     }
 
-    Actuate.tween(newbeam, 1.0, {animpercent: 1.0})
+    Actuate.tween(newbeam, GameData.other.beam_animation_time, {animpercent: 1.0})
       .ease(Sine.easeIn)
       .onUpdate(function(){
         newbeam.updatebeam(1 - newbeam.animpercent);
@@ -202,7 +204,7 @@ class Game{
 
     var newbullet:Entity = Entity.create(w.gridx(tower.x), w.gridy(tower.y), EntityType.BULLET, w);
 
-    Actuate.tween(newbullet, 0.4, {animpercent: 1.0})
+    Actuate.tween(newbullet, GameData.other.shooty_animation_time, {animpercent: 1.0})
      .onUpdate(function(){
        //start point tower, end point monster
        //x: monster.x, y: monster.y

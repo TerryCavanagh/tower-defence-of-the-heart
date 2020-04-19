@@ -1,7 +1,7 @@
 package engine;
 
 enum EntityType{
-  ENEMY1;
+  ENEMY; //All enemies are exactly the same: variables are changed in the waves
   
   TOWER_SHOOTY;
   TOWER_BEAM;
