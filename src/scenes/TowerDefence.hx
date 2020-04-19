@@ -164,7 +164,7 @@ class TowerDefence{
     towercursor.visible = false;
     Game.uilayer.addChild(towercursor);
 
-    cursormode = CursorMode.PLACETOWER_SHOOTY;
+    cursormode = CursorMode.PLACETOWER_BEAM;
   }
 
   public static function updatecursor(mx:Int, my:Int){

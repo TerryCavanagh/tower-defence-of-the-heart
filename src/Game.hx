@@ -85,6 +85,10 @@ class Game{
     var w:World = tower.world;
 
     var newbeam:Entity = Entity.create(w.gridx(tower.x), w.gridy(tower.y), EntityType.BEAM, w);
+    //Super weid thing here: newbeam.x/y returns NaN in javascript. Reassigning
+    //the values here fixes it, somehow
+    newbeam.x = tower.x;
+    newbeam.y = tower.y;
     newbeam.direction = tower.direction;
 
     switch(newbeam.direction){
@@ -105,9 +109,8 @@ class Game{
         newbeam.sprite.x = newbeam.x + 3;
         newbeam.sprite.y = newbeam.y + 10;
     }
-
+    
     bulletlayer.addChild(newbeam.sprite);
-
     newbeam.updatebeam(1.0);
 
     //Beams damage all enemies in path instantously when created:

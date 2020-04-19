@@ -19,7 +19,6 @@ class Entity{
     e.centery = w.tileheight / 2;
 
     e.destroyed = false;
-
     return e;
   }
 
@@ -31,6 +30,8 @@ class Entity{
     baseframe = 0;
     offsetframe = 0;
     animpercent = 0;
+    x = 0;
+    y = 0;
 
     //Tower stuff
     targetradius = 0;
