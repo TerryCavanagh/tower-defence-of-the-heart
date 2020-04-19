@@ -5,6 +5,8 @@ import hxd.Key;
 @:keep
 class Main{
 	public static function init(){
+		Gfx.loadimage("beam_horizontal");
+		Gfx.loadimage("beam_vertical");
 		Scene.change("TowerDefence");
 	}
 	

@@ -52,10 +52,8 @@ class TowerDefence{
     var my:Int = world.gridy(Mouse.y);
 
     //Show tower cursor
-    towercursor.x = (mx * world.tilewidth);
-    towercursor.y = (my * world.tileheight);
-    towercursor.visible = true;
-
+    updatecursor(mx, my);
+    
     if(Mouse.leftclick()){
       var toweratcursor:Entity = null;
       for(t in world.towers){
@@ -68,7 +66,11 @@ class TowerDefence{
       if(toweratcursor == null){
         Game.cost(3, 
         function(){
-          Game.createtower(mx, my, EntityType.TOWER1, world);
+          if(cursormode == CursorMode.PLACETOWER_SHOOTY){
+            Game.createtower(mx, my, EntityType.TOWER_SHOOTY, world);
+          }else if(cursormode == CursorMode.PLACETOWER_BEAM){
+            Game.createtower(mx, my, EntityType.TOWER_BEAM, world);
+          }
         }, function(){
           
         });
@@ -157,10 +159,36 @@ class TowerDefence{
 
   public static function inituielements(){
     towercursor = new h2d.Anim(Gfx.gettileset("towers").tiles, 0);
+    towercursor.currentFrame = 18;
     towercursor.alpha = 0.4;
     towercursor.visible = false;
     Game.uilayer.addChild(towercursor);
+
+    cursormode = CursorMode.PLACETOWER_SHOOTY;
+  }
+
+  public static function updatecursor(mx:Int, my:Int){
+    switch(cursormode){
+      case CursorMode.PLACETOWER_SHOOTY:
+        towercursor.currentFrame = 0;
+        towercursor.x = (mx * world.tilewidth);
+        towercursor.y = (my * world.tileheight);
+        towercursor.visible = true;
+      case CursorMode.PLACETOWER_BEAM:
+        var dir:Direction = Game.towerdirection(mx, my, world);
+        switch(dir){
+          case Direction.LEFT: towercursor.currentFrame = 18;
+          case Direction.RIGHT: towercursor.currentFrame = 24;
+          case Direction.UP: towercursor.currentFrame = 30;
+          case Direction.DOWN: towercursor.currentFrame = 36;
+        }
+        
+        towercursor.x = (mx * world.tilewidth);
+        towercursor.y = (my * world.tileheight);
+        towercursor.visible = true;
+    }
   }
 
   public static var towercursor:h2d.Anim;
+  public static var cursormode:CursorMode;
 }

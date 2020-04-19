@@ -39,6 +39,10 @@ class Entity{
     bulletdamage = 0;
   }
 
+  public function updatebeam(power:Float){
+    sprite.alpha = 0.8 * power;
+  }
+
   public function updatetowerradius(){
     primative.clear();
     primative.moveTo(0, 0);
@@ -79,7 +83,7 @@ class Entity{
         primative.visible = false;
 
         Game.monsterlayer.addChild(primative);
-      case TOWER1:
+      case TOWER_SHOOTY:
         firerate = 0.8;
         timetillnextshot = 0;
         targetradius = 48;
@@ -113,7 +117,48 @@ class Entity{
         }
 
         Game.uilayer.addChild(primative);
-      case BULLET1:
+      case TOWER_BEAM:
+        firerate = 2;
+        timetillnextshot = 0;
+        targetradius = 48;
+        bulletdamage = 1;
+        level = 1;
+        //Pick a direction based on nearby path
+        direction = Game.towerdirection(world.gridx(x), world.gridy(y), world);
+        switch(direction){
+          case Direction.LEFT: baseframe = 18;
+          case Direction.RIGHT: baseframe = 24;
+          case Direction.UP: baseframe = 30;
+          case Direction.DOWN: baseframe = 36;
+        }
+
+        var tileset:Tileset = Gfx.gettileset("towers");
+        sprite = new h2d.Anim(tileset.tiles, 0);
+        sprite.x = x;
+        sprite.y = y;
+        Game.towerlayer.addChild(sprite);
+
+        primative = new h2d.Graphics();
+        primative.x = x;
+        primative.y = y;
+        updatetowerradius();
+        primative.visible = false;
+
+        //Let's try a fancy new heaps thing!
+        var interaction = new h2d.Interactive(world.tilewidth, world.tileheight, sprite);
+
+        interaction.onOver = function(event : hxd.Event) {
+          sprite.alpha = 0.7;
+          primative.visible = true;
+        }
+
+        interaction.onOut = function(event : hxd.Event) {
+          sprite.alpha = 1;
+          primative.visible = false;
+        }
+
+        Game.uilayer.addChild(primative);
+      case BULLET:
         x += centerx;
         y += centery;
         var tileset:Tileset = Gfx.gettileset("particles");
@@ -121,6 +166,10 @@ class Entity{
         sprite.x = x;
         sprite.y = y;
         Game.bulletlayer.addChild(sprite);
+      case BEAM:
+        x += centerx;
+        y += centery;
+        //We attach the sprite elsewhere
       default:
         throw("Error: cannot create an entity without a type.");
     }
@@ -222,7 +271,7 @@ class Entity{
       case GOAL:
       case ENEMY1:
         standardenemymove();
-      case TOWER1:
+      case TOWER_SHOOTY:
         timetillframechange -= Core.deltatime;
         if(timetillframechange <= 0){
           offsetframe = 0;
@@ -238,7 +287,25 @@ class Entity{
           }
           timetillnextshot = firerate;
         }
-      case BULLET1:
+      case TOWER_BEAM:
+          timetillframechange -= Core.deltatime;
+          if(timetillframechange <= 0){
+            offsetframe = 0;
+          }
+  
+          timetillnextshot -= Core.deltatime;
+          if(timetillnextshot <= 0){
+            Game.picktarget(this);
+            if(targetentity != null){
+              Game.createbeam(this);
+              offsetframe = 1;
+              timetillframechange = 0.25;
+            }
+            timetillnextshot = firerate;
+          }
+      case BULLET:
+        //Do nothing
+      case BEAM:
         //Do nothing
       default:
         throw("Error: cannot create an entity without a type.");
@@ -261,14 +328,21 @@ class Entity{
     
         primative.x = x - (world.tilewidth * 0.25);
         primative.y = y - 10;
-      case TOWER1:
+      case TOWER_SHOOTY:
         sprite.x = x;
         sprite.y = y;
 
         sprite.currentFrame = baseframe + offsetframe;
-      case BULLET1:
+      case TOWER_BEAM:
         sprite.x = x;
         sprite.y = y;
+
+        sprite.currentFrame = baseframe + offsetframe;
+      case BULLET:
+        sprite.x = x;
+        sprite.y = y;
+      case BEAM:
+        //Don't mess with the beam position
       default:
         throw("Error: cannot create an entity without a type.");
     }

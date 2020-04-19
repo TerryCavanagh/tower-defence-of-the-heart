@@ -2,7 +2,10 @@ package engine;
 
 enum EntityType{
   ENEMY1;
-  TOWER1;
-  BULLET1;
+  TOWER_SHOOTY;
+  TOWER_BEAM;
   GOAL;
+
+  BULLET;
+  BEAM;
 }

@@ -48,6 +48,10 @@ class Gfx{
     return tileindex.get(tileset);
   }
 
+  public static function getimage(imagename:String):h2d.Tile{
+    return imageindex.get(imagename);
+  }
+
   public static function drawtile(x:Float, y:Float, tilesetname:String, tilenum:Int, id:String = "", ?pos:haxe.PosInfos){
     if(id == "") id = pos.fileName + "_" + pos.lineNumber;
 

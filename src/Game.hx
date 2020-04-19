@@ -21,7 +21,23 @@ class Game{
   public static var gold:Int;
 
   public static function upgradetower(tower:Entity){
-    if(tower.type == EntityType.TOWER1){
+    if(tower.type == EntityType.TOWER_SHOOTY){
+      if(tower.level == 1){
+        tower.baseframe+=2;
+        tower.bulletdamage = 2;
+        tower.targetradius += 8;
+        tower.level = 2;
+
+        tower.updatetowerradius();
+      }else if(tower.level == 2){
+        tower.baseframe+=2;
+        tower.bulletdamage = 4;
+        tower.targetradius += 8;
+        tower.level = 3;
+
+        tower.updatetowerradius();
+      }
+    }else if(tower.type == EntityType.TOWER_BEAM){
       if(tower.level == 1){
         tower.baseframe+=2;
         tower.bulletdamage = 2;
@@ -40,8 +56,21 @@ class Game{
     }
   }
 
+  public static function towerdirection(x:Int, y:Int, w:World):Direction{
+    if(w.heatat(x - 1, y, false) < 10000){
+      return Direction.LEFT;
+    }else if(w.heatat(x + 1, y, false) < 10000){
+      return Direction.RIGHT;
+    }else if(w.heatat(x, y - 1, false) < 10000){
+      return Direction.UP;
+    }else if(w.heatat(x, y + 1, false) < 10000){
+      return Direction.DOWN;
+    }
+    return Direction.LEFT;
+  }
+
   public static function createtower(x:Int, y:Int, type:EntityType, w:World){
-    w.towers.push(Entity.create(x, y, EntityType.TOWER1, w));
+    w.towers.push(Entity.create(x, y, type, w));
   }
 
   public static function createmonster(x:Int, y:Int, type:EntityType, hp:Int, w:World){
@@ -52,10 +81,55 @@ class Game{
     w.monsters.push(enemy);
   }
 
+  public static function createbeam(tower:Entity){
+    var w:World = tower.world;
+
+    var newbeam:Entity = Entity.create(w.gridx(tower.x), w.gridy(tower.y), EntityType.BEAM, w);
+    newbeam.direction = tower.direction;
+
+    switch(newbeam.direction){
+      case Direction.LEFT:
+        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_horizontal")], 0);
+        newbeam.sprite.x = newbeam.x - Gfx.screenwidth;
+        newbeam.sprite.y = newbeam.y + 2;
+      case Direction.RIGHT:
+        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_horizontal")], 0);
+        newbeam.sprite.x = newbeam.x + 10;
+        newbeam.sprite.y = newbeam.y + 2;
+      case Direction.UP:
+        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_vertical")], 0);
+        newbeam.sprite.x = newbeam.x + 3;
+        newbeam.sprite.y = newbeam.y - Gfx.screenheight;
+      case Direction.DOWN:
+        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_vertical")], 0);
+        newbeam.sprite.x = newbeam.x + 3;
+        newbeam.sprite.y = newbeam.y + 10;
+    }
+
+    bulletlayer.addChild(newbeam.sprite);
+
+    newbeam.updatebeam(1.0);
+
+    //Beams damage all enemies in path instantously when created:
+    //TO DO
+
+    Actuate.tween(newbeam, 1.0, {animpercent: 1.0})
+      .ease(Sine.easeIn)
+      .onUpdate(function(){
+        newbeam.updatebeam(1 - newbeam.animpercent);
+      })
+      .onComplete(function(){
+        //Destory the beam
+        newbeam.destroy();
+      });
+
+    w.bullets.push(newbeam);
+  }
+
   public static function createbullet(tower:Entity, monster:Entity){
     var w:World = tower.world;
 
-    var newbullet:Entity = Entity.create(w.gridx(tower.x), w.gridy(tower.y), EntityType.BULLET1, w);
+    var newbullet:Entity = Entity.create(w.gridx(tower.x), w.gridy(tower.y), EntityType.BULLET, w);
 
     Actuate.tween(newbullet, 0.4, {animpercent: 1.0})
      .onUpdate(function(){

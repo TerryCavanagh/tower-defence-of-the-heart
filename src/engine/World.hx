@@ -122,9 +122,11 @@ class World{
 	}
 
 	/* Get the heat at position x, y */
-	public function heatat(x:Float, y:Float):Int{
-		x = gridx(x);
-		y = gridy(y);
+	public function heatat(x:Float, y:Float, fixtogrid:Bool = true):Int{
+		if(fixtogrid){
+			x = gridx(x);
+			y = gridy(y);
+		}
 		if(Geom.inbox(x, y, 0, 0, width, height)){
 			return heatmap[Std.int(x)][Std.int(y)];
 		}else{
