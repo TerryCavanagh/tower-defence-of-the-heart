@@ -20,14 +20,14 @@ class Game{
   public static function upgradetower(tower:Entity){
     if(tower.type == EntityType.TOWER1){
       if(tower.level == 1){
-        tower.sprite.currentFrame++;
+        tower.baseframe+=2;
         tower.bulletdamage = 2;
         tower.targetradius += 8;
         tower.level = 2;
 
         tower.updatetowerradius();
       }else if(tower.level == 2){
-        tower.sprite.currentFrame++;
+        tower.baseframe+=2;
         tower.bulletdamage = 4;
         tower.targetradius += 8;
         tower.level = 3;

@@ -22,9 +22,9 @@ class Waves{
     currentwave = -1; //First wave
     enemiesleft = 0;
 
-    waves.push(new Wave(EntityType.ENEMY1, 10, 1, 0.6, 1));
-    waves.push(new Wave(EntityType.ENEMY1, 10, 5, 0.6, 2));
-    waves.push(new Wave(EntityType.ENEMY1, 10, 10, 0.6, 3));
+    waves.push(new Wave(EntityType.ENEMY1, 10, 1, 1.6, 1));
+    waves.push(new Wave(EntityType.ENEMY1, 10, 5, 1.6, 2));
+    waves.push(new Wave(EntityType.ENEMY1, 10, 10, 1.6, 3));
   }
 
   public static function nextwave(){

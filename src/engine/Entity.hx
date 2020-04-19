@@ -28,7 +28,8 @@ class Entity{
     sprite = null;
     primative = null;
 
-
+    baseframe = 0;
+    offsetframe = 0;
     animpercent = 0;
 
     //Tower stuff
@@ -71,7 +72,7 @@ class Entity{
 
         Game.monsterlayer.addChild(primative);
 
-        speed = 1.4;
+        speed = 0.4;
         direction = Direction.RIGHT;
 
         maxhp = 5;
@@ -82,11 +83,12 @@ class Entity{
         targetradius = 48;
         bulletdamage = 1;
         level = 1;
+        baseframe = 0;
 
         var tileset:Tileset = Gfx.gettileset("towers");
         sprite = new h2d.Anim(tileset.tiles, 0);
-        sprite.x = x;
-        sprite.y = y;
+        sprite.x = x - 10;
+        sprite.y = y - 10;
         Game.towerlayer.addChild(sprite);
 
         primative = new h2d.Graphics();
@@ -97,6 +99,8 @@ class Entity{
 
         //Let's try a fancy new heaps thing!
         var interaction = new h2d.Interactive(world.tilewidth, world.tileheight, sprite);
+        interaction.x += world.tilewidth;
+        interaction.y += world.tileheight;
 
         interaction.onOver = function(event : hxd.Event) {
           sprite.alpha = 0.7;
@@ -219,11 +223,18 @@ class Entity{
       case ENEMY1:
         standardenemymove();
       case TOWER1:
+        timetillframechange -= Core.deltatime;
+        if(timetillframechange <= 0){
+          offsetframe = 0;
+        }
+
         timetillnextshot -= Core.deltatime;
         if(timetillnextshot <= 0){
           Game.picktarget(this);
           if(targetentity != null){
             Game.createbullet(this, targetentity);
+            offsetframe = 1;
+            timetillframechange = 0.25;
           }
           timetillnextshot = firerate;
         }
@@ -248,8 +259,10 @@ class Entity{
         primative.x = x - (world.tilewidth * 0.25);
         primative.y = y - 5;
       case TOWER1:
-        sprite.x = x;
-        sprite.y = y;
+        sprite.x = x - 10;
+        sprite.y = y - 10;
+
+        sprite.currentFrame = baseframe + offsetframe;
       case BULLET1:
         sprite.x = x;
         sprite.y = y;
@@ -322,7 +335,10 @@ class Entity{
   public var bulletdamage:Float;
   public var timetillnextshot:Float;
   public var level:Int;
+  public var timetillframechange:Float;
 
   //For animation
   public var animpercent:Float;
+  public var baseframe:Int;
+  public var offsetframe:Int;
 }

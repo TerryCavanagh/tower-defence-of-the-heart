@@ -19,7 +19,7 @@ class TowerDefence{
     Waves.nextwave();
     
     Gfx.loadtiles("enemies", 10, 10);
-    Gfx.loadtiles("towers", 10, 10);
+    Gfx.loadtiles("towers", 30, 30);
     Gfx.loadtiles("particles", 10, 10);
     Gfx.gettileset("particles").pivot(Text.CENTER);
     Gfx.loadtiles("goal", 30, 30);
@@ -54,8 +54,8 @@ class TowerDefence{
     var my:Int = world.gridy(Mouse.y);
 
     //Show tower cursor
-    towercursor.x = mx * world.tilewidth;
-    towercursor.y = my * world.tileheight;
+    towercursor.x = (mx * world.tilewidth) - 10;
+    towercursor.y = (my * world.tileheight) - 10;
     towercursor.visible = true;
 
     if(Mouse.leftclick()){
