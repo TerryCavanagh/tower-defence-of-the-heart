@@ -53,6 +53,22 @@ class Game{
 
         tower.updatetowerradius();
       }
+    }else if(tower.type == EntityType.TOWER_VORTEX){
+      if(tower.level == 1){
+        tower.baseframe+=2;
+        tower.bulletdamage = 0.3;
+        tower.targetradius += 8;
+        tower.level = 2;
+
+        tower.updatetowerradius();
+      }else if(tower.level == 2){
+        tower.baseframe+=2;
+        tower.bulletdamage = 0.2;
+        tower.targetradius += 8;
+        tower.level = 3;
+
+        tower.updatetowerradius();
+      }
     }
   }
 
@@ -79,6 +95,37 @@ class Game{
     enemy.hp = enemy.maxhp;
 
     w.monsters.push(enemy);
+  }
+
+  public static function createvortex(tower:Entity){
+    var w:World = tower.world;
+
+    var newvortex:Entity = Entity.create(w.gridx(tower.x), w.gridy(tower.y), EntityType.VORTEX, w);
+    newvortex.x = tower.x;
+    newvortex.y = tower.y;
+    newvortex.targetradius = tower.targetradius;
+
+    newvortex.updatevortex(1.0);
+    bulletlayer.addChild(newvortex.primative);
+
+    //Apply slowdown effect to all enemies in the vortex
+    for(monster in w.monsters){
+      if(Geom.distance(monster.x, monster.y, newvortex.x, newvortex.y) <= newvortex.targetradius){
+        monster.slowenemy(tower.bulletdamage, 6.0); 
+      }
+    }
+
+    Actuate.tween(newvortex, 2, {animpercent: 1.0})
+      .ease(Sine.easeIn)
+      .onUpdate(function(){
+        newvortex.updatevortex(1 - newvortex.animpercent);
+      })
+      .onComplete(function(){
+        //Destory the vortex
+        newvortex.destroy();
+      });
+
+    w.bullets.push(newvortex);
   }
 
   public static function createbeam(tower:Entity){
@@ -165,7 +212,7 @@ class Game{
      .ease(Back.easeIn)
      .onComplete(function(){
        //Destory the bullet
-       newbullet.shrinkdestroy();
+       newbullet.destroy();
        //Damage the enemy
        monster.damageenemy(tower.bulletdamage);
      });

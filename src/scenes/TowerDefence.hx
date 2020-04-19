@@ -70,6 +70,8 @@ class TowerDefence{
             Game.createtower(mx, my, EntityType.TOWER_SHOOTY, world);
           }else if(cursormode == CursorMode.PLACETOWER_BEAM){
             Game.createtower(mx, my, EntityType.TOWER_BEAM, world);
+          }else if(cursormode == CursorMode.PLACETOWER_VORTEX){
+            Game.createtower(mx, my, EntityType.TOWER_VORTEX, world);
           }
         }, function(){
           
@@ -164,7 +166,7 @@ class TowerDefence{
     towercursor.visible = false;
     Game.uilayer.addChild(towercursor);
 
-    cursormode = CursorMode.PLACETOWER_BEAM;
+    cursormode = CursorMode.PLACETOWER_VORTEX;
   }
 
   public static function updatecursor(mx:Int, my:Int){
@@ -186,6 +188,11 @@ class TowerDefence{
         towercursor.x = (mx * world.tilewidth);
         towercursor.y = (my * world.tileheight);
         towercursor.visible = true;
+      case CursorMode.PLACETOWER_VORTEX:
+          towercursor.currentFrame = 6;
+          towercursor.x = (mx * world.tilewidth);
+          towercursor.y = (my * world.tileheight);
+          towercursor.visible = true;
     }
   }
 

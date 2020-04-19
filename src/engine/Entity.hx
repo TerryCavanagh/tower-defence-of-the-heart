@@ -33,6 +33,9 @@ class Entity{
     x = 0;
     y = 0;
 
+    speedmultiplier = 1.0;
+    speeddampen = 0;
+
     //Tower stuff
     targetradius = 0;
     firerate = 0;
@@ -42,6 +45,28 @@ class Entity{
 
   public function updatebeam(power:Float){
     sprite.alpha = 0.8 * power;
+  }
+
+  public function updatevortex(power:Float){
+    primative.clear();
+    
+    primative.moveTo(0, 0);
+    //Outer ring
+    primative.beginFill(Col.MAGENTA, 0.1 * power);
+    primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, targetradius);
+    primative.endFill();
+    primative.lineStyle(2, Col.MAGENTA, 0.5 * power);
+    primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, targetradius);
+
+    //Inner animations
+    primative.lineStyle(2, Col.MAGENTA, 0.3 * power);
+    primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, targetradius * power);
+    primative.lineStyle(2, Col.MAGENTA, 0.2 * power);
+    primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, targetradius * power * 3 / 4);
+    primative.lineStyle(2, Col.MAGENTA, 0.1 * power);
+    primative.drawCircle(world.tilewidth / 2, world.tileheight / 2, targetradius * power / 2);
+    
+    primative.visible = true;
   }
 
   public function updatetowerradius(){
@@ -65,7 +90,7 @@ class Entity{
 
         maxhp = 5;
         hp = maxhp;
-        baseframe = 14;
+        baseframe = 0;
 
         var tileset:Tileset = Gfx.gettileset("enemies");
         sprite = new h2d.Anim(tileset.tiles, 0);
@@ -159,6 +184,40 @@ class Entity{
         }
 
         Game.uilayer.addChild(primative);
+      case TOWER_VORTEX:
+        firerate = 2.5;
+        timetillnextshot = 0;
+        targetradius = 32;
+        bulletdamage = 0.4;
+        level = 1;
+        baseframe = 6;
+
+        var tileset:Tileset = Gfx.gettileset("towers");
+        sprite = new h2d.Anim(tileset.tiles, 0);
+        sprite.x = x;
+        sprite.y = y;
+        Game.towerlayer.addChild(sprite);
+
+        primative = new h2d.Graphics();
+        primative.x = x;
+        primative.y = y;
+        updatetowerradius();
+        primative.visible = false;
+
+        //Let's try a fancy new heaps thing!
+        var interaction = new h2d.Interactive(world.tilewidth, world.tileheight, sprite);
+
+        interaction.onOver = function(event : hxd.Event) {
+          sprite.alpha = 0.7;
+          primative.visible = true;
+        }
+
+        interaction.onOut = function(event : hxd.Event) {
+          sprite.alpha = 1;
+          primative.visible = false;
+        }
+
+        Game.uilayer.addChild(primative);
       case BULLET:
         x += centerx;
         y += centery;
@@ -171,6 +230,14 @@ class Entity{
         x += centerx;
         y += centery;
         //We attach the sprite elsewhere
+      case VORTEX:
+        x += centerx;
+        y += centery;
+
+        primative = new h2d.Graphics();
+        primative.x = x;
+        primative.y = y;
+        primative.visible = false;
       default:
         throw("Error: cannot create an entity without a type.");
     }
@@ -220,6 +287,18 @@ class Entity{
       case Direction.RIGHT:
         vx = speed;  
         vy = 0;
+    }
+
+    if(speedmultiplier < 1.0){
+      vx = vx * speedmultiplier;
+      vy = vy * speedmultiplier;
+
+      if(speeddampen > 0){
+        speeddampen -= Core.deltatime;
+      }else{
+        speedmultiplier += 0.1;
+        if(speedmultiplier > 1.0) speedmultiplier = 1.0;
+      }
     }
 
     var testx:Float = x + vx;
@@ -304,9 +383,27 @@ class Entity{
             }
             timetillnextshot = firerate;
           }
+      case TOWER_VORTEX:
+        timetillframechange -= Core.deltatime;
+        if(timetillframechange <= 0){
+          offsetframe = 0;
+        }
+
+        timetillnextshot -= Core.deltatime;
+        if(timetillnextshot <= 0){
+          Game.picktarget(this);
+          if(targetentity != null){
+            Game.createvortex(this);
+            offsetframe = 1;
+            timetillframechange = 0.25;
+          }
+          timetillnextshot = firerate;
+        }
       case BULLET:
         //Do nothing
       case BEAM:
+        //Do nothing
+      case VORTEX:
         //Do nothing
       default:
         throw("Error: cannot create an entity without a type.");
@@ -339,14 +436,29 @@ class Entity{
         sprite.y = y;
 
         sprite.currentFrame = baseframe + offsetframe;
+      case TOWER_VORTEX:
+        sprite.x = x;
+        sprite.y = y;
+
+        sprite.currentFrame = baseframe + offsetframe;
       case BULLET:
         sprite.x = x;
         sprite.y = y;
       case BEAM:
         //Don't mess with the beam position
+      case VORTEX:
+        //Don't mess with the vortex position
       default:
         throw("Error: cannot create an entity without a type.");
     }
+  }
+
+  public function slowenemy(_speedmult:Float, _speeddamp:Float){
+    if(speedmultiplier > _speedmult){
+      speedmultiplier = _speedmult;
+    }
+
+    speeddampen = _speeddamp;
   }
 
   public function damageenemy(dmg:Float){
@@ -400,6 +512,8 @@ class Entity{
   public var vy:Float;
   public var speed:Float;
   public var direction:Direction;
+  public var speedmultiplier:Float;
+  public var speeddampen:Float;
 
   public var maxhp:Float;
   public var hp:Float;
