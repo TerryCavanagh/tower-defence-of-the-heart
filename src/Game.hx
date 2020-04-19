@@ -114,7 +114,28 @@ class Game{
     newbeam.updatebeam(1.0);
 
     //Beams damage all enemies in path instantously when created:
-    //TO DO
+    var beamposition:Int;
+    
+    switch(newbeam.direction){
+      case Direction.LEFT, Direction.RIGHT:
+        //Horizontal Beams
+        beamposition = w.gridy(tower.y);
+        for(monster in w.monsters){
+          if(w.gridy(monster.y) == beamposition){
+            //Damage the enemy
+            monster.damageenemy(tower.bulletdamage);
+          }
+        }
+      case Direction.UP, Direction.DOWN:
+        //Vertical Beams
+        beamposition = w.gridy(tower.x);
+        for(monster in w.monsters){
+          if(w.gridy(monster.x) == beamposition){
+            //Damage the enemy
+            monster.damageenemy(tower.bulletdamage);
+          }
+        }
+    }
 
     Actuate.tween(newbeam, 1.0, {animpercent: 1.0})
       .ease(Sine.easeIn)
