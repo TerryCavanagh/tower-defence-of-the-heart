@@ -8,7 +8,8 @@ class Core extends hxd.App {
   override function init() {
     //s2d.scaleMode = Stretch(1280, 720);
     hxd.Res.initEmbed();
-    s2d.scaleMode = LetterBox(320, 180, false);
+    //s2d.scaleMode = LetterBox(320, 180, false);
+    s2d.scaleMode = LetterBox(240, 135, false);
     
     Text.init(this);
     Gfx.init(this);
