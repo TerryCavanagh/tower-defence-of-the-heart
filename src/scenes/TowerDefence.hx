@@ -106,7 +106,8 @@ class TowerDefence{
     //Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
     //Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
     Game.uipanel.updatecashdisplay();
-
+    Game.uipanel.updateallbuttons();
+    
     Game.updatetimers();
   }
   
@@ -204,17 +205,21 @@ class TowerDefence{
               
             });
           }
-        }else if(Game.cursormode == ButtonType.UPGRADE && toweratcursor.level < 3){
-          var upgradetowercost:Int = Game.getupgradecost(toweratcursor);
+        }else if(Game.cursormode == ButtonType.UPGRADE){
+          if(toweratcursor == null){
 
-          if(upgradetowercost > 0){
-            Game.cost(upgradetowercost, 
-            function(){
-              Game.upgradetower(toweratcursor);
-            }, 
-            function(){
+          }else if(toweratcursor.level < 3){
+            var upgradetowercost:Int = Game.getupgradecost(toweratcursor);
 
-            });
+            if(upgradetowercost > 0){
+              Game.cost(upgradetowercost, 
+              function(){
+                Game.upgradetower(toweratcursor);
+              }, 
+              function(){
+
+              });
+            }
           }
         }else if(Game.cursormode == ButtonType.SELL){
           if(toweratcursor != null){

@@ -12,6 +12,7 @@ class SimpleButton extends h2d.Object{
     y = 2 + (position * 17);
 
     pressed = false;
+    buttoncol = Col.GREEN;
 
     buttonbacking = new h2d.Graphics(this);
 
@@ -62,27 +63,48 @@ class SimpleButton extends h2d.Object{
   }
 
   public function updatebutton(){
+    canafford = true;
+    buttoncol = Col.GREEN;
+
+    switch (type){
+      case ButtonType.LASER:
+        if(Game.gold < GameData.towers.laser.cost) canafford = false;
+      case ButtonType.BEAM:
+        if(Game.gold < GameData.towers.beam.cost) canafford = false;
+      case ButtonType.VORTEX:
+        if(Game.gold < GameData.towers.vortex.cost) canafford = false;
+      case ButtonType.SHOOTY:
+        if(Game.gold < GameData.towers.shooty.cost) canafford = false;
+      default:
+    }
+
+    if(!canafford){
+      buttoncol = Col.GRAY;
+    }
+
     if(pressed){
       buttonbacking.clear();
-      buttonbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.75));
+      buttonbacking.beginFill(Col.multiplylightness(buttoncol, 0.75));
       buttonbacking.drawRect(0, 12, 14, 3);
       buttonbacking.endFill();
-      buttonbacking.beginFill(Col.multiplylightness(Col.GREEN, 1.2));
+      buttonbacking.beginFill(Col.multiplylightness(buttoncol, 1.2));
       buttonbacking.drawRect(0, 2, 14, 12);
       buttonbacking.endFill();
 
       icon.x = 2; icon.y = 3;
     }else{
       buttonbacking.clear();
-      buttonbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.75));
+      buttonbacking.beginFill(Col.multiplylightness(buttoncol, 0.75));
       buttonbacking.drawRect(0, 12, 14, 3);
       buttonbacking.endFill();
-      buttonbacking.beginFill(Col.GREEN);
+      buttonbacking.beginFill(buttoncol);
       buttonbacking.drawRect(0, 0, 14, 12);
       buttonbacking.endFill();
 
       icon.x = 2; icon.y = 1;
     }
+
+    buttoncol = Col.GREEN;
   }
 
   public function inittooltips(_type:ButtonType){
@@ -105,39 +127,39 @@ class SimpleButton extends h2d.Object{
       case ButtonType.LASER:
         tooltipname.text = "Laser";
         tooltipprice.text = "$" + GameData.towers.laser.cost;
-        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.beginFill(Col.multiplylightness(buttoncol, 0.8));
         tooltipbacking.drawRect(-34 - 20, 0, 50, 18);
         tooltipbacking.endFill();
       case ButtonType.BEAM:
         tooltipname.text = "Beam";
         tooltipprice.text = "$" + GameData.towers.beam.cost;
-        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.beginFill(Col.multiplylightness(buttoncol, 0.8));
         tooltipbacking.drawRect(-34- 10, 0, 40, 18);
         tooltipbacking.endFill();
       case ButtonType.VORTEX:
         tooltipname.text = "Vortex";
         tooltipprice.text = "$" + GameData.towers.vortex.cost;
-        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.beginFill(Col.multiplylightness(buttoncol, 0.8));
         tooltipbacking.drawRect(-34 - 30, 0, 60, 18);
         tooltipbacking.endFill();
       case ButtonType.SHOOTY:
         tooltipname.text = "Mines";
         tooltipprice.text = "$" + GameData.towers.shooty.cost;
-        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.beginFill(Col.multiplylightness(buttoncol, 0.8));
         tooltipbacking.drawRect(-34- 20, 0, 50, 18);
         tooltipbacking.endFill();
       case ButtonType.UPGRADE:
         tooltipname.text = "Upgrade";
         tooltipname.y += 5;
         tooltipprice.text = "";
-        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.beginFill(Col.multiplylightness(buttoncol, 0.8));
         tooltipbacking.drawRect(-42- 30, 0, 68, 18);
         tooltipbacking.endFill();
       case ButtonType.SELL:
         tooltipname.text = "Sell";
         tooltipname.y += 5;
         tooltipprice.text = "";
-        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.beginFill(Col.multiplylightness(buttoncol, 0.8));
         tooltipbacking.drawRect(-34- 10, 0, 40, 18);
         tooltipbacking.endFill();
     }    
@@ -162,6 +184,9 @@ class SimpleButton extends h2d.Object{
   public var buttonbacking:h2d.Graphics;
   public var icon:h2d.Anim;
   public var type:ButtonType;
+
+  public var buttoncol:Int;
+  public var canafford:Bool;
 
   public var tooltipbacking:h2d.Graphics;
   public var tooltipname:h2d.Text;

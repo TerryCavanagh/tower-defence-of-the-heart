@@ -412,7 +412,6 @@ class Game{
 
   public static function changeselectedmode(type:ButtonType){
     cursormode = type;
-    uipanel.updateallbuttons();
   }
 
   public static var twoframe:Int;
