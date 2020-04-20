@@ -16,6 +16,8 @@ class Main{
 		Gfx.loadtiles("nextindicate", 20, 20);
     Gfx.gettileset("particles").pivot(Text.CENTER);
 		Gfx.loadtiles("goal", 30, 30);
+
+		Music.play("totaleclipse");
 		
 		GameData.init();
 

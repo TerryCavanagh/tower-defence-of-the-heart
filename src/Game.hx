@@ -162,7 +162,15 @@ class Game{
   }
 
   public static function towerdirection(x:Int, y:Int, w:World):Direction{
-    if(x == 14 && y == 7) return Direction.LEFT; //Kludged in one particular square!
+    //Kludged in particular squares in the final map:
+    if(x == 14 && y == 7) return Direction.LEFT; 
+    if(x == 12 && y == 1) return Direction.DOWN;
+    if(y == 11) return Direction.UP;
+    if(y == 2) return Direction.RIGHT;
+    if(x == 1 && y == 6) return Direction.RIGHT;
+    if(x == 9 && y == 9) return Direction.RIGHT;
+
+    //Otherwise:
     if(w.heatat(x - 1, y, false) < 10000){
       return Direction.LEFT;
     }else if(w.heatat(x + 1, y, false) < 10000){
