@@ -5,6 +5,7 @@ import hxd.Key;
 @:keep
 class Main{
 	public static function init(){
+		Game.loadfonts();
 		Gfx.loadimage("beam_horizontal_left");
 		Gfx.loadimage("beam_horizontal_right");
 		Gfx.loadimage("beam_vertical_up");

@@ -6,6 +6,13 @@ import motion.Actuate;
 import motion.easing.*;
 
 class Game{
+  public static function loadfonts(){
+    textfont = hxd.Res._04b11.toFont();
+    numberfont = hxd.Res.pressstart.toFont();
+  }
+  public static var textfont:h2d.Font;
+  public static var numberfont:h2d.Font;
+
   public static function reset(){
     maxhp = GameData.other.player_health;
     hp = maxhp;

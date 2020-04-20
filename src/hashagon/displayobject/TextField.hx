@@ -2,9 +2,8 @@ package hashagon.displayobject;
 
 class TextField{
   public function new(){
-    //var font : h2d.Font = hxd.res.DefaultFont.get();
-    var font:h2d.Font = hxd.Res.thin.toFont();
-    tf = new h2d.Text(font);
+    //var font:h2d.Font = hxd.Res.pixel.toFont();
+    tf = new h2d.Text(Game.textfont);
     disposed = false;
   }
 

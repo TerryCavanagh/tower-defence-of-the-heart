@@ -9,7 +9,7 @@ class SimpleButton extends h2d.Object{
 
     type = _type;
     x = 3;
-    y = 2 + (position * 20);
+    y = 2 + (position * 17);
 
     pressed = false;
 
@@ -61,23 +61,23 @@ class SimpleButton extends h2d.Object{
     if(pressed){
       buttonbacking.clear();
       buttonbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.75));
-      buttonbacking.drawRect(0, 14, 14, 2);
+      buttonbacking.drawRect(0, 12, 14, 3);
       buttonbacking.endFill();
       buttonbacking.beginFill(Col.multiplylightness(Col.GREEN, 1.2));
-      buttonbacking.drawRect(0, 1, 14, 14);
+      buttonbacking.drawRect(0, 2, 14, 12);
       buttonbacking.endFill();
 
       icon.x = 2; icon.y = 3;
     }else{
       buttonbacking.clear();
       buttonbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.75));
-      buttonbacking.drawRect(0, 14, 14, 2);
+      buttonbacking.drawRect(0, 12, 14, 3);
       buttonbacking.endFill();
       buttonbacking.beginFill(Col.GREEN);
-      buttonbacking.drawRect(0, 0, 14, 14);
+      buttonbacking.drawRect(0, 0, 14, 12);
       buttonbacking.endFill();
 
-      icon.x = 2; icon.y = 2;
+      icon.x = 2; icon.y = 1;
     }
   }
 

@@ -14,6 +14,14 @@ class UIPanel extends h2d.Object{
     panelbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.5));
     panelbacking.drawRect(0, 0, 20, Gfx.screenheight);
     panelbacking.endFill();
+    
+    panelbacking.beginFill(Col.BLACK);
+    panelbacking.drawRect(-21, Gfx.screenheight - 14, 41, 21);
+    panelbacking.endFill();
+    
+    panelbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.5));
+    panelbacking.drawRect(-20, Gfx.screenheight - 13, 40, 20);
+    panelbacking.endFill();
     addChild(panelbacking);
 
     var interaction:h2d.Interactive = new h2d.Interactive(20, Gfx.screenheight, this);
@@ -27,7 +35,20 @@ class UIPanel extends h2d.Object{
     addbutton(ButtonType.UPGRADE);
     addbutton(ButtonType.SELL);
 
+    //Cash display
+    
+    cashdisplay = new h2d.Text(Game.numberfont, this);
+    cashdisplay.x = 18;
+    cashdisplay.y = Gfx.screenheight - 10;
+    cashdisplay.textAlign = Right;
+    cashdisplay.text = "$" + Game.gold;
+    cashdisplay.textColor = Col.YELLOW;
+    
     mouseover = false;
+  }
+
+  public function updatecashdisplay(){
+    cashdisplay.text = "$" + Game.gold;
   }
 
   public function updateallbuttons(){
@@ -45,6 +66,8 @@ class UIPanel extends h2d.Object{
   public var panelbacking:h2d.Graphics;
 
   public var buttons:Array<SimpleButton>;
+  
+  public var cashdisplay:h2d.Text;
 
   public var mouseover:Bool;
 }
