@@ -96,7 +96,15 @@ class Entity{
         sprite.y = y;
         Game.towerlayer.addChild(sprite);
       case ENEMY:
-        direction = Direction.RIGHT;
+        if(x < 0){
+          direction = Direction.RIGHT;
+        }else if(y < 0){
+          direction = Direction.DOWN;
+        }else if(world.gridx(x) > 17){
+          direction = Direction.LEFT;
+        }else{
+          direction = Direction.UP;
+        }
 
         maxhp = 5;
         hp = maxhp;

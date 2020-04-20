@@ -28,7 +28,7 @@
   "waves": {
     "totalwaves": 3,
     "wave1": { "img": 2,  "enter":0, "num": 10, "hp": 50, "spawnrate": 1.6, "speed": 0.2, "reward": 10 },
-    "wave2": { "img": 6, "enter":0, "num": 10, "hp": 50, "spawnrate": 1.6, "speed": 0.4, "reward": 10 },
+    "wave2": { "img": 6, "enter":1, "num": 10, "hp": 50, "spawnrate": 1.6, "speed": 0.4, "reward": 10 },
     "wave3": { "img": 8, "enter":0, "num": 10, "hp": 50, "spawnrate": 1.6, "speed": 0.4, "reward": 10 }
   },
   "other": {
@@ -46,6 +46,7 @@
     "endpointx": 12,
     "endpointy": 3,
     
-    "enter0x": -1, "enter0y": 4
+    "enter0x": -1, "enter0y": 4,
+    "enter1x": 6, "enter1y": 12
   }
 }

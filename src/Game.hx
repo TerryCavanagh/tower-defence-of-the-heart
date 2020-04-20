@@ -106,9 +106,18 @@ class Game{
   }
 
   public static function createmonster(x:Int, y:Int, type:Int, hp:Int, speed:Float, w:World){
-    var enemy:Entity = Entity.create(
-      GameData.other.enter0x, GameData.other.enter0y, 
-      EntityType.ENEMY, w);
+    var enemy:Entity = null;
+    
+    if(Waves.entrance == 0){
+      enemy = Entity.create(
+        GameData.other.enter0x, GameData.other.enter0y, 
+        EntityType.ENEMY, w);
+    }else if(Waves.entrance == 1){
+      enemy = Entity.create(
+        GameData.other.enter1x, GameData.other.enter1y, 
+        EntityType.ENEMY, w);
+    }
+
     enemy.maxhp = hp;
     enemy.hp = enemy.maxhp;
     enemy.baseframe = type;

@@ -1,13 +1,14 @@
 import engine.*;
 
 class Wave{
-  public function new(type:Int, num:Int, hp:Int, rate:Float, gold:Int, speed:Float){
+  public function new(type:Int, num:Int, hp:Int, rate:Float, gold:Int, speed:Float, _entrance:Int){
     enemytype = type;
     numenemies = num;
     spawnrate = rate;
     enemyhealth = hp;
     reward = gold;
     enemyspeed = speed;
+    entrance = _entrance;
   }
   
   public var enemytype:Int;
@@ -16,6 +17,7 @@ class Wave{
   public var enemyhealth:Int;
   public var enemyspeed:Float;
   public var reward:Int;
+  public var entrance:Int;
 }
 
 class Waves{
@@ -34,7 +36,8 @@ class Waves{
         nextwave.hp,
         nextwave.spawnrate,
         nextwave.reward,
-        nextwave.speed
+        nextwave.speed,
+        nextwave.enter
       ));  
     }
   }
@@ -47,6 +50,7 @@ class Waves{
     enemyhealth = waves[currentwave].enemyhealth;
     enemyspeed = waves[currentwave].enemyspeed;
     reward = waves[currentwave].reward;
+    entrance = waves[currentwave].entrance;
   }
 
   public static function finalwave():Bool{
@@ -62,4 +66,5 @@ class Waves{
   public static var spawnrate:Float;
   public static var reward:Int;
   public static var currenttype:Int;
+  public static var entrance:Int;
 }
