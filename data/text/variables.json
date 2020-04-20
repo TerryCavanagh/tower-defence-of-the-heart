@@ -41,9 +41,11 @@
     "player_health": 5,
     "startinggold": 10,
     
-    "goalx": 19,
-    "goaly": 3,
-    "endpointx": 20,
-    "endpointy": 8
+    "goalx": 9,
+    "goaly": 2,
+    "endpointx": 12,
+    "endpointy": 3,
+    
+    "enter0x": -1, "enter0y": 4
   }
 }
