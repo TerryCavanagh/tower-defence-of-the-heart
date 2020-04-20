@@ -8,6 +8,9 @@ class UIPanel extends h2d.Object{
 
     //Panel backing
     panelbacking = new h2d.Graphics();
+    panelbacking.beginFill(Col.BLACK);
+    panelbacking.drawRect(-1, 0, 1, Gfx.screenheight);
+    panelbacking.endFill();
     panelbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.5));
     panelbacking.drawRect(0, 0, 20, Gfx.screenheight);
     panelbacking.endFill();

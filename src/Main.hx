@@ -5,8 +5,10 @@ import hxd.Key;
 @:keep
 class Main{
 	public static function init(){
-		Gfx.loadimage("beam_horizontal");
-		Gfx.loadimage("beam_vertical");
+		Gfx.loadimage("beam_horizontal_left");
+		Gfx.loadimage("beam_horizontal_right");
+		Gfx.loadimage("beam_vertical_up");
+		Gfx.loadimage("beam_vertical_down");
 		Gfx.loadtiles("enemies", 10, 10);
     Gfx.loadtiles("towers", 10, 10);
     Gfx.loadtiles("particles", 10, 10);

@@ -169,19 +169,19 @@ class Game{
 
     switch(newbeam.direction){
       case Direction.LEFT:
-        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_horizontal")], 0);
+        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_horizontal_left")], 0);
         newbeam.sprite.x = newbeam.x - Gfx.screenwidth;
         newbeam.sprite.y = newbeam.y + 2;
       case Direction.RIGHT:
-        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_horizontal")], 0);
+        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_horizontal_right")], 0);
         newbeam.sprite.x = newbeam.x + 10;
         newbeam.sprite.y = newbeam.y + 2;
       case Direction.UP:
-        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_vertical")], 0);
+        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_vertical_up")], 0);
         newbeam.sprite.x = newbeam.x + 3;
         newbeam.sprite.y = newbeam.y - Gfx.screenheight;
       case Direction.DOWN:
-        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_vertical")], 0);
+        newbeam.sprite = new h2d.Anim([Gfx.getimage("beam_vertical_down")], 0);
         newbeam.sprite.x = newbeam.x + 3;
         newbeam.sprite.y = newbeam.y + 10;
     }

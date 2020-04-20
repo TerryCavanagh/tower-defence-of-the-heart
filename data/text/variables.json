@@ -42,9 +42,9 @@
     "startinggold": 10,
     
     "goalx": 9,
-    "goaly": 2,
+    "goaly": 3,
     "endpointx": 12,
-    "endpointy": 3,
+    "endpointy": 4,
     
     "enter0x": -1, "enter0y": 4,
     "enter1x": 6, "enter1y": 12
