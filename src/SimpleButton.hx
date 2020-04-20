@@ -32,6 +32,8 @@ class SimpleButton extends h2d.Object{
         icon.currentFrame = 43;
     }
 
+    inittooltips(_type);
+
     checkpressed();
     updatebutton();
 
@@ -40,11 +42,13 @@ class SimpleButton extends h2d.Object{
     interaction.onOver = function(event : hxd.Event) {
       icon.alpha = 0.7;
       buttonbacking.alpha = 0.7;
+      showtooltips();
     }
 
     interaction.onOut = function(event : hxd.Event) {
       icon.alpha = 1.0;
       buttonbacking.alpha = 1.0;
+      hidetooltips();
     }
 
     interaction.onClick = function(event : hxd.Event) {
@@ -81,9 +85,86 @@ class SimpleButton extends h2d.Object{
     }
   }
 
+  public function inittooltips(_type:ButtonType){
+    tooltipbacking = new h2d.Graphics(this);
+
+    tooltipname = new h2d.Text(Game.textfont, this);
+    tooltipname.x = -4;
+    tooltipname.y = 1;
+    tooltipname.textAlign = Right;
+    tooltipname.textColor = Col.WHITE;
+
+    tooltipprice = new h2d.Text(Game.numberfont, this);
+    tooltipprice.x = -4;
+    tooltipprice.y = 8;
+    tooltipprice.textAlign = Right;
+    tooltipprice.textColor = Col.YELLOW;
+
+    switch(_type){
+      case ButtonType.LASER:
+        tooltipname.text = "Laser";
+        tooltipprice.text = "$" + GameData.towers.laser.cost;
+        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.drawRect(-34, 0, 30, 16);
+        tooltipbacking.endFill();
+      case ButtonType.BEAM:
+        tooltipname.text = "Beam";
+        tooltipprice.text = "$" + GameData.towers.beam.cost;
+        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.drawRect(-34, 0, 30, 16);
+        tooltipbacking.endFill();
+      case ButtonType.VORTEX:
+        tooltipname.text = "Vortex";
+        tooltipprice.text = "$" + GameData.towers.vortex.cost;
+        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.drawRect(-34 -4, 0, 34, 16);
+        tooltipbacking.endFill();
+      case ButtonType.SHOOTY:
+        tooltipname.text = "Mines";
+        tooltipprice.text = "$" + GameData.towers.shooty.cost;
+        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.drawRect(-34, 0, 30, 16);
+        tooltipbacking.endFill();
+      case ButtonType.UPGRADE:
+        tooltipname.text = "Upgrade";
+        tooltipname.y += 5;
+        tooltipprice.text = "";
+        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.drawRect(-42, 0, 38, 16);
+        tooltipbacking.endFill();
+      case ButtonType.SELL:
+        tooltipname.text = "Sell";
+        tooltipname.y += 5;
+        tooltipprice.text = "";
+        tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
+        tooltipbacking.drawRect(-30, 0, 26, 16);
+        tooltipbacking.endFill();
+    }    
+
+    tooltipbacking.visible = false;
+    tooltipname.visible = false;
+    tooltipprice.visible = false;
+  }
+
+  public function showtooltips(){
+    tooltipbacking.visible = true;
+    tooltipname.visible = true;
+    tooltipprice.visible = true;
+  }
+
+  public function hidetooltips(){
+    tooltipbacking.visible = false;
+    tooltipname.visible = false;
+    tooltipprice.visible = false;
+  }
+
   public var buttonbacking:h2d.Graphics;
   public var icon:h2d.Anim;
   public var type:ButtonType;
+
+  public var tooltipbacking:h2d.Graphics;
+  public var tooltipname:h2d.Text;
+  public var tooltipprice:h2d.Text;
 
   public var pressed:Bool;
 }

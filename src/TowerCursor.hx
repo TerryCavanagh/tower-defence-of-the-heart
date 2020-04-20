@@ -9,9 +9,16 @@ class TowerCursor extends h2d.Object{
     block = new h2d.Anim(Gfx.gettileset("ld46tiles").tiles, 0, this);
     icon = new h2d.Anim(Gfx.gettileset("towers").tiles, 0, this);
     tower = new h2d.Anim(Gfx.gettileset("towers").tiles, 0, this);
+    info = new h2d.Text(Game.numberfont, this);
+    info.x = 5;
+    info.y = -10;
+    info.textAlign = Center;
+    info.text = "";
+
     block.visible = false;
     tower.visible = false;
     icon.visible = false;
+    info.visible = false;
   }
 
   public function changeto(t:String, mx:Int, my:Int, w:World, toweratcursor:Entity){
@@ -23,7 +30,14 @@ class TowerCursor extends h2d.Object{
     icon.x = 0;
     tower.x = 0;
 
+    var towerisnull:Bool = false;
     if(toweratcursor == null){
+      towerisnull = true;
+    }else{
+      if(toweratcursor.destroyed) towerisnull = true;
+    }
+
+    if(towerisnull){
       if(t == "laser"){
         block.currentFrame = w.contents[mx][my]; block.visible = true;
         icon.currentFrame = 44; icon.visible = true;
@@ -96,6 +110,10 @@ class TowerCursor extends h2d.Object{
         //Don't show the block or the tower, just the icon
         icon.currentFrame = 47; icon.visible = true;
         icon.alpha = 0.8;
+
+        info.text = "$" + Game.getrefundvalue(toweratcursor);
+        info.textColor = Col.YELLOW;
+        info.visible = true;
       }else{
         throw(t + " not found in TowerCursor");
       }
@@ -106,9 +124,11 @@ class TowerCursor extends h2d.Object{
     block.visible = false;
     tower.visible = false;
     icon.visible = false;
+    info.visible = false;
   }
   
   public var block:h2d.Anim;
   public var icon:h2d.Anim;
   public var tower:h2d.Anim;
+  public var info:h2d.Text;
 }

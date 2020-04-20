@@ -7,7 +7,7 @@ import motion.easing.*;
 
 class Game{
   public static function loadfonts(){
-    textfont = hxd.Res._04b11.toFont();
+    textfont = hxd.Res.pixel.toFont();
     numberfont = hxd.Res.pressstart.toFont();
   }
   public static var textfont:h2d.Font;
@@ -26,6 +26,52 @@ class Game{
   public static var hp:Int;
   public static var maxhp:Int;
   public static var gold:Int;
+
+  public static function getrefundvalue(toweratcursor:Entity):Int{
+    var refund:Int = 0;
+    if(toweratcursor.type == EntityType.TOWER_SHOOTY){
+      refund += GameData.towers.shooty.cost;
+      if(toweratcursor.level >= 2){
+        refund += GameData.towers.shooty.level1.upgradecost;
+      }
+      if(toweratcursor.level >= 3){
+        refund += GameData.towers.shooty.level2.upgradecost;
+      }
+    }else if(toweratcursor.type == EntityType.TOWER_BEAM){
+      refund += GameData.towers.beam.cost;
+      if(toweratcursor.level >= 2){
+        refund += GameData.towers.beam.level1.upgradecost;
+      }
+      if(toweratcursor.level >= 3){
+        refund += GameData.towers.beam.level2.upgradecost;
+      }
+    }else if(toweratcursor.type == EntityType.TOWER_VORTEX){
+      refund += GameData.towers.vortex.cost;
+      if(toweratcursor.level >= 2){
+        refund += GameData.towers.vortex.level1.upgradecost;
+      }
+      if(toweratcursor.level >= 3){
+        refund += GameData.towers.vortex.level2.upgradecost;
+      }
+    }else if(toweratcursor.type == EntityType.TOWER_LASER){
+      refund += GameData.towers.laser.cost;
+      if(toweratcursor.level >= 2){
+        refund += GameData.towers.laser.level1.upgradecost;
+      }
+      if(toweratcursor.level >= 3){
+        refund += GameData.towers.laser.level2.upgradecost;
+      }
+    }
+
+    refund = Std.int(refund * 0.8);
+    if(refund < 1) refund = 1;
+    return refund;
+  }
+
+  public static function refundtower(toweratcursor:Entity){
+    gold += getrefundvalue(toweratcursor);
+    toweratcursor.destroy();
+  }
 
   public static function upgradetower(tower:Entity){
     if(tower.type == EntityType.TOWER_SHOOTY){
