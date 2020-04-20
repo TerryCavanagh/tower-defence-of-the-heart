@@ -42,6 +42,20 @@ class Waves{
     }
   }
 
+  public static function convertimgtoframe(img:String):Int{
+    switch(img){
+      case "skelly":  return 0;
+      case "knight":   return 2;
+      case "demon":   return 4;
+      case "slime":   return 6;
+      case "wisp":   return 8;
+      case "tree":   return 10;
+      case "rat":   return 12;
+      case "cultist": return 14;
+    }
+    return 0;
+  }
+
   public static function nextwave(){
     currentwave++;
     enemiesleft = waves[currentwave].numenemies;

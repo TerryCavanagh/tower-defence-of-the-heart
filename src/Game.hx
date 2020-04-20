@@ -21,6 +21,8 @@ class Game{
     
     leveltime = 0;
     twoframe = 0;
+    twoframeslow = 0;
+    speed = 1.0;
   }
 
   public static var hp:Int;
@@ -63,7 +65,7 @@ class Game{
       }
     }
 
-    refund = Std.int(refund * 0.8);
+    refund = Std.int(refund * GameData.other.refundrate);
     if(refund < 1) refund = 1;
     return refund;
   }
@@ -160,6 +162,7 @@ class Game{
   }
 
   public static function towerdirection(x:Int, y:Int, w:World):Direction{
+    if(x == 14 && y == 7) return Direction.LEFT; //Kludged in one particular square!
     if(w.heatat(x - 1, y, false) < 10000){
       return Direction.LEFT;
     }else if(w.heatat(x + 1, y, false) < 10000){
@@ -172,22 +175,50 @@ class Game{
     return Direction.LEFT;
   }
 
-  public static function createtower(x:Int, y:Int, type:EntityType, w:World){
-    w.towers.push(Entity.create(x, y, type, w));
+  public static function createtower(x:Int, y:Int, type:EntityType, w:World, lvl:Int = 1){
+    var newtower:Entity = Entity.create(x, y, type, w);
+    if(lvl == 2){
+      upgradetower(newtower);
+    }else if(lvl == 3){
+      upgradetower(newtower);
+      upgradetower(newtower);
+    }
+    
+    w.towers.push(newtower);
   }
 
   public static function createmonster(x:Int, y:Int, type:Int, hp:Int, speed:Float, w:World){
     var enemy:Entity = null;
     
+    var enterx:Int = GameData.other.enter0x; 
+    var entery:Int = GameData.other.enter0y;
+
     if(Waves.entrance == 0){
-      enemy = Entity.create(
-        GameData.other.enter0x, GameData.other.enter0y, 
-        EntityType.ENEMY, w);
+      enterx = GameData.other.enter0x;
+      entery = GameData.other.enter0y;
     }else if(Waves.entrance == 1){
-      enemy = Entity.create(
-        GameData.other.enter1x, GameData.other.enter1y, 
-        EntityType.ENEMY, w);
+      enterx = GameData.other.enter1x;
+      entery = GameData.other.enter1y;
+    }else if(Waves.entrance == 2){
+      enterx = GameData.other.enter2x;
+      entery = GameData.other.enter2y;
+    }else if(Waves.entrance == 3){
+      enterx = GameData.other.enter3x;
+      entery = GameData.other.enter3y;
+    }else if(Waves.entrance == 4){
+      if(Waves.enemiesleft % 3 == 0){
+        enterx = GameData.other.enter0x;
+        entery = GameData.other.enter0y;
+      }else if(Waves.enemiesleft % 3 == 1){
+        enterx = GameData.other.enter1x;
+        entery = GameData.other.enter1y;
+      }else if(Waves.enemiesleft % 3 == 2){
+        enterx = GameData.other.enter3x;
+        entery = GameData.other.enter3y;
+      }
     }
+    
+    enemy = Entity.create(enterx, entery, EntityType.ENEMY, w);
 
     enemy.maxhp = hp;
     enemy.hp = enemy.maxhp;
@@ -408,6 +439,7 @@ class Game{
     leveltime += hxd.Timer.dt;
 
     twoframe = (((leveltime * 1000) % 400 > 200)?1:0);
+    twoframeslow = (((leveltime * 1000) % 800 > 400)?1:0);
   }
 
   public static function changeselectedmode(type:ButtonType){
@@ -415,6 +447,7 @@ class Game{
   }
 
   public static var twoframe:Int;
+  public static var twoframeslow:Int;
 
   public static var backgroundlayer:h2d.Object;
   public static var monsterlayer:h2d.Object;
@@ -426,4 +459,6 @@ class Game{
   public static var leveltime:Float;
 
   public static var cursormode:ButtonType;
+
+  public static var speed:Float;
 }

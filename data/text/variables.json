@@ -2,52 +2,69 @@
   "towers": {
     "laser": {
       "cost": 5,
-      "level1": { "firerate": 0.25, "radius": 20, "damage": 1, "upgradecost": 6 }, 
-      "level2": { "firerate": 0.25, "radius": 25, "damage": 2, "upgradecost": 10 },
-      "level3": { "firerate": 0.25, "radius": 30, "damage": 3 }
+      "level1": { "firerate": 0.25, "radius": 25, "damage": 1, "upgradecost": 6 }, 
+      "level2": { "firerate": 0.25, "radius": 30, "damage": 2, "upgradecost": 10 },
+      "level3": { "firerate": 0.25, "radius": 35, "damage": 3 }
     },
     "beam": {
       "cost": 12,
-      "level1": { "firerate": 2.0, "radius": 48, "damage": 1, "upgradecost": 1 }, 
-      "level2": { "firerate": 2.0, "radius": 56, "damage": 2, "upgradecost": 5 },
-      "level3": { "firerate": 2.0, "radius": 64, "damage": 4 }
+      "level1": { "firerate": 2.0, "radius": 1000, "damage": 10, "upgradecost": 15 }, 
+      "level2": { "firerate": 2.0, "radius": 1000, "damage": 30, "upgradecost": 25 },
+      "level3": { "firerate": 2.0, "radius": 1000, "damage": 50 }
     },
     "shooty": {
-      "cost": 10,
-      "level1": { "firerate": 0.8, "radius": 48, "damage": 1, "upgradecost": 1 }, 
-      "level2": { "firerate": 0.8, "radius": 56, "damage": 2, "upgradecost": 5 },
-      "level3": { "firerate": 0.8, "radius": 64, "damage": 4 }
+      "cost": 50,
+      "level1": { "firerate": 1.5, "radius": 48, "damage": 100, "upgradecost": 60 }, 
+      "level2": { "firerate": 1.5, "radius": 56, "damage": 200, "upgradecost": 120 },
+      "level3": { "firerate": 1.5, "radius": 64, "damage": 300 }
     },
     "vortex": {
-      "cost": 20,
-      "level1": { "firerate": 2.5, "radius": 32, "damage": 0.4, "upgradecost": 1 }, 
-      "level2": { "firerate": 2.5, "radius": 40, "damage": 0.3, "upgradecost": 5 },
-      "level3": { "firerate": 2.5, "radius": 48, "damage": 0.2 }
+      "cost": 25,
+      "level1": { "firerate": 2.5, "radius": 25, "damage": 0.4, "upgradecost": 30 }, 
+      "level2": { "firerate": 2.5, "radius": 30, "damage": 0.3, "upgradecost": 50 },
+      "level3": { "firerate": 2.5, "radius": 35, "damage": 0.2 }
     }
   },
   "waves": {
-    "totalwaves": 4,
-    "wave1": { "img": 6, "enter":1, "num": 5, "hp": 10, "spawnrate": 3, "speed": 0.1, "reward": 1 },
-    "wave2": { "img": 0, "enter":0, "num": 10, "hp": 12, "spawnrate": 2, "speed": 0.2, "reward": 1 },
-    "wave3": { "img": 14, "enter":1, "num": 10, "hp": 15, "spawnrate": 2, "speed": 0.2, "reward": 1 },
-    "wave4": { "img": 16, "enter":0, "num": 10, "hp": 12, "spawnrate": 1, "speed": 0.2, "reward": 1 }
+    "totalwaves": 15,
+    "wave1": { "img":"slime",  "enter":0, "num": 6, "hp": 5, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave2": { "img":"skelly", "enter":1, "num": 10, "hp": 18, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave3": { "img":"cultist", "enter":3, "num": 20, "hp": 35, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave4": { "img":"wisp", "enter":1, "num": 10, "hp": 55, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave5": { "img":"knight", "enter":3, "num": 1, "hp": 130, "spawnrate": 2, "speed": 0.2, "reward": 10 },
+    
+    "wave6": { "img":"skelly", "enter":1, "num": 10, "hp": 100, "spawnrate": 2, "speed": 0.2, "reward": 2 },
+    "wave7": { "img":"rat", "enter":0, "num": 30, "hp": 25, "spawnrate": 0.5, "speed": 0.8, "reward": 1 },
+    "wave8": { "img":"slime", "enter":3, "num": 20, "hp": 150, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave9": { "img":"tree", "enter":4, "num": 20, "hp": 200, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave10": { "img":"demon", "enter":3, "num": 1, "hp": 500, "spawnrate": 2, "speed": 0.2, "reward": 20 },
+    
+    "wave11": { "img":"wisp", "enter":2, "num": 6, "hp": 300, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave12": { "img":"skelly", "enter":0, "num": 10, "hp": 350, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave13": { "img":"cultist", "enter":1, "num": 40, "hp": 400, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave14": { "img":"slime", "enter":3, "num": 10, "hp": 450, "spawnrate": 2, "speed": 0.2, "reward": 1 },
+    "wave15": { "img":"knight", "enter":4, "num": 3, "hp": 500, "spawnrate": 2, "speed": 0.2, "reward": 10 },
   },
   "other": {
-    "shooty_animation_time": 0.4,
+    "shooty_animation_time": 1.0,
     "beam_animation_time": 1.0,
-    "vortex_animation_time": 2.0,
-    "vortex_duration": 6.0,
+    "vortex_animation_time": 1.0,
+    "vortex_duration": 4.0,
     "laser_animation_time": 1,
     
     "player_health": 5,
-    "startinggold": 6,
+    "startinggold": 5,
     
     "goalx": 9,
     "goaly": 3,
     "endpointx": 12,
     "endpointy": 4,
     
-    "enter0x": -1, "enter0y": 4,
-    "enter1x": 6, "enter1y": 12
+    "refundrate": 1,
+    
+    "enter0x": 6, "enter0y": 12,
+    "enter1x": -1, "enter1y": 4,
+    "enter2x": 18, "enter2y": 8,
+    "enter3x": 3, "enter3y": -1
   }
 }

@@ -194,12 +194,12 @@ class Entity{
 
         interaction.onOver = function(event : hxd.Event) {
           sprite.alpha = 0.7;
-          primative.visible = true;
+          //primative.visible = true;
         }
 
         interaction.onOut = function(event : hxd.Event) {
           sprite.alpha = 1;
-          primative.visible = false;
+          //primative.visible = false;
         }
 
         Game.uilayer.addChild(primative);
@@ -338,15 +338,15 @@ class Entity{
     switch(direction){
       case Direction.UP:
         vx = 0;  
-        vy = -speed;
+        vy = -speed * Game.speed;
       case Direction.DOWN:
         vx = 0;  
-        vy = speed;
+        vy = speed * Game.speed;
       case Direction.LEFT:
-        vx = -speed;  
+        vx = -speed * Game.speed;  
         vy = 0;
       case Direction.RIGHT:
-        vx = speed;  
+        vx = speed * Game.speed;  
         vy = 0;
     }
 
@@ -355,7 +355,7 @@ class Entity{
       vy = vy * speedmultiplier;
 
       if(speeddampen > 0){
-        speeddampen -= Core.deltatime;
+        speeddampen -= Core.deltatime * Game.speed;
       }else{
         speedmultiplier += 0.1;
         if(speedmultiplier > 1.0) speedmultiplier = 1.0;
@@ -413,12 +413,12 @@ class Entity{
       case ENEMY:
         standardenemymove();
       case TOWER_SHOOTY:
-        timetillframechange -= Core.deltatime;
+        timetillframechange -= Core.deltatime * Game.speed;
         if(timetillframechange <= 0){
           offsetframe = 0;
         }
 
-        timetillnextshot -= Core.deltatime;
+        timetillnextshot -= Core.deltatime * Game.speed;
         if(timetillnextshot <= 0){
           Game.picktarget(this);
           if(targetentity != null){
@@ -429,12 +429,12 @@ class Entity{
           timetillnextshot = firerate;
         }
       case TOWER_BEAM:
-          timetillframechange -= Core.deltatime;
+          timetillframechange -= Core.deltatime * Game.speed;
           if(timetillframechange <= 0){
             offsetframe = 0;
           }
   
-          timetillnextshot -= Core.deltatime;
+          timetillnextshot -= Core.deltatime * Game.speed;
           if(timetillnextshot <= 0){
             Game.picktarget(this);
             if(targetentity != null){
@@ -445,12 +445,12 @@ class Entity{
             timetillnextshot = firerate;
           }
       case TOWER_VORTEX:
-        timetillframechange -= Core.deltatime;
+        timetillframechange -= Core.deltatime * Game.speed;
         if(timetillframechange <= 0){
           offsetframe = 0;
         }
 
-        timetillnextshot -= Core.deltatime;
+        timetillnextshot -= Core.deltatime * Game.speed;
         if(timetillnextshot <= 0){
           Game.picktarget(this);
           if(targetentity != null){
@@ -461,12 +461,12 @@ class Entity{
           timetillnextshot = firerate;
         }
       case TOWER_LASER:
-        timetillframechange -= Core.deltatime;
+        timetillframechange -= Core.deltatime * Game.speed;
         if(timetillframechange <= 0){
           offsetframe = 0;
         }
 
-        timetillnextshot -= Core.deltatime;
+        timetillnextshot -= Core.deltatime * Game.speed;
         if(timetillnextshot <= 0){
           Game.picktarget(this);
           if(targetentity != null){

@@ -35,6 +35,7 @@ class TowerDefence{
     world.bullets = [];
     world.particles = [];
 
+    setupnextwaveindicators();
     inituielements();
 
     world.towers.push(Entity.create(GameData.other.goalx, GameData.other.goaly, EntityType.GOAL, world));
@@ -48,6 +49,16 @@ class TowerDefence{
 
     //Show tower cursor
     updatecursor(mx, my);
+
+    if(Waves.enemiesleft <=0){
+      if(!Waves.finalwave()){
+        shownextwaveindicators(Waves.waves[Waves.currentwave+1].entrance);
+      }
+    }else{
+      shownextwaveindicators(-1);
+    }
+
+    animatenextwaveindicators();
     
     if(Input.justpressed(Key.SPACE)){
       if(!Waves.finalwave()){
@@ -101,13 +112,25 @@ class TowerDefence{
     }else if(Input.justpressed(Key.NUMBER_4)){
       Game.cursormode = ButtonType.VORTEX;
       Game.uipanel.updateallbuttons();
+    }else if(Input.justpressed(Key.NUMBER_5)){
+      Game.cursormode = ButtonType.UPGRADE;
+      Game.uipanel.updateallbuttons();
+    }else if(Input.justpressed(Key.NUMBER_6)){
+      Game.cursormode = ButtonType.SELL;
+      Game.uipanel.updateallbuttons();
+    }
+
+    if(Input.justpressed(Key.P)){
+      QuickSave.quicksave(world);
+    }else if(Input.justpressed(Key.L)){
+      QuickSave.quickload(world);
     }
     //UI stuff
     //Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
     //Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
     Game.uipanel.updatecashdisplay();
     Game.uipanel.updateallbuttons();
-    
+
     Game.updatetimers();
   }
   
@@ -230,5 +253,56 @@ class TowerDefence{
     }
   }
 
+  public static function shownextwaveindicators(num:Int){
+    if(num <= -1){
+      for(i in 0 ... 4) nextwaveindicators[i].visible = false;
+    }else if(num < 4){
+      for(i in 0 ... 4) nextwaveindicators[i].visible = false;
+      nextwaveindicators[num].visible = true;
+    }else{
+      for(i in 0 ... 4) nextwaveindicators[i].visible = true;
+      nextwaveindicators[2].visible = false;
+    }
+  }
+
+  public static function animatenextwaveindicators(){
+    for(i in 0 ... 4){
+      if(nextwaveindicators[i].visible){
+        nextwaveindicators[i].alpha = ((Game.twoframe == 0)?0.5:1.0);
+      }
+    } 
+  }
+
+  public static function setupnextwaveindicators(){
+    nextwaveindicators = [];
+    var tileset:hashagon.displayobject.Tileset = Gfx.gettileset("nextindicate");
+
+    var nw:h2d.Anim = new h2d.Anim(tileset.tiles, 0, Game.backgroundlayer);
+    nw.x = (GameData.other.enter0x * 10) - 5;
+    nw.y = (GameData.other.enter0y - 2) * 10;
+    nw.visible = false;
+    nw.currentFrame = 0; nextwaveindicators.push(nw);
+
+    nw = new h2d.Anim(tileset.tiles, 0, Game.backgroundlayer);
+    nw.x = (GameData.other.enter1x + 1) * 10;
+    nw.y = (GameData.other.enter1y * 10) - 10;
+    nw.visible = false;
+    nw.currentFrame = 3; nextwaveindicators.push(nw);
+
+    nw = new h2d.Anim(tileset.tiles, 0, Game.backgroundlayer);
+    nw.x = (GameData.other.enter2x - 2) * 10;
+    nw.y = (GameData.other.enter2y * 10) - 10;
+    nw.visible = false;
+    nw.currentFrame = 2; nextwaveindicators.push(nw);
+
+    nw = new h2d.Anim(tileset.tiles, 0, Game.backgroundlayer);
+    nw.x = (GameData.other.enter3x * 10) - 5;
+    nw.y = ((GameData.other.enter3y + 1) * 10) + 0;
+    nw.visible = false;
+    nw.currentFrame = 1; nextwaveindicators.push(nw);
+  }
+
   public static var towercursor:TowerCursor;
+
+  public static var nextwaveindicators:Array<h2d.Anim>;
 }

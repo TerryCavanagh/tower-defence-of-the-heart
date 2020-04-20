@@ -13,6 +13,7 @@ class Main{
 		Gfx.loadtiles("enemies", 10, 10);
     Gfx.loadtiles("towers", 10, 10);
     Gfx.loadtiles("particles", 10, 10);
+		Gfx.loadtiles("nextindicate", 20, 20);
     Gfx.gettileset("particles").pivot(Text.CENTER);
 		Gfx.loadtiles("goal", 30, 30);
 		
