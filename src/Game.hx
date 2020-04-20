@@ -7,7 +7,7 @@ import motion.easing.*;
 
 class Game{
   public static function loadfonts(){
-    textfont = hxd.Res.pixel.toFont();
+    textfont = hxd.Res.pressstart.toFont();
     numberfont = hxd.Res.pressstart.toFont();
   }
   public static var textfont:h2d.Font;
@@ -66,6 +66,24 @@ class Game{
     refund = Std.int(refund * 0.8);
     if(refund < 1) refund = 1;
     return refund;
+  }
+
+  public static function getupgradecost(toweratcursor:Entity):Int{
+    var upgradetowercost:Int = 0;
+    if(toweratcursor.type == EntityType.TOWER_SHOOTY){
+      if(toweratcursor.level == 1) upgradetowercost = GameData.towers.shooty.level1.upgradecost;
+      if(toweratcursor.level == 2) upgradetowercost = GameData.towers.shooty.level2.upgradecost;
+    }else if(toweratcursor.type == EntityType.TOWER_BEAM){
+      if(toweratcursor.level == 1) upgradetowercost = GameData.towers.beam.level1.upgradecost;
+      if(toweratcursor.level == 2) upgradetowercost = GameData.towers.beam.level2.upgradecost;
+    }else if(toweratcursor.type == EntityType.TOWER_VORTEX){
+      if(toweratcursor.level == 1) upgradetowercost = GameData.towers.vortex.level1.upgradecost;
+      if(toweratcursor.level == 2) upgradetowercost = GameData.towers.vortex.level2.upgradecost;
+    }else if(toweratcursor.type == EntityType.TOWER_LASER){
+      if(toweratcursor.level == 1) upgradetowercost = GameData.towers.laser.level1.upgradecost;
+      if(toweratcursor.level == 2) upgradetowercost = GameData.towers.laser.level2.upgradecost;
+    }
+    return upgradetowercost;
   }
 
   public static function refundtower(toweratcursor:Entity){

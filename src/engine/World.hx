@@ -28,8 +28,10 @@ class World{
 		Gfx.loadtiles(_tilesetname, _w, _h);
 		
 		collidable = [];
+		canplacetower = [];
 		for (i in 0 ... Gfx.numberoftiles(tileset)){
 			collidable[i] = false;
+			canplacetower[i] = false;
 		}
 	}
 	
@@ -37,6 +39,14 @@ class World{
 		for (i in 0 ... Gfx.numberoftiles(tileset)){
 			if(collidabletiles.indexOf(i) > -1){
 				collidable[i] = true;
+			}
+		}
+	}
+
+	public function setcanplacetower(canplacetowertiles:Array<Int>){
+		for (i in 0 ... Gfx.numberoftiles(tileset)){
+			if(canplacetowertiles.indexOf(i) > -1){
+				canplacetower[i] = true;
 			}
 		}
 	}
@@ -171,6 +181,7 @@ class World{
 	public var height:Int;
 	
 	public var collidable:Array<Bool>;
+	public var canplacetower:Array<Bool>;
 	
 	public var tileset:String;
 	public var tilewidth:Int;

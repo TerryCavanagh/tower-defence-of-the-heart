@@ -24,6 +24,7 @@ class TowerDefence{
 				world.collidable[i] = true;
 			}
     }
+    world.setcanplacetower([6, 7, 8, 9, 10]);
     
     world.loadcsv("testmap");
     world.getheatmap(GameData.other.endpointx,GameData.other.endpointy);
@@ -176,7 +177,7 @@ class TowerDefence{
       }
 
       if(Mouse.leftclick()){
-        if(toweratcursor == null){
+        if(toweratcursor == null && towercursor.canplacetower(mx, my, world)){
           var currenttowercost:Int = 0;
           if(Game.cursormode == ButtonType.SHOOTY){
             currenttowercost = GameData.towers.shooty.cost;
@@ -204,20 +205,7 @@ class TowerDefence{
             });
           }
         }else if(Game.cursormode == ButtonType.UPGRADE && toweratcursor.level < 3){
-          var upgradetowercost:Int = 0;
-          if(toweratcursor.type == EntityType.TOWER_SHOOTY){
-            if(toweratcursor.level == 1) upgradetowercost = GameData.towers.shooty.level1.upgradecost;
-            if(toweratcursor.level == 2) upgradetowercost = GameData.towers.shooty.level2.upgradecost;
-          }else if(toweratcursor.type == EntityType.TOWER_BEAM){
-            if(toweratcursor.level == 1) upgradetowercost = GameData.towers.beam.level1.upgradecost;
-            if(toweratcursor.level == 2) upgradetowercost = GameData.towers.beam.level2.upgradecost;
-          }else if(toweratcursor.type == EntityType.TOWER_VORTEX){
-            if(toweratcursor.level == 1) upgradetowercost = GameData.towers.vortex.level1.upgradecost;
-            if(toweratcursor.level == 2) upgradetowercost = GameData.towers.vortex.level2.upgradecost;
-          }else if(toweratcursor.type == EntityType.TOWER_LASER){
-            if(toweratcursor.level == 1) upgradetowercost = GameData.towers.laser.level1.upgradecost;
-            if(toweratcursor.level == 2) upgradetowercost = GameData.towers.laser.level2.upgradecost;
-          }
+          var upgradetowercost:Int = Game.getupgradecost(toweratcursor);
 
           if(upgradetowercost > 0){
             Game.cost(upgradetowercost, 
@@ -229,7 +217,9 @@ class TowerDefence{
             });
           }
         }else if(Game.cursormode == ButtonType.SELL){
-          Game.refundtower(toweratcursor);
+          if(toweratcursor != null){
+            Game.refundtower(toweratcursor);
+          }
         }
       }
     }

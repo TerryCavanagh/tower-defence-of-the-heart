@@ -87,16 +87,17 @@ class SimpleButton extends h2d.Object{
 
   public function inittooltips(_type:ButtonType){
     tooltipbacking = new h2d.Graphics(this);
+    tooltipbacking.y = -1;
 
     tooltipname = new h2d.Text(Game.textfont, this);
     tooltipname.x = -4;
-    tooltipname.y = 1;
+    tooltipname.y = 0;
     tooltipname.textAlign = Right;
     tooltipname.textColor = Col.WHITE;
 
     tooltipprice = new h2d.Text(Game.numberfont, this);
     tooltipprice.x = -4;
-    tooltipprice.y = 8;
+    tooltipprice.y = 9;
     tooltipprice.textAlign = Right;
     tooltipprice.textColor = Col.YELLOW;
 
@@ -105,39 +106,39 @@ class SimpleButton extends h2d.Object{
         tooltipname.text = "Laser";
         tooltipprice.text = "$" + GameData.towers.laser.cost;
         tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
-        tooltipbacking.drawRect(-34, 0, 30, 16);
+        tooltipbacking.drawRect(-34 - 20, 0, 50, 18);
         tooltipbacking.endFill();
       case ButtonType.BEAM:
         tooltipname.text = "Beam";
         tooltipprice.text = "$" + GameData.towers.beam.cost;
         tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
-        tooltipbacking.drawRect(-34, 0, 30, 16);
+        tooltipbacking.drawRect(-34- 10, 0, 40, 18);
         tooltipbacking.endFill();
       case ButtonType.VORTEX:
         tooltipname.text = "Vortex";
         tooltipprice.text = "$" + GameData.towers.vortex.cost;
         tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
-        tooltipbacking.drawRect(-34 -4, 0, 34, 16);
+        tooltipbacking.drawRect(-34 - 30, 0, 60, 18);
         tooltipbacking.endFill();
       case ButtonType.SHOOTY:
         tooltipname.text = "Mines";
         tooltipprice.text = "$" + GameData.towers.shooty.cost;
         tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
-        tooltipbacking.drawRect(-34, 0, 30, 16);
+        tooltipbacking.drawRect(-34- 20, 0, 50, 18);
         tooltipbacking.endFill();
       case ButtonType.UPGRADE:
         tooltipname.text = "Upgrade";
         tooltipname.y += 5;
         tooltipprice.text = "";
         tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
-        tooltipbacking.drawRect(-42, 0, 38, 16);
+        tooltipbacking.drawRect(-42- 30, 0, 68, 18);
         tooltipbacking.endFill();
       case ButtonType.SELL:
         tooltipname.text = "Sell";
         tooltipname.y += 5;
         tooltipprice.text = "";
         tooltipbacking.beginFill(Col.multiplylightness(Col.GREEN, 0.8));
-        tooltipbacking.drawRect(-30, 0, 26, 16);
+        tooltipbacking.drawRect(-34- 10, 0, 40, 18);
         tooltipbacking.endFill();
     }    
 
