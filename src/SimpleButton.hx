@@ -40,7 +40,6 @@ class SimpleButton extends h2d.Object{
     interaction.onOver = function(event : hxd.Event) {
       icon.alpha = 0.7;
       buttonbacking.alpha = 0.7;
-      Game.uipanel.mouseover = true;
     }
 
     interaction.onOut = function(event : hxd.Event) {

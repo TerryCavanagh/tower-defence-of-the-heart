@@ -25,13 +25,6 @@ class UIPanel extends h2d.Object{
     addbutton(ButtonType.SELL);
 
     mouseover = false;
-    interaction.onOver = function(event : hxd.Event) {
-      mouseover = true;
-    }
-
-    interaction.onOut = function(event : hxd.Event) {
-      mouseover = false;
-    }
   }
 
   public function updateallbuttons(){
