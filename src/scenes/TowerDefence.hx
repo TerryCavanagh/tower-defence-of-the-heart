@@ -60,10 +60,22 @@ class TowerDefence{
 
     animatenextwaveindicators();
     
-    if(Input.justpressed(Key.SPACE)){
-      if(!Waves.finalwave()){
-        Waves.nextwave();
+    //Call the nextwave once it's ready
+    if(!Waves.finalwave()){ 
+      if(Waves.enemiesleft <=0){
+        //Check if all enemies are dead
+        var enemiesalive:Bool = false;
+        for(monsters in world.monsters){
+          if(!monsters.destroyed){
+            enemiesalive = true;
+            break;
+          }
+        }
+        if(!enemiesalive) Waves.nextwave();
       }
+    }
+    if(Input.justpressed(Key.SPACE)){
+      
     }
 
     timetillnextspawn -= Core.deltatime;
@@ -101,23 +113,17 @@ class TowerDefence{
     //TO DO: clean up destroyed entities somewhere
 
     if(Input.justpressed(Key.NUMBER_1)){
-      Game.cursormode = ButtonType.LASER;
-      Game.uipanel.updateallbuttons();
+      Game.changeselectedmode(ButtonType.LASER);
     }else if(Input.justpressed(Key.NUMBER_2)){
-      Game.cursormode = ButtonType.BEAM;
-      Game.uipanel.updateallbuttons();
+      Game.changeselectedmode(ButtonType.BEAM);
     }else if(Input.justpressed(Key.NUMBER_3)){
-      Game.cursormode = ButtonType.SHOOTY;
-      Game.uipanel.updateallbuttons();
+      Game.changeselectedmode(ButtonType.SHOOTY);
     }else if(Input.justpressed(Key.NUMBER_4)){
-      Game.cursormode = ButtonType.VORTEX;
-      Game.uipanel.updateallbuttons();
+      Game.changeselectedmode(ButtonType.VORTEX);
     }else if(Input.justpressed(Key.NUMBER_5)){
-      Game.cursormode = ButtonType.UPGRADE;
-      Game.uipanel.updateallbuttons();
+      Game.changeselectedmode(ButtonType.UPGRADE);
     }else if(Input.justpressed(Key.NUMBER_6)){
-      Game.cursormode = ButtonType.SELL;
-      Game.uipanel.updateallbuttons();
+      Game.changeselectedmode(ButtonType.SELL);
     }
 
     if(Input.justpressed(Key.P)){
@@ -306,4 +312,6 @@ class TowerDefence{
   public static var towercursor:TowerCursor;
 
   public static var nextwaveindicators:Array<h2d.Anim>;
+
+  public static var waveprogress:WaveProgress;
 }

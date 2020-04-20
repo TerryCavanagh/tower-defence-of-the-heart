@@ -10,7 +10,7 @@
       "cost": 15,
       "level1": { "firerate": 2.0, "radius": 1000, "damage": 10, "upgradecost": 10 }, 
       "level2": { "firerate": 2.0, "radius": 1000, "damage": 15, "upgradecost": 20 },
-      "level3": { "firerate": 2.0, "radius": 1000, "damage": 20 }
+      "level3": { "firerate": 2.0, "radius": 1000, "damage": 40 }
     },
     "shooty": {
       "cost": 50,
@@ -45,11 +45,11 @@
     "wave14": { "img":"slime", "enter":3, "num": 10, "hp": 400, "spawnrate": 2, "speed": 0.2, "reward": 3 },
     "wave15": { "img":"knight", "enter":4, "num": 3, "hp": 1000, "spawnrate": 2, "speed": 0.2, "reward": 30 },
     
-    "wave16": { "img":"wisp", "enter":1, "num": 6, "hp": 500, "spawnrate": 2, "speed": 0.2, "reward": 5 },
-    "wave17": { "img":"rat", "enter":0, "num": 30, "hp": 300, "spawnrate": 0.5, "speed": 0.8, "reward": 5 },
-    "wave18": { "img":"tree", "enter":4, "num": 20, "hp": 700, "spawnrate": 2, "speed": 0.2, "reward": 5 },
-    "wave19": { "img":"knight", "enter":3, "num": 10, "hp": 1000, "spawnrate": 2, "speed": 0.2, "reward": 5 },
-    "wave20": { "img":"demon", "enter":3, "num": 20, "hp": 2000, "spawnrate": 2, "speed": 0.2, "reward": 100 }
+    "wave16": { "img":"wisp", "enter":1, "num": 6, "hp": 700, "spawnrate": 2, "speed": 0.2, "reward": 8 },
+    "wave17": { "img":"rat", "enter":0, "num": 30, "hp": 100, "spawnrate": 0.5, "speed": 0.8, "reward": 10 },
+    "wave18": { "img":"tree", "enter":4, "num": 20, "hp": 1000, "spawnrate": 2, "speed": 0.2, "reward": 15 },
+    "wave19": { "img":"knight", "enter":3, "num": 10, "hp": 1500, "spawnrate": 2, "speed": 0.2, "reward": 25 },
+    "wave20": { "img":"demon", "enter":3, "num": 20, "hp": 3000, "spawnrate": 2, "speed": 0.2, "reward": 100 }
   },
   "other": {
     "shooty_animation_time": 0.5,

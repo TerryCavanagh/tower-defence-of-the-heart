@@ -65,6 +65,8 @@ class Waves{
     enemyspeed = waves[currentwave].enemyspeed;
     reward = waves[currentwave].reward;
     entrance = waves[currentwave].entrance;
+
+    Game.playsound("nextwave");
   }
 
   public static function finalwave():Bool{

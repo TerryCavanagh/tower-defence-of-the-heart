@@ -469,6 +469,7 @@ class Game{
 
   public static function changeselectedmode(type:ButtonType){
     cursormode = type;
+    Game.playsound("button");
   }
 
   public static function playsound(sfx:String){
