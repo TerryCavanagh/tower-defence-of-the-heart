@@ -554,6 +554,7 @@ class Entity{
 
     if(hp <= 0){
       Game.gold += Waves.reward;
+      Game.playsound("destroy");
       destroy();
     }else{
       primative.clear();

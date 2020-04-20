@@ -132,6 +132,7 @@ class TowerDefence{
     Game.uipanel.updateallbuttons();
 
     Game.updatetimers();
+    Game.playsounds_endframe();
   }
   
 	public static function cleanup(){

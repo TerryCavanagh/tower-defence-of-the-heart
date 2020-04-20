@@ -23,6 +23,7 @@ class Game{
     twoframe = 0;
     twoframeslow = 0;
     speed = 1.0;
+    soundsthisframe = [];
   }
 
   public static var hp:Int;
@@ -90,6 +91,7 @@ class Game{
 
   public static function refundtower(toweratcursor:Entity){
     gold += getrefundvalue(toweratcursor);
+    Game.playsound("sell");
     toweratcursor.destroy();
   }
 
@@ -102,6 +104,7 @@ class Game{
         tower.level = 2;
 
         tower.updatetowerradius();
+        Game.playsound("upgrade");
       }else if(tower.level == 2){
         tower.baseframe += 2;
         tower.bulletdamage = GameData.towers.shooty.level3.damage;
@@ -109,6 +112,7 @@ class Game{
         tower.level = 3;
 
         tower.updatetowerradius();
+        Game.playsound("upgrade");
       }
     }else if(tower.type == EntityType.TOWER_BEAM){
       if(tower.level == 1){
@@ -118,6 +122,7 @@ class Game{
         tower.level = 2;
 
         tower.updatetowerradius();
+        Game.playsound("upgrade");
       }else if(tower.level == 2){
         tower.baseframe += 2;
         tower.bulletdamage = GameData.towers.beam.level3.damage;
@@ -125,6 +130,7 @@ class Game{
         tower.level = 3;
 
         tower.updatetowerradius();
+        Game.playsound("upgrade");
       }
     }else if(tower.type == EntityType.TOWER_VORTEX){
       if(tower.level == 1){
@@ -134,6 +140,7 @@ class Game{
         tower.level = 2;
 
         tower.updatetowerradius();
+        Game.playsound("upgrade");
       }else if(tower.level == 2){
         tower.baseframe += 2;
         tower.bulletdamage = GameData.towers.vortex.level3.damage;
@@ -141,6 +148,7 @@ class Game{
         tower.level = 3;
 
         tower.updatetowerradius();
+        Game.playsound("upgrade");
       }
     }else if(tower.type == EntityType.TOWER_LASER){
       if(tower.level == 1){
@@ -150,6 +158,7 @@ class Game{
         tower.level = 2;
 
         tower.updatetowerradius();
+        Game.playsound("upgrade");
       }else if(tower.level == 2){
         tower.baseframe += 2;
         tower.bulletdamage = GameData.towers.laser.level3.damage;
@@ -157,6 +166,7 @@ class Game{
         tower.level = 3;
 
         tower.updatetowerradius();
+        Game.playsound("upgrade");
       }
     }
   }
@@ -191,6 +201,7 @@ class Game{
       upgradetower(newtower);
       upgradetower(newtower);
     }
+    Game.playsound("place");
     
     w.towers.push(newtower);
   }
@@ -244,6 +255,7 @@ class Game{
     newvortex.y = tower.y;
     newvortex.targetradius = tower.targetradius;
 
+    Game.playsound("vortex");
     newvortex.updatevortex(1.0);
     bulletlayer.addChild(newvortex.primative);
 
@@ -323,6 +335,8 @@ class Game{
         }
     }
 
+    Game.playsound("beam");
+
     Actuate.tween(newbeam, GameData.other.beam_animation_time, {animpercent: 1.0})
       .ease(Sine.easeIn)
       .onUpdate(function(){
@@ -341,6 +355,7 @@ class Game{
 
     var newbullet:Entity = Entity.create(w.gridx(tower.x), w.gridy(tower.y), EntityType.BULLET, w);
 
+    Game.playsound("mine_launch");
     Actuate.tween(newbullet, GameData.other.shooty_animation_time, {animpercent: 1.0})
      .onUpdate(function(){
        //start point tower, end point monster
@@ -350,6 +365,7 @@ class Game{
      })
      .ease(Back.easeIn)
      .onComplete(function(){
+       Game.playsound("mine_land");
        //Destory the bullet
        newbullet.destroy();
        //Damage the enemy
@@ -371,6 +387,7 @@ class Game{
     
     //Damage the enemy immediately
     monster.damageenemy(tower.bulletdamage);
+    playsound("laser");
 
     Actuate.tween(newlaser, GameData.other.laser_animation_time, {animpercent: 1.0})
      .onUpdate(function(){
@@ -453,6 +470,19 @@ class Game{
   public static function changeselectedmode(type:ButtonType){
     cursormode = type;
   }
+
+  public static function playsound(sfx:String){
+    if(soundsthisframe.indexOf(sfx) == -1) soundsthisframe.push(sfx);
+  }
+
+  public static function playsounds_endframe(){
+    for(sounds in soundsthisframe){
+      Sound.play(sounds);
+    }
+    soundsthisframe = [];
+  }
+
+  public static var soundsthisframe:Array<String>;
 
   public static var twoframe:Int;
   public static var twoframeslow:Int;
