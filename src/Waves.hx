@@ -31,7 +31,7 @@ class Waves{
     for(i in 0 ... totalwaves){
       var nextwave:Dynamic = Reflect.getProperty(GameData.waves, "wave" + (i + 1));
       waves.push(new Wave(
-        nextwave.img,
+        convertimgtoframe(nextwave.img),
         nextwave.num,
         nextwave.hp,
         nextwave.spawnrate,
