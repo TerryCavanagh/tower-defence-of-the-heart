@@ -294,11 +294,13 @@ class Game{
     towerlayer = new h2d.Object();
     bulletlayer = new h2d.Object();
     uilayer = new h2d.Object();
+    uipanel = new UIPanel();
     
     Gfx.core.s2d.addChild(Game.backgroundlayer);
     Gfx.core.s2d.addChild(Game.towerlayer);
     Gfx.core.s2d.addChild(Game.monsterlayer);
     Gfx.core.s2d.addChild(Game.bulletlayer);
+    Gfx.core.s2d.addChild(uipanel);
     Gfx.core.s2d.addChild(Game.uilayer);
   }
 
@@ -326,6 +328,20 @@ class Game{
     twoframe = (((leveltime * 1000) % 400 > 200)?1:0);
   }
 
+  public static function changeselectedmode(type:String){
+    if(type == "Laser"){
+      cursormode = CursorMode.PLACETOWER_LASER;
+    }else if(type == "Beam"){
+      cursormode = CursorMode.PLACETOWER_BEAM;
+    }else if(type == "Vortex"){
+      cursormode = CursorMode.PLACETOWER_VORTEX;
+    }else if(type == "Shooty"){
+      cursormode = CursorMode.PLACETOWER_SHOOTY;
+    }
+
+    uipanel.updateallbuttons();
+  }
+
   public static var twoframe:Int;
 
   public static var backgroundlayer:h2d.Object;
@@ -333,6 +349,9 @@ class Game{
   public static var bulletlayer:h2d.Object;
   public static var towerlayer:h2d.Object;
   public static var uilayer:h2d.Object;
+  public static var uipanel:UIPanel;
 
   public static var leveltime:Float;
+
+  public static var cursormode:CursorMode;
 }
