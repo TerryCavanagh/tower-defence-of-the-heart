@@ -60,24 +60,24 @@ class TowerDefence{
 
         if(toweratcursor == null){
           var currenttowercost:Int = 1;
-          if(Game.cursormode == CursorMode.PLACETOWER_SHOOTY){
+          if(Game.cursormode == ButtonType.SHOOTY){
             currenttowercost = GameData.towers.shooty.cost;
-          }else if(Game.cursormode == CursorMode.PLACETOWER_BEAM){
+          }else if(Game.cursormode == ButtonType.BEAM){
             currenttowercost = GameData.towers.beam.cost;
-          }else if(Game.cursormode == CursorMode.PLACETOWER_VORTEX){
+          }else if(Game.cursormode == ButtonType.VORTEX){
             currenttowercost = GameData.towers.vortex.cost;
-          }else if(Game.cursormode == CursorMode.PLACETOWER_LASER){
+          }else if(Game.cursormode == ButtonType.LASER){
             currenttowercost = GameData.towers.laser.cost;
           }
           Game.cost(currenttowercost, 
           function(){
-            if(Game.cursormode == CursorMode.PLACETOWER_SHOOTY){
+            if(Game.cursormode == ButtonType.SHOOTY){
               Game.createtower(mx, my, EntityType.TOWER_SHOOTY, world);
-            }else if(Game.cursormode == CursorMode.PLACETOWER_BEAM){
+            }else if(Game.cursormode == ButtonType.BEAM){
               Game.createtower(mx, my, EntityType.TOWER_BEAM, world);
-            }else if(Game.cursormode == CursorMode.PLACETOWER_VORTEX){
+            }else if(Game.cursormode == ButtonType.VORTEX){
               Game.createtower(mx, my, EntityType.TOWER_VORTEX, world);
-            }else if(Game.cursormode == CursorMode.PLACETOWER_LASER){
+            }else if(Game.cursormode == ButtonType.LASER){
               Game.createtower(mx, my, EntityType.TOWER_LASER, world);
             }
           }, function(){
@@ -150,13 +150,17 @@ class TowerDefence{
     //TO DO: clean up destroyed entities somewhere
 
     if(Input.justpressed(Key.NUMBER_1)){
-      Game.cursormode = CursorMode.PLACETOWER_SHOOTY;
+      Game.cursormode = ButtonType.LASER;
+      Game.uipanel.updateallbuttons();
     }else if(Input.justpressed(Key.NUMBER_2)){
-      Game.cursormode = CursorMode.PLACETOWER_BEAM;
+      Game.cursormode = ButtonType.BEAM;
+      Game.uipanel.updateallbuttons();
     }else if(Input.justpressed(Key.NUMBER_3)){
-      Game.cursormode = CursorMode.PLACETOWER_LASER;
+      Game.cursormode = ButtonType.SHOOTY;
+      Game.uipanel.updateallbuttons();
     }else if(Input.justpressed(Key.NUMBER_4)){
-      Game.cursormode = CursorMode.PLACETOWER_VORTEX;
+      Game.cursormode = ButtonType.VORTEX;
+      Game.uipanel.updateallbuttons();
     }
     //UI stuff
     Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
@@ -197,7 +201,7 @@ class TowerDefence{
     towercursor.visible = false;
     Game.uilayer.addChild(towercursor);
 
-    Game.cursormode = CursorMode.PLACETOWER_LASER;
+    Game.cursormode = ButtonType.LASER;
     Game.uipanel.updateallbuttons();
   }
 
@@ -206,12 +210,12 @@ class TowerDefence{
       towercursor.visible = false;
     }else{
       switch(Game.cursormode){
-        case CursorMode.PLACETOWER_SHOOTY:
+        case ButtonType.SHOOTY:
           towercursor.currentFrame = 0;
           towercursor.x = (mx * world.tilewidth);
           towercursor.y = (my * world.tileheight);
           towercursor.visible = true;
-        case CursorMode.PLACETOWER_BEAM:
+        case ButtonType.BEAM:
           var dir:Direction = Game.towerdirection(mx, my, world);
           switch(dir){
             case Direction.LEFT: towercursor.currentFrame = 18;
@@ -223,16 +227,18 @@ class TowerDefence{
           towercursor.x = (mx * world.tilewidth);
           towercursor.y = (my * world.tileheight);
           towercursor.visible = true;
-        case CursorMode.PLACETOWER_VORTEX:
+        case ButtonType.VORTEX:
             towercursor.currentFrame = 6;
             towercursor.x = (mx * world.tilewidth);
             towercursor.y = (my * world.tileheight);
             towercursor.visible = true;
-        case CursorMode.PLACETOWER_LASER:
+        case ButtonType.LASER:
             towercursor.currentFrame = 12;
             towercursor.x = (mx * world.tilewidth);
             towercursor.y = (my * world.tileheight);
             towercursor.visible = true;
+        case ButtonType.UPGRADE:
+        case ButtonType.SELL:
       }
     }
   }

@@ -12,15 +12,17 @@ class UIPanel extends h2d.Object{
     panelbacking.drawRect(0, 0, 20, Gfx.screenheight);
     panelbacking.endFill();
     addChild(panelbacking);
-    
+
     var interaction:h2d.Interactive = new h2d.Interactive(20, Gfx.screenheight, this);
 
     //Buttons
     buttons = [];
-    addbutton("Laser");
-    addbutton("Beam");
-    addbutton("Shooty");
-    addbutton("Vortex");
+    addbutton(ButtonType.LASER);
+    addbutton(ButtonType.BEAM);
+    addbutton(ButtonType.SHOOTY);
+    addbutton(ButtonType.VORTEX);
+    addbutton(ButtonType.UPGRADE);
+    addbutton(ButtonType.SELL);
 
     mouseover = false;
     interaction.onOver = function(event : hxd.Event) {
@@ -39,7 +41,7 @@ class UIPanel extends h2d.Object{
     }
   }
 
-  public function addbutton(type:String){
+  public function addbutton(type:ButtonType){
     var newbutton:SimpleButton = new SimpleButton(type, buttons.length, this);
     buttons.push(newbutton);
   }

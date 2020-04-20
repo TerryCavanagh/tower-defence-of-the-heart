@@ -3,11 +3,11 @@ import hashagon.displayobject.*;
 import hashagon.*;
 
 class SimpleButton extends h2d.Object{
-  public function new(type:String, position:Int, _parent:h2d.Object){
+  public function new(_type:ButtonType, position:Int, _parent:h2d.Object){
     super();
     _parent.addChild(this);
 
-    this.type = type;
+    type = _type;
     x = 3;
     y = 2 + (position * 20);
 
@@ -18,14 +18,18 @@ class SimpleButton extends h2d.Object{
     var tileset:Tileset = Gfx.gettileset("towers");
     icon = new h2d.Anim(tileset.tiles, 0, this);
     switch (type){
-      case "Laser":
+      case ButtonType.LASER:
         icon.currentFrame = 12;
-      case "Beam":
+      case ButtonType.BEAM:
         icon.currentFrame = 18;
-      case "Vortex":
+      case ButtonType.VORTEX:
         icon.currentFrame = 6;
-      case "Shooty":
+      case ButtonType.SHOOTY:
         icon.currentFrame = 0;
+      case ButtonType.UPGRADE:
+        icon.currentFrame = 42;
+      case ButtonType.SELL:
+        icon.currentFrame = 43;
     }
 
     checkpressed();
@@ -51,10 +55,7 @@ class SimpleButton extends h2d.Object{
 
   public function checkpressed(){
     pressed = false;
-    if(Game.cursormode == CursorMode.PLACETOWER_LASER && type == "Laser") pressed = true;
-    if(Game.cursormode == CursorMode.PLACETOWER_BEAM && type == "Beam") pressed = true;
-    if(Game.cursormode == CursorMode.PLACETOWER_VORTEX && type == "Vortex") pressed = true;
-    if(Game.cursormode == CursorMode.PLACETOWER_SHOOTY && type == "Shooty") pressed = true;
+    if(Game.cursormode == type) pressed = true;
   }
 
   public function updatebutton(){
@@ -83,7 +84,7 @@ class SimpleButton extends h2d.Object{
 
   public var buttonbacking:h2d.Graphics;
   public var icon:h2d.Anim;
-  public var type:String;
+  public var type:ButtonType;
 
   public var pressed:Bool;
 }

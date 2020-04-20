@@ -328,17 +328,8 @@ class Game{
     twoframe = (((leveltime * 1000) % 400 > 200)?1:0);
   }
 
-  public static function changeselectedmode(type:String){
-    if(type == "Laser"){
-      cursormode = CursorMode.PLACETOWER_LASER;
-    }else if(type == "Beam"){
-      cursormode = CursorMode.PLACETOWER_BEAM;
-    }else if(type == "Vortex"){
-      cursormode = CursorMode.PLACETOWER_VORTEX;
-    }else if(type == "Shooty"){
-      cursormode = CursorMode.PLACETOWER_SHOOTY;
-    }
-
+  public static function changeselectedmode(type:ButtonType){
+    cursormode = type;
     uipanel.updateallbuttons();
   }
 
@@ -353,5 +344,5 @@ class Game{
 
   public static var leveltime:Float;
 
-  public static var cursormode:CursorMode;
+  public static var cursormode:ButtonType;
 }
