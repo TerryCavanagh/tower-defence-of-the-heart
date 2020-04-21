@@ -20,7 +20,7 @@ class QuickSave{
 
   public static function quickload(world:World){
     var loadstring:String = 
-    "13,17,30,4,8,TOWER_LASER,1,7,6,TOWER_LASER,2,14,8,TOWER_LASER,2,12,8,TOWER_LASER,2,14,3,TOWER_LASER,2,14,4,TOWER_LASER,2,12,7,TOWER_BEAM,1,14,4,TOWER_LASER,2,12,6,TOWER_SHOOTY,1,14,5,TOWER_LASER,2,14,6,TOWER_LASER,2,14,7,TOWER_LASER,1,14,8,TOWER_LASER,1,14,3,TOWER_LASER,1,16,3,TOWER_LASER,1,16,4,TOWER_LASER,1,16,6,TOWER_LASER,1,16,5,TOWER_LASER,1,15,1,TOWER_BEAM,2,16,7,TOWER_LASER,2,15,10,TOWER_BEAM,2,13,8,TOWER_VORTEX,1,16,8,TOWER_LASER,2,13,6,TOWER_SHOOTY,1,16,6,TOWER_VORTEX,1,16,2,TOWER_LASER,2,14,1,TOWER_LASER,2,13,7,TOWER_BEAM,1,13,5,TOWER_SHOOTY,1,";
+    "18,2000,0";
     
     for(monster in world.monsters){
       monster.destroy();
@@ -33,7 +33,7 @@ class QuickSave{
     var v:Array<String> = loadstring.split(",");
     v.reverse();
     Waves.currentwave = Std.parseInt(v.pop());
-    Waves.enemiesleft = 0;
+    Waves.enemiesleft = 1;
     Game.gold = Std.parseInt(v.pop());
 
     var numtowers:Int = Std.parseInt(v.pop());

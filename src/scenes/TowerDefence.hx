@@ -126,11 +126,13 @@ class TowerDefence{
       Game.changeselectedmode(ButtonType.SELL);
     }
 
+    /*
     if(Input.justpressed(Key.P)){
       QuickSave.quicksave(world);
     }else if(Input.justpressed(Key.L)){
       QuickSave.quickload(world);
-    }
+    }*/
+    
     //UI stuff
     //Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
     //Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
