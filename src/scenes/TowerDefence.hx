@@ -132,7 +132,7 @@ class TowerDefence{
     }else if(Input.justpressed(Key.L)){
       QuickSave.quickload(world);
     }*/
-    
+
     //UI stuff
     //Text.display(0, 0, "Health: " + Game.hp + "/" + Game.maxhp + ", Gold: " + Game.gold);
     //Text.display(0, 20, "Wave: " + (Waves.currentwave + 1) + "/" + Waves.waves.length + " (enemies left: " + Waves.enemiesleft + ")");
@@ -314,6 +314,4 @@ class TowerDefence{
   public static var towercursor:TowerCursor;
 
   public static var nextwaveindicators:Array<h2d.Anim>;
-
-  public static var waveprogress:WaveProgress;
 }

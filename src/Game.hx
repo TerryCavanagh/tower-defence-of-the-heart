@@ -432,12 +432,14 @@ class Game{
     towerlayer = new h2d.Object();
     bulletlayer = new h2d.Object();
     uilayer = new h2d.Object();
+    waveprogress = new WaveProgress();
     uipanel = new UIPanel();
     
     Gfx.core.s2d.addChild(Game.backgroundlayer);
     Gfx.core.s2d.addChild(Game.towerlayer);
     Gfx.core.s2d.addChild(Game.monsterlayer);
     Gfx.core.s2d.addChild(Game.bulletlayer);
+    Gfx.core.s2d.addChild(waveprogress);
     Gfx.core.s2d.addChild(uipanel);
     Gfx.core.s2d.addChild(Game.uilayer);
   }
@@ -494,6 +496,7 @@ class Game{
   public static var towerlayer:h2d.Object;
   public static var uilayer:h2d.Object;
   public static var uipanel:UIPanel;
+  public static var waveprogress:WaveProgress;
 
   public static var leveltime:Float;
 

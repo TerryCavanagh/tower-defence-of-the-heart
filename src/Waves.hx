@@ -66,6 +66,9 @@ class Waves{
     reward = waves[currentwave].reward;
     entrance = waves[currentwave].entrance;
 
+    if(currentwave > 0){
+      Game.waveprogress.show(currentwave + 1);
+    }
     Game.playsound("nextwave");
   }
 
