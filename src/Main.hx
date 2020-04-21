@@ -6,6 +6,8 @@ import hxd.Key;
 class Main{
 	public static function init(){
 		Game.loadfonts();
+		Gfx.loadimage("titlescreen");
+		Gfx.loadimage("gameoverscreen");
 		Gfx.loadimage("beam_horizontal_left");
 		Gfx.loadimage("beam_horizontal_right");
 		Gfx.loadimage("beam_vertical_up");
@@ -17,16 +19,22 @@ class Main{
     Gfx.gettileset("particles").pivot(Text.CENTER);
 		Gfx.loadtiles("goal", 30, 30);
 
-		Music.play("totaleclipse");
-		
 		GameData.init();
 
-		Scene.change("TowerDefence");
+		titlescreen = new h2d.Anim([Gfx.getimage("titlescreen")], 0);
+		Gfx.core.s2d.addChild(titlescreen);
 	}
 	
 	public static function update() {		
+		if(Mouse.leftclick()){
+			titlescreen.remove();
+			Music.play("totaleclipse");
+			Scene.change("TowerDefence");
+		}
 	}
 
 	public static function cleanup(){
 	}
+
+	public static var titlescreen:h2d.Anim;
 }

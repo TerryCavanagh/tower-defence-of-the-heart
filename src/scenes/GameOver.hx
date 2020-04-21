@@ -7,14 +7,16 @@ import hxd.Key;
 @:keep
 class GameOver{
 	public static function init(){
+		gameoverscreen = new h2d.Anim([Gfx.getimage("gameoverscreen")], 0);
+		Gfx.core.s2d.addChild(gameoverscreen);
+		Sound.play("nextwave");
 	}
 	
-	public static function update() {		
-    Gfx.fillbox(0, 0, Gfx.screenwidth, Gfx.screenheight, Col.BLACK);
-    Text.align = Text.CENTER;
-    Text.display(Gfx.screenwidthmid, Gfx.screenheightmid, "Game Over :(", Col.RED);
+	public static function update() {
 	}
 
 	public static function cleanup(){
 	}
+
+	public static var gameoverscreen:h2d.Anim;
 }

@@ -58,7 +58,7 @@
     "vortex_duration": 4.0,
     "laser_animation_time": 1,
     
-    "player_health": 5,
+    "player_health": 1,
     "startinggold": 5,
     
     "goalx": 9,

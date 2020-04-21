@@ -12,7 +12,7 @@ class Scene {
 		}else if(currentscene == 1){
 			TowerDefence.init();
 		}else if(currentscene == 2){
-			GameOver.cleanup();
+			GameOver.init();
 		}
 	}
 

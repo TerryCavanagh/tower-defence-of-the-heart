@@ -144,6 +144,7 @@ class TowerDefence{
   }
   
 	public static function cleanup(){
+    /*
     for(monster in world.monsters){
       monster.destroy();
     }
@@ -160,7 +161,7 @@ class TowerDefence{
       particle.destroy();
     }
 
-    world.destroy();
+    world.destroy();*/
   }
   
   public static var world:World;
