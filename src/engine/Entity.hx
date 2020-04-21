@@ -49,6 +49,8 @@ class Entity{
 
   public function updatevortex(power:Float){
     primative.clear();
+    primative.x = x;
+    primative.y = y;
     
     primative.moveTo(0, 0);
     //Outer ring
@@ -71,10 +73,11 @@ class Entity{
 
   public function updatelaser(power:Float){
     primative.clear();
+    primative.x = x;
+    primative.y = y;
     
     primative.moveTo(0, 0);
     primative.lineStyle(2, Col.RED, 0.75 * power);
-
     primative.lineTo(endx - primative.x + 5, endy - primative.y + 5 - 5);
     primative.lineTo(5, 5);
     primative.visible = true;
