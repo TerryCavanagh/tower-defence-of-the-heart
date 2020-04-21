@@ -73,7 +73,7 @@ class Random{
 	}
 
 	/** Return a random string of a certain length.  You can optionally specify 
-	    which characters to use, otherwise the default is (a-zA-Z0-9) */
+			which characters to use, otherwise the default is (a-zA-Z0-9) */
 	public static function string(length:Int, ?charactersToUse = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"):String{
 		var str = "";
 		for (i in 0 ... length){

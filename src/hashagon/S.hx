@@ -4,12 +4,12 @@ class S {
 	/* Returns the ASCII value of the character. If character is a string, returns the ASCII
 	 * code of the first character in the string. */
 	public static inline function asciicode(character:String):Int {
-	  return character.charCodeAt(0);
+		return character.charCodeAt(0);
 	}
 	
 	/* Converts an ascii code to a string. E.g. fromascii(65) == "A" */
 	public static inline function fromascii(asciicode:Int):String {
-	  return String.fromCharCode(asciicode);	
+		return String.fromCharCode(asciicode);	
 	}
 	
 	/* Joins up an array into a single string. */

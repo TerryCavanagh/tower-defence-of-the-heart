@@ -37,22 +37,22 @@ class Col {
 	}
 	
 	public static inline function shiftred(c:Int, shift:Float):Int {
-	  return rgb(Std.int(Geom.clamp(getred(c) + shift, 0, 255)), getgreen(c), getblue(c));
+		return rgb(Std.int(Geom.clamp(getred(c) + shift, 0, 255)), getgreen(c), getblue(c));
 	}
 	
 	public static inline function shiftgreen(c:Int, shift:Float):Int {
-	  return rgb(getred(c), Std.int(Geom.clamp(getgreen(c) + shift, 0, 255)), getblue(c));
+		return rgb(getred(c), Std.int(Geom.clamp(getgreen(c) + shift, 0, 255)), getblue(c));
 	}
 	
 	public static inline function shiftblue(c:Int, shift:Float):Int {
-	  return rgb(getred(c), getgreen(c), Std.int(Geom.clamp(getblue(c) + shift, 0, 255)));
+		return rgb(getred(c), getgreen(c), Std.int(Geom.clamp(getblue(c) + shift, 0, 255)));
 	}
 	
 	public static function shifthue(c:Int, shift:Float):Int {
 		if (shift < 0) {
 			while (shift < 0) shift += 360;
 		}
-	  return hsl((gethue(c) + Std.int(shift)) % 360, getsaturation(c), getlightness(c));
+		return hsl((gethue(c) + Std.int(shift)) % 360, getsaturation(c), getlightness(c));
 	}
 	
 	public static function multiplysaturation(c:Int, shift:Float):Int {
@@ -65,15 +65,15 @@ class Col {
 	
 	/** Get the Hue value (0-360) of a hex code colour. **/
 	public static function gethue(c:Int):Int {	
-    var r:Float = getred(c) / 255;
+		var r:Float = getred(c) / 255;
 		var g:Float = getgreen(c) / 255;
 		var b:Float = getblue(c) / 255;
-    var max:Float = Math.max(Math.max(r, g), b); 
+		var max:Float = Math.max(Math.max(r, g), b); 
 		var min:Float = Math.min(Math.min(r, g), b); 
-    
+		
 		var h:Float = (max + min) / 2;
 		
-    if (max != min) {
+		if (max != min) {
 			var d:Float = max - min;
 			if(max == r){
 				h = (g - b) / d + (g < b ? 6 : 0);
@@ -83,30 +83,30 @@ class Col {
 				h = (r - g) / d + 4;
 			}
 			h /= 6;
-    }
+		}
 		
-    return Std.int(h * 360);
+		return Std.int(h * 360);
 	}
 	
 	/** Get the Saturation value (0.0-1.0) of a hex code colour. **/
 	public static function getsaturation(c:Int):Float {
-    var r:Float = getred(c) / 255;
+		var r:Float = getred(c) / 255;
 		var g:Float = getgreen(c) / 255;
 		var b:Float = getblue(c) / 255;
-    var max:Float = Math.max(Math.max(r, g), b); 
+		var max:Float = Math.max(Math.max(r, g), b); 
 		var min:Float = Math.min(Math.min(r, g), b); 
-    
+		
 		var s:Float = (max + min) / 2;
 		var l:Float = s;
 		
-    if (max == min) {
+		if (max == min) {
 			s = 0;
-    }else {
+		}else {
 			var d:Float = max - min;
 			s = l > 0.5?d / (2 - max - min):d / (max + min);
-    }
+		}
 		
-    return s;
+		return s;
 	}
 	
 	/** Get the Lightness value (0.0-1.0) of a hex code colour. **/
@@ -114,10 +114,10 @@ class Col {
 		var r:Float = getred(c) / 255;
 		var g:Float = getgreen(c) / 255;
 		var b:Float = getblue(c) / 255;
-    var max:Float = Math.max(Math.max(r, g), b); 
+		var max:Float = Math.max(Math.max(r, g), b); 
 		var min:Float = Math.min(Math.min(r, g), b); 
 		
-    return (max + min) / 2;
+		return (max + min) / 2;
 	}
 	
 	public static function rgb(red:Int, green:Int, blue:Int):Int {

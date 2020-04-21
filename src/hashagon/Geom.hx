@@ -21,8 +21,8 @@ class Geom {
 	public static inline function sqrt(v:Float):Float{ return Math.sqrt(v); }
 	public static inline function tan(v:Float):Float{ return Math.tan(toradians(v)); }
 	
-  public static function inbox(x:Float, y:Float, rectx:Float, recty:Float, rectw:Float, recth:Float):Bool {
-	  if (x >= rectx) {
+	public static function inbox(x:Float, y:Float, rectx:Float, recty:Float, rectw:Float, recth:Float):Bool {
+		if (x >= rectx) {
 			if (x < rectx + rectw) {
 				if (y >= recty) {
 					if (y < recty + recth) {
@@ -35,7 +35,7 @@ class Geom {
 	}
 	
 	public static inline function clamp(value:Float, min:Float, max:Float):Float {
-	  return Math.min(max, Math.max(value, min));
+		return Math.min(max, Math.max(value, min));
 	}
 	
 	public static function overlap(x1:Float, y1:Float, w1:Float, h1:Float, x2:Float, y2:Float, w2:Float, h2:Float):Bool {
@@ -50,8 +50,8 @@ class Geom {
 	}
 	
 	public static inline function getangle(x1:Float, y1:Float, x2:Float, y2:Float):Float {
-    return todegrees(((Math.PI * 2) - Math.atan2(y2 - y1, x2 - x1)) % (Math.PI * 2));
-  }
+		return todegrees(((Math.PI * 2) - Math.atan2(y2 - y1, x2 - x1)) % (Math.PI * 2));
+	}
 	
 	public static inline function todegrees(rad:Float):Float {
 		return ((rad * 180) / Math.PI);
@@ -74,8 +74,8 @@ class Geom {
 	}
 
 	public static inline function wrap(v:Float, min:Float, max:Float):Float {
-    var range = max - min;
-    return range == 0 ? min : min + ((((v - min) % range) + range) % range);
+		var range = max - min;
+		return range == 0 ? min : min + ((((v - min) % range) + range) % range);
 	}
 	
 	private static var rect1:Rectangle = new Rectangle();

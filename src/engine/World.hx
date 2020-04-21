@@ -98,8 +98,8 @@ class World{
 		csvheight += 1;
 		changesize(csvwidth, csvheight);
 		for(y in 0 ... csvheight){
-      for (x in 0 ... csvwidth) { 
-			  var tid:Int = returnedarray[x + (y * csvwidth)];
+			for (x in 0 ... csvwidth) { 
+				var tid:Int = returnedarray[x + (y * csvwidth)];
 				contents[x][y] = returnedarray[x + (y * csvwidth)] - 1;
 			}
 		}
@@ -189,8 +189,8 @@ class World{
 	
 	public var outsidetile:Int;
 
-  public var monsters:Array<Entity>;
-  public var towers:Array<Entity>;
-  public var bullets:Array<Entity>;
-  public var particles:Array<Entity>;
+	public var monsters:Array<Entity>;
+	public var towers:Array<Entity>;
+	public var bullets:Array<Entity>;
+	public var particles:Array<Entity>;
 }
