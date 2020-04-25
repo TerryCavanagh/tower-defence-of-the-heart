@@ -11,6 +11,9 @@ class TowerCursor extends h2d.Object{
 		icon = new h2d.Anim(Gfx.gettileset("towers").tiles, 0, this);
 		tower = new h2d.Anim(Gfx.gettileset("towers").tiles, 0, this);
 
+		rangedisplay = new h2d.Graphics(this);
+		updaterangedisplay(-1);
+
 		dropshadow = new h2d.Graphics(this);
 		dropshadow.x = -12;
 		dropshadow.y = -12;
@@ -56,6 +59,7 @@ class TowerCursor extends h2d.Object{
 		}
 
 		if(t == "sell"){
+			updaterangedisplay(-1);
 			if(towerisnull){
 				//Don't show the block or the tower, just the icon
 				icon.currentFrame = 47; icon.visible = true;
@@ -77,6 +81,7 @@ class TowerCursor extends h2d.Object{
 			if(towerisnull && canplacetower){
 				if(t == "laser"){
 					if(Game.gold < GameData.towers.laser.cost){
+						updaterangedisplay(-1);
 						block.currentFrame = w.contents[mx][my]; block.visible = true;
 						icon.currentFrame = 45; icon.visible = true;
 						icon.alpha = 0.4;
@@ -86,6 +91,7 @@ class TowerCursor extends h2d.Object{
 						info.visible = true;
 						dropshadow.visible = true;
 					}else{
+						updaterangedisplay(GameData.towers.laser.level1.radius);
 						block.currentFrame = w.contents[mx][my]; block.visible = true;
 						icon.currentFrame = 44; icon.visible = true;
 						icon.alpha = 0.4;
@@ -95,6 +101,7 @@ class TowerCursor extends h2d.Object{
 					tower.alpha = 0.8;
 				}else if(t == "beam"){
 					if(Game.gold < GameData.towers.beam.cost){
+						updaterangedisplay(-1);
 						block.currentFrame = w.contents[mx][my]; block.visible = true;
 						icon.currentFrame = 45; icon.visible = true;
 						icon.alpha = 0.4;
@@ -104,6 +111,7 @@ class TowerCursor extends h2d.Object{
 						info.visible = true;
 						dropshadow.visible = true;
 					}else{
+						updaterangedisplay(-1);
 						block.currentFrame = w.contents[mx][my]; block.visible = true;
 						icon.currentFrame = 44; icon.visible = true;
 						icon.alpha = 0.4;
@@ -121,6 +129,7 @@ class TowerCursor extends h2d.Object{
 					tower.alpha = 0.8;
 				}else if(t == "shooty"){
 					if(Game.gold < GameData.towers.shooty.cost){
+						updaterangedisplay(-1);
 						block.currentFrame = w.contents[mx][my]; block.visible = true;
 						icon.currentFrame = 45; icon.visible = true;
 						icon.alpha = 0.4;
@@ -130,6 +139,7 @@ class TowerCursor extends h2d.Object{
 						info.visible = true;
 						dropshadow.visible = true;
 					}else{
+						updaterangedisplay(GameData.towers.shooty.level1.radius);
 						block.currentFrame = w.contents[mx][my]; block.visible = true;
 						icon.currentFrame = 44; icon.visible = true;
 						icon.alpha = 0.4;
@@ -139,6 +149,7 @@ class TowerCursor extends h2d.Object{
 					tower.alpha = 0.8;
 				}else if(t == "vortex"){
 					if(Game.gold < GameData.towers.vortex.cost){
+						updaterangedisplay(-1);
 						block.currentFrame = w.contents[mx][my]; block.visible = true;
 						icon.currentFrame = 45; icon.visible = true;
 						icon.alpha = 0.4;
@@ -148,6 +159,7 @@ class TowerCursor extends h2d.Object{
 						info.visible = true;
 						dropshadow.visible = true;
 					}else{
+						updaterangedisplay(GameData.towers.vortex.level1.radius);
 						block.currentFrame = w.contents[mx][my]; block.visible = true;
 						icon.currentFrame = 44; icon.visible = true;
 						icon.alpha = 0.4;
@@ -157,6 +169,7 @@ class TowerCursor extends h2d.Object{
 					tower.alpha = 0.8;
 				}else if(t == "upgrade"){
 					//Don't show the block or the tower, just the icon
+					updaterangedisplay(-1);
 					icon.currentFrame = 46; icon.visible = true;
 					icon.alpha = 0.4;
 				}else{
@@ -164,15 +177,19 @@ class TowerCursor extends h2d.Object{
 				}
 			}else{
 				if(t == "laser"){
+					updaterangedisplay(-1);
 					icon.currentFrame = 45; icon.visible = true;
 					icon.alpha = 0.8;
 				}else if(t == "beam"){
+					updaterangedisplay(-1);
 					icon.currentFrame = 45; icon.visible = true;
 					icon.alpha = 0.8;
 				}else if(t == "shooty"){
+					updaterangedisplay(-1);
 					icon.currentFrame = 45; icon.visible = true;
 					icon.alpha = 0.8;
 				}else if(t == "vortex"){
+					updaterangedisplay(-1);
 					icon.currentFrame = 45; icon.visible = true;
 					icon.alpha = 0.8;
 				}else if(t == "upgrade"){
@@ -180,6 +197,7 @@ class TowerCursor extends h2d.Object{
 					icon.currentFrame = 46; icon.visible = true;
 					if(canplacetower){
 						if(toweratcursor.level >= 3){
+							updaterangedisplay(-1);
 							icon.alpha = 0.4;
 
 							info.text = "MAX";
@@ -187,6 +205,22 @@ class TowerCursor extends h2d.Object{
 							info.visible = true;
 							dropshadow.visible = true;
 						}else{
+							/* Tried previewing upgrade radius changes, it just looked weird
+							var upgradedrange:Float = -1;
+							switch(toweratcursor.type){
+								case EntityType.TOWER_SHOOTY:
+									if(toweratcursor.level == 1) upgradedrange = GameData.towers.shooty.level2.radius;
+									if(toweratcursor.level == 2) upgradedrange = GameData.towers.shooty.level3.radius;
+								case EntityType.TOWER_VORTEX:
+									if(toweratcursor.level == 1) upgradedrange = GameData.towers.vortex.level2.radius;
+									if(toweratcursor.level == 2) upgradedrange = GameData.towers.vortex.level3.radius;
+								case EntityType.TOWER_LASER:
+									if(toweratcursor.level == 1) upgradedrange = GameData.towers.laser.level2.radius;
+									if(toweratcursor.level == 2) upgradedrange = GameData.towers.laser.level3.radius;
+								default:
+							}
+							updaterangedisplay(upgradedrange, 0.5); */
+							updaterangedisplay(-1);
 							icon.alpha = 0.8;
 							
 							info.text = "$" + Game.getupgradecost(toweratcursor);
@@ -195,6 +229,7 @@ class TowerCursor extends h2d.Object{
 							dropshadow.visible = true;
 						}
 					}else{
+						updaterangedisplay(-1);
 						icon.alpha = 0.4;
 					}
 				}else{
@@ -210,11 +245,25 @@ class TowerCursor extends h2d.Object{
 		icon.visible = false;
 		info.visible = false;
 		dropshadow.visible = false;
+		updaterangedisplay(-1);
+	}
+
+	public function updaterangedisplay(radius:Float, alphamult:Float = 1.0){
+		if(radius <= 0){
+			rangedisplay.visible = false;
+		}else{
+			rangedisplay.visible = true;
+			rangedisplay.clear();
+			rangedisplay.moveTo(0, 0);
+			rangedisplay.lineStyle(3, Col.WHITE, 0.3 * alphamult);
+			rangedisplay.drawCircle(5, 5, radius);
+		}
 	}
 	
 	public var block:h2d.Anim;
 	public var icon:h2d.Anim;
 	public var tower:h2d.Anim;
 	public var info:h2d.Text;
+	public var rangedisplay:h2d.Graphics;
 	public var dropshadow:h2d.Graphics;
 }
