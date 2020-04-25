@@ -254,7 +254,9 @@ class TowerDefence{
 					}
 				}else if(Game.cursormode == ButtonType.SELL){
 					if(toweratcursor != null){
-						Game.refundtower(toweratcursor);
+						if(toweratcursor.type != EntityType.GOAL){
+							Game.refundtower(toweratcursor);
+						}
 					}
 				}
 			}

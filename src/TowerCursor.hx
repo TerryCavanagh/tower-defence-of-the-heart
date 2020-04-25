@@ -60,6 +60,9 @@ class TowerCursor extends h2d.Object{
 				//Don't show the block or the tower, just the icon
 				icon.currentFrame = 47; icon.visible = true;
 				icon.alpha = 0.4;
+			}else if(toweratcursor.type == EntityType.GOAL){
+				icon.currentFrame = 47; icon.visible = true;
+				icon.alpha = 0.4;
 			}else{
 				//Don't show the block or the tower, just the icon
 				icon.currentFrame = 47; icon.visible = true;
