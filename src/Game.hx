@@ -18,6 +18,7 @@ class Game{
 		hp = maxhp;
 
 		gold = GameData.other.startinggold;
+		Game.uipanel.updatecashdisplay();
 		
 		leveltime = 0;
 		twoframe = 0;
