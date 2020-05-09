@@ -9,9 +9,11 @@ class Game{
 	public static function loadfonts(){
 		textfont = hxd.Res.pressstart.toFont();
 		numberfont = hxd.Res.pressstart.toFont();
+		smallfont = hxd.Res.pixel.toFont();
 	}
 	public static var textfont:h2d.Font;
 	public static var numberfont:h2d.Font;
+	public static var smallfont:h2d.Font;
 
 	public static function reset(){
 		maxhp = GameData.other.player_health;

@@ -13,6 +13,10 @@ class Scene {
 			TowerDefence.init();
 		}else if(currentscene == 2){
 			GameOver.init();
+		}else if(currentscene == 3){
+			TitleScreen.init();
+		}else if(currentscene == 4){
+			LevelSelect.init();
 		}
 	}
 
@@ -22,7 +26,11 @@ class Scene {
 		}else if(currentscene == 1){
 			TowerDefence.update();
 		}else if(currentscene == 2){
-			GameOver.cleanup();
+			GameOver.update();
+		}else if(currentscene == 3){
+			TitleScreen.update();
+		}else if(currentscene == 4){
+			LevelSelect.update();
 		}
 	}
 
@@ -33,6 +41,10 @@ class Scene {
 			TowerDefence.cleanup();
 		}else if(currentscene == 2){
 			GameOver.cleanup();
+		}else if(currentscene == 3){
+			TitleScreen.cleanup();
+		}else if(currentscene == 4){
+			LevelSelect.cleanup();
 		}
 	}
 	
@@ -49,6 +61,10 @@ class Scene {
 			currentscene = 1;
 		}else if(newscene == "gameover"){
 			currentscene = 2;
+		}else if(newscene == "titlescreen"){
+			currentscene = 3;
+		}else if(newscene == "levelselect"){
+			currentscene = 4;
 		}else{
 			currentscene = 0;
 		}
