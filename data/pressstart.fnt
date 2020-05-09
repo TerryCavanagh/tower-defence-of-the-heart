@@ -411,4 +411,6 @@
     <char id="8364" x="132" y="72" width="7" height="8" xoffset="0" yoffset="0" xadvance="8" page="0" chnl="15" />
     <char id="8482" x="80" y="168" width="6" height="8" xoffset="1" yoffset="0" xadvance="8" page="0" chnl="15" />
   </chars>
+  <kernings count="0">
+  </kernings>
 </font>

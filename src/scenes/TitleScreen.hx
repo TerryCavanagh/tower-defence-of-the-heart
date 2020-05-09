@@ -26,9 +26,17 @@ class TitleScreen{
 
 		clicktostart = new h2d.Text(Game.smallfont, Gfx.core.s2d);
 		clicktostart.x = Gfx.screenwidthmid;
-		clicktostart.y = 95;
+		clicktostart.y = 98;
 		clicktostart.textAlign = Center;
-		clicktostart.text = "CLICK TO START";
+    clicktostart.text = "GAME BY TERRY CAVANAGH, FOR LD46";
+    clicktostart.textColor = 0x888888;
+    
+    credits1 = new h2d.Text(Game.smallfont, Gfx.core.s2d);
+		credits1.x = Gfx.screenwidthmid;
+		credits1.y = 105;
+		credits1.textAlign = Center;
+    credits1.text = "APOLOGIES TO BONNIE TYLER FOR MUSIC";
+    credits1.textColor = 0x888888;
 	}
 	
 	public static function update() {
@@ -38,8 +46,8 @@ class TitleScreen{
       logo.remove();
       clicktostart.remove();
 
-			Music.play("totaleclipse");
-			Scene.change("TowerDefence");
+			//Music.play("totaleclipse");
+			Scene.change("LevelSelect");
 		}
 	}
 
@@ -50,5 +58,6 @@ class TitleScreen{
 	public static var heart:h2d.Anim;
 	public static var logo:h2d.Bitmap;
 
-	public static var clicktostart:h2d.Text;
+  public static var clicktostart:h2d.Text;
+  public static var credits1:h2d.Text;
 }
