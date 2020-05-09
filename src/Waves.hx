@@ -52,6 +52,14 @@ class Waves{
 			case "tree":   return 10;
 			case "rat":   return 12;
 			case "cultist": return 14;
+			case "skelly2":  return 16;
+			case "knight2":   return 18;
+			case "demon2":   return 20;
+			case "slime2":   return 22;
+			case "wisp2":   return 24;
+			case "tree2":   return 26;
+			case "rat2":   return 28;
+			case "cultist2": return 30;
 		}
 		return 0;
 	}
