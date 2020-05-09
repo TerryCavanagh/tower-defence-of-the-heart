@@ -27,7 +27,14 @@ class TowerDefence{
 		world.setcanplacetower([6, 7, 8, 9, 10, 36, 37]);
 		
 		world.loadcsv(GameData.other.mapname);
-		world.getheatmap(GameData.other.endpointx,GameData.other.endpointy);
+		if(GameData.other.endpointx == GameData.other.altendpointx &&
+			 GameData.other.endpointy == GameData.other.altendpointy){
+			world.getheatmap(GameData.other.endpointx, GameData.other.endpointy);
+		}else{
+			world.getdoubleheatmap(
+				GameData.other.endpointx, GameData.other.endpointy,
+				GameData.other.altendpointx, GameData.other.altendpointy);
+		}
 		world.refreshmap();
 
 		world.monsters = [];

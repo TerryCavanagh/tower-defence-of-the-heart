@@ -97,6 +97,7 @@ class Entity{
 				sprite = new h2d.Anim(tileset.tiles, 0);
 				sprite.x = x;
 				sprite.y = y;
+				baseframe = (GameData.currentstage - 1) * 2;
 				Game.towerlayer.addChild(sprite);
 			case ENEMY:
 				if(x < 0){

@@ -152,6 +152,14 @@ class World{
 		heatmap = Core.create2darray(width, height, 10000);
 		checkpathsquare(fromx, fromy, 1);
 	}
+
+	//Figure out a heatmap coming from a given point
+	public function getdoubleheatmap(fromx:Int, fromy:Int, fromx2:Int, fromy2:Int){
+		//Clear the heatmap
+		heatmap = Core.create2darray(width, height, 10000);
+		checkpathsquare(fromx, fromy, 1);
+		checkpathsquare(fromx2, fromy2, 1);
+	}
 	
 	public function render(){
 	}

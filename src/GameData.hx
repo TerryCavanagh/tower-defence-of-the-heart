@@ -6,6 +6,7 @@ class GameData{
 	public static var waves:Dynamic;
 	public static var other:Dynamic;
 	public static var jfile:Dynamic;
+	public static var currentstage:Int;
 
 	public static function init(){
 		jfile = Json.parse(hxd.Res.text.variables.entry.getText());
@@ -21,5 +22,6 @@ class GameData{
 			waves = jfile.waves_stage2;
 			other = jfile.other_stage2;
 		}
+		currentstage = lvl;
 	}
 }
