@@ -3,9 +3,7 @@ package hashagon;
 import hashagon.displayobject.*;
 
 class Gfx{
-	public static function init(_c:Core){
-		core = _c;
-
+	public static function init(){
 		graphicsmap = new Map<String, Quad>();
 		imagemap = new Map<String, Image>();
 		imageindex = new Map<String, h2d.Tile>();

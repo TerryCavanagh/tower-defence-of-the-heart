@@ -3,9 +3,7 @@ package hashagon;
 import hashagon.displayobject.*;
 
 class Text{
-	public static function init(_c:Core){
-		core = _c;
-		
+	public static function init(){
 		textfieldmap = new Map<String, TextField>();
 		Text.align = Text.LEFT;
 		Text.size = 1;
