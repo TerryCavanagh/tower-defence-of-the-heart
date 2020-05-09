@@ -70,7 +70,9 @@ class World{
 
 	public function loadcsv(csvfile:String, delimiter:String = ","){
 		//csvfile = normalizefilename(csvfile, "data/text/", "csv");
-		var tempstring:String = hxd.Res.text.testmap.entry.getText();
+		var tempstring:String = "";
+		if(csvfile == "stage1") tempstring = hxd.Res.text.stage1.entry.getText();
+		if(csvfile == "stage2") tempstring = hxd.Res.text.stage2.entry.getText();
 
 		//figure out width
 		var csvwidth:Int = 1;

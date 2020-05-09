@@ -24,9 +24,9 @@ class TowerDefence{
 				world.collidable[i] = true;
 			}
 		}
-		world.setcanplacetower([6, 7, 8, 9, 10]);
+		world.setcanplacetower([6, 7, 8, 9, 10, 36, 37]);
 		
-		world.loadcsv("testmap");
+		world.loadcsv(GameData.other.mapname);
 		world.getheatmap(GameData.other.endpointx,GameData.other.endpointy);
 		world.refreshmap();
 
