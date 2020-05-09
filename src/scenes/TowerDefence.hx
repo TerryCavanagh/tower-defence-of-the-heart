@@ -276,9 +276,13 @@ class TowerDefence{
 		}else if(num < 4){
 			for(i in 0 ... 4) nextwaveindicators[i].visible = false;
 			nextwaveindicators[num].visible = true;
-		}else{
+		}else if(num == 4){
 			for(i in 0 ... 4) nextwaveindicators[i].visible = true;
 			nextwaveindicators[2].visible = false;
+		}else if(num == 5){
+			for(i in 0 ... 4) nextwaveindicators[i].visible = false;
+			nextwaveindicators[1].visible = true;
+			nextwaveindicators[2].visible = true;
 		}
 	}
 

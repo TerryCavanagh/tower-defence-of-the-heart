@@ -238,6 +238,14 @@ class Game{
 				enterx = GameData.other.enter3x;
 				entery = GameData.other.enter3y;
 			}
+		}else if(Waves.entrance == 5){
+			if(Waves.enemiesleft % 2 == 0){
+				enterx = GameData.other.enter1x;
+				entery = GameData.other.enter1y;
+			}else if(Waves.enemiesleft % 2 == 1){
+				enterx = GameData.other.enter2x;
+				entery = GameData.other.enter2y;
+			}
 		}
 		
 		enemy = Entity.create(enterx, entery, EntityType.ENEMY, w);
